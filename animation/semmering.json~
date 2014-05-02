@@ -1,0 +1,224 @@
+{
+	"animation": {
+		"onstop": "semmering",
+		
+		"stage": {
+			"id": "scene",
+			"width": 800,
+			"height": 600
+		},
+
+		"player": [
+			{
+				"name": "background",
+
+				"geometry":
+					{
+						"x": 0,
+						"y": 300,
+						"width": 800,
+						"height": 300,
+						"stroke": "black",
+						"strokeWidth": 1,
+						"fill": "#f0f0ff",
+						"type": "rect"
+					},
+
+				"layer": "background"
+			},
+
+			{
+				"name": "group1",
+
+				"geometry":
+					{
+						"type": "group"
+					},
+
+				"layer": "Foto1",
+
+				"keys": [
+					{
+						"time": 50,
+						"x": 150,
+						"y": 500,
+						"opacity": 1,
+						"rotation": 0
+					},
+					{
+						"time": 100,
+						"x": 200,
+						"y": 200,
+						"opacity": 0.5,
+						"rotation": -45
+					},
+					{
+						"time": 150,
+						"rotation": 20,
+						"opacity": 0.7
+					}
+				]
+			},
+
+			{
+				"name": "grouped1",
+
+				"geometry":
+					{
+						"x": 0,
+						"y": 0,
+						"width": 150,
+						"height": 100,
+						"offsetX": 75,
+						"offsetY": 50,
+						"type": "rect",
+						"stroke": "blue",
+						"strokeWidth": 2,
+						"fill": "green",
+						"opacity": 1
+					},
+
+				"group": "group1",
+
+				"keys": [
+					{
+						"time": 100,
+						"opacity": 1
+					},
+					{
+						"time": 200,
+						"opacity": 0
+					}
+				]
+			},
+
+			{
+				"name": "grouped2",
+
+				"geometry":
+					{
+						"x": 20,
+						"y": 20,
+						"width": 150,
+						"height": 100,
+						"offsetX": 75,
+						"offsetY": 50,
+						"type": "rect",
+						"stroke": "green",
+						"strokeWidth": 2,
+						"fill": "yellow",
+						"opacity": 1
+					},
+
+				"group": "group1",
+
+				"keys": [
+					{
+						"time": 150,
+						"rotation": 0,
+						"strokeWidth": 1,
+						"scaleX": 1,
+						"scaleY": 1
+					},
+					{
+						"time": 250,
+						"rotation": 180,
+						"strokeWidth": 10,
+						"scaleX": 0.2,
+						"scaleY": 0.2
+					}
+				]
+			},
+
+			{
+				"name": "grouped_text",
+
+				"geometry":
+					{
+						"type": "text",
+						"x": -30,
+						"text": "Ich bin ein Text",
+						"fontSize": 15,
+						"fontFamily": "Calibri",
+						"align": "center",
+						"fill": "black"
+					},
+
+				"group": "group1"
+			},
+			
+			{
+				"name": "image2",
+
+				"geometry":
+					{
+						"width": 150,
+						"height": 100,
+						"offsetX": 75,
+						"offsetY": 50,
+						"type": "rect",
+						"stroke": "red",
+						"strokeWidth": 2,
+						"opacity": 1
+					},
+
+				"layer": "Foto1",
+
+				"keys": [
+					{
+						"time": 25,
+						"x": 500,
+						"y": 500,
+						"rotation": 0
+					},
+					{
+						"time": 35,
+						"rotation": 180
+					},
+					{
+						"time": 45,
+						"x": 600,
+						"y": 150,
+						"rotation": 360
+					}
+				]
+			}
+		],
+
+		"sequenz": [
+			{
+				"name": "intro",
+				"start": 0,
+				"end": 200,
+				"loop": 1,
+				
+				"player": [
+					{
+						"name": "group1",
+						"keys": [
+							{
+								"time": 50,
+								"x": 150,
+								"y": 500,
+								"opacity": 1,
+								"rotation": 0
+							},
+							{
+								"time": 100,
+								"x": 200,
+								"y": 200,
+								"opacity": 0.5,
+								"rotation": -45
+							},
+							{
+								"time": 150,
+								"rotation": 20,
+								"opacity": 0.7
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

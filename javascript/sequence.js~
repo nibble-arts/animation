@@ -1,0 +1,8 @@
+var Sequenze = function () {
+
+return {
+
+
+
+};
+}();
