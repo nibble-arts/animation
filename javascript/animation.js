@@ -1,211 +1,3 @@
-/*var stage;
-var player = {};
-var layer = {};
-var timeline = {};
-
-var start = 0; // animation start frame
-var end = 200; // animation end frame
-var frame = 0; // animation position
-var status;
-var loopTime = 10; // step time in ms
-var loop = 1; // number of loops: 0 => loop forever
-var loopPos = 1; // number of loop*/
-
-
-
-//=====================================================================================
-var Animation = (function () {
-
-// private propertys
-	var data;
-	var stage = {};
-	var player = {}
-	var layer = {};
-	var sequence = {};
-	var timeline = {};
-
-	var start = 0; // animation start frame
-	var end = 200; // animation end frame
-	var frame = 0; // animation position
-	var status;
-	var loopTime = 10; // step time in ms
-	var loop = 1; // number of loops: 0 => loop forever
-	var loopPos = 1; // number of loop
-
-
-// global methods
-	return {
-		Load: function (path) {
-			var data = {};
-			var status = "init";
-
-			$.ajax(path, {
-				dataType: "json",
-				type: "GET",
-			})
-			.done(function (animJSON) {
-				this.data = animJSON;
-				this.status = "loaded";
-			})
-			.error(function (xhr,type) {
-				console.log(xhr);
-				console.log(type);
-			});
-
-			return {
-				status: function () {
-					return this.status;
-				}
-			}
-		},
-
-
-
-//================================================
-// create stage objects
-		Stage: function (data) {
-
-//************************************
-// create stage
-			stage = new Kinetic.Stage({
-				container: data.id,
-				width: data.width,
-				height: data.height,
-			});
-
-			return {
-				getWidth: function () { return stage.getWidth(); },
-				getHeight: function () { return stage.getHeight(); }
-			}
-		},
-		
-
-//************************************
-// create player
-		Player: function (data) {
-			var playerCnt = data.length;
-
-			$.each(data, function () {
-				var playerName = this.name;
-				var playerLayer = this.layer;
-				var playerGroup = this.group;
-
-				player[playerName] = {};
-
-				if (!this.geometry.type) {
-					console.log("error - no geometry type defined"); 
-				}
-
-Animation
-// create kinetic object
-				switch (this.geometry.type) {
-					case "rect":
-						player[playerName].obj = new Kinetic.Rect(this.geometry);
-						break;
-
-					case "circle":
-						player[playerName].obj = new Kinetic.Circle(this.geometry);
-						break;
-
-					case "image":
-						break;
-
-					case "group":
-						player[playerName].obj = new Kinetic.Group(this.geometry);
-						break;
-
-					case "text":
-						player[playerName].obj = new Kinetic.Text(this.geometry);
-						break;
-				}
-
-				player[playerName].layer = playerLayer;
-				player[playerName].group = playerGroup;
-				player[playerName].geometry = this.geometry;
-
-				if (!layer[playerLayer]) {
-					layer[playerLayer] = new Kinetic.Layer();
-				}
-
-// add player to layer
-				if (playerLayer) {
-					layer[playerLayer].add(player[playerName].obj);
-				}
-
-// add player to group
-				if (playerGroup) {
-					if (player[playerGroup])
-						player[playerGroup].obj.add(player[playerName].obj);
-					else
-						console.log("group don't exist");
-				}
-
-// add layer to stage
-				stage.add(layer[playerLayer]);
-
-
-
-//************************************
-// create animation metadata
-				if (this.keys != undefined) {
-					player[playerName].keys = this.keys;
-
-					$.each(this.keys, function () {
-			// keytime dont exist
-						if (!timeline[this.time]) {
-							timeline[this.time] = new Array;
-						}
-
-
-			// insert player
-						var player = this;
-						player.player = playerName;
-						player.layer = playerLayer;
-					
-						timeline[this.time].push(player);
-					});
-				}
-			});
-
-
-// global methods
-			return {
-				getPlayer: function (playerName) {
-
-					if (playerName)
-						return player[playerName] || {};
-					else
-						return player;
-				},
-
-				"length": playerCnt
-			}
-		},
-
-		Keys: function () {
-		},
-
-		Sequence: function (data) {
-
-			$.each(data, function () {
-				sequence[this.name] = this;
-			});
-
-			return {
-				getSequence: function () { return sequence; },
-
-				run: function (sequName) {
-					
-console.log("run sequence "+sequName+" from "+sequence[sequName].start+" to "+sequence[sequName].end);
-console.log("animating "+sequence[sequName].player.length+" player");
-				}
-			}
-		}
-	}
-})();
-
-
-
 //=====================================================================================
 // load data file
 
@@ -226,345 +18,538 @@ function load(path) {
 
 // init animation engine
 function init(data) {
-	stage = new Animation.Stage(data.stage);
-	player = new Animation.Player(data.player);
-	sequence = new Animation.Sequence(data.sequence);
 
-	sequence.run("intro");
+	stage = new Animation.Stage(data.stage);
+
+	newactor = new Animation.Actor(data.actor);
+	stage.addActor(newactor);
+
+	newScene = new Animation.Sequence(data.sequence);
+	stage.addScene(newScene);
+
+console.dir(stage);
+
+	stage.run("intro");
 };
 
 
 
 
 
-
-
-
-
 //=====================================================================================
-//=====================================================================================
+var Animation = (function () {
+
+// private propertys
+	var data;
+	var stage = {};
+	var layer = {};
+
+//	var start = 0; // animation start frame
+//	var end = 200; // animation end frame
+//	var frame = 0; // animation position
+
+	var currScene; // current sequence
+	var status = "undef";
+	var loopTime = 100; // step time in ms
+	var loop = 1; // number of loops: 0 => loop forever
+	var loopPos = 1; // number of loop
 
 
+// global methods
+	return {
+		Load: function (path) {
+			var data = {};
+			status = "init";
 
-var Anima = function () {
-
-return {
-	animationPath: "animation/",
-	animationExt: ".json",
-
-
-//================================================
-// load data file
-	Load: function (animationName) {
-		$.ajax(this.animationPath + animationName + this.animationExt, {
-			dataType: "json",
-			type: "GET",
-		})
-		.done(function (data) {
-			Animation.Create(data.animation);
-			Animation.Run(0,200);
-		})
-		.error(function (xhr,type) {
-			console.log(xhr);
-			console.log(type);
-		});
-	},
-
+			$.ajax(path, {
+				dataType: "json",
+				type: "GET",
+			})
+			.done(function (animJSON) {
+				this.data = animJSON;
+				status = "loaded";
+			})
+			.error(function (xhr,type) {
+				console.log(xhr);
+				console.log(type);
+			});
+		},
 
 
 //================================================
 // create stage objects
-	Create: function (data) {
+		Stage: function (data) {
+			var cast = {};
+			var sequence = {};
+			var layer = {};
 
-//************************************
+
+//************************************************************************
 // create stage
-		stage = new Kinetic.Stage({
-			container: data.stage.id,
-			width: data.stage.width,
-			height: data.stage.height,
-			fill: "blue"
-		});
+			stage = new Kinetic.Stage({
+				container: data.id,
+				width: data.width,
+				height: data.height,
+			});
 
+			return {
+				cast: cast,
+				sequence: scene,
+				
+				addActor: function (cast) {
+					this.cast = cast;
+				},
 
+				addScene: function (scene) {
+					this.sequence = scene;
+				},
+				
+				getWidth: function () { return stage.getWidth(); },
+				getHeight: function () { return stage.getHeight(); },
 
-//************************************
-// create player
-		$.each(data.player, function () {
-			var playerName = this.name;
-			var playerLayer = this.layer;
-			var playerGroup = this.group;
-
-			player[playerName] = {};
-
-			if (!this.geometry.type) {
-				console.log("error - no geometry type defined"); 
+				run: function (sceneName) {
+					this.sequence.scene[sceneName].run(this.cast);
+				}
 			}
+		},
+		
 
+//************************************************************************
+// create actor
+		Actor: function (data) {
+			var actorCnt = data.length;
+			var cast = {};
 
-//var a = new Anima.Player(this.geometry);
-//console.log(a);
+			$.each(data, function () {
+				var newactor = new Animation._Actor();
 
+				var actorName = this.name;
+				var actorLayer = this.layer;
+				var actorGroup = this.group;
 
+				if (!this.geometry.type) {
+					console.log("error - no geometry type defined"); 
+				}
 
+//Animation
 // create kinetic object
-			switch (this.geometry.type) {
-				case "rect":
-					player[playerName].obj = new Kinetic.Rect(this.geometry);
-					break;
+				switch (this.geometry.type) {
+					case "rect":
+						newactor.obj = new Kinetic.Rect(this.geometry);
+						break;
 
-				case "circle":
-					player[playerName].obj = new Kinetic.Circle(this.geometry);
-					break;
+					case "circle":
+						newactor.obj = new Kinetic.Circle(this.geometry);
+						break;
 
-				case "image":
-					break;
+					case "image":
+						break;
 
-				case "group":
-					player[playerName].obj = new Kinetic.Group(this.geometry);
-					break;
+					case "group":
+						newactor.obj = new Kinetic.Group(this.geometry);
+						break;
 
-				case "text":
-					player[playerName].obj = new Kinetic.Text(this.geometry);
-					break;
-			}
+					case "text":
+						newactor.obj = new Kinetic.Text(this.geometry);
+						break;
+				}
 
-			player[playerName].layer = playerLayer;
-			player[playerName].group = playerGroup;
-			player[playerName].geometry = this.geometry;
+				newactor.layer = actorLayer;
+				newactor.group = actorGroup;
+				newactor.geometry = this.geometry;
 
-			if (!layer[playerLayer]) {
-				layer[playerLayer] = new Kinetic.Layer();
-			}
+// add actor to layer
+				if (!layer[actorLayer]) {
+					layer[actorLayer] = new Kinetic.Layer();
+				}
 
-// add player to layer
-			if (playerLayer) {
-				layer[playerLayer].add(player[playerName].obj);
-			}
+				if (actorLayer) {
+					layer[actorLayer].add(newactor.obj);
+				}
 
-// add player to group
-			if (playerGroup) {
-				if (player[playerGroup])
-					player[playerGroup].obj.add(player[playerName].obj);
-				else
-					console.log("group don't exist");
-			}
+// add actor to group
+				if (actorGroup) {
+					if (actor[actorGroup])
+						newactor[actorGroup].obj.add(newactor.obj);
+					else
+						console.log("group don't exist");
+				}
 
 // add layer to stage
-			stage.add(layer[playerLayer]);
+				stage.add(layer[actorLayer]);
+
+				cast[actorName] = newactor;
+			});
 
 
-
-//************************************
-// create animation metadata
-			if (this.keys != undefined) {
-				player[playerName].keys = this.keys;
-
-				$.each(this.keys, function () {
-		// keytime dont exist
-					if (!timeline[this.time]) {
-						timeline[this.time] = new Array;
-					}
-
-
-		// insert player
-					var player = this;
-					player.player = playerName;
-					player.layer = playerLayer;
-					
-					timeline[this.time].push(player);
-				});
+// global methods
+			return {
+				actor: cast,
+				layer: layer,
+				"length": actorCnt
 			}
+		},
 
 
-//			if (player[playerName].keys)
-//				var keyVal = Animation.getKeyValues(player[playerName].keys,8);
+		_Actor: function () {
+			return {
+				layer: {},
+				
+				getActor: function () { return this.actor; },
+				getLayer: function () { return this.layer; },
+			}
+		},
+	
 
-		});
-	},
+//************************************************************************
+// sequence constructor
+		Sequence: function (data) {
+			var sequence = {};
+
+			$.each(data, function (i,v) {
+				var newScene = new Animation._Scene();
+
+				if (v.actor) {
+					$.each(v.actor, function () {
+						if (this.keys) {
+							var newKeys = new Animation.Keys(this.keys);
+							newScene.keys = newKeys;
+						}
+					});
+				}
+
+				if (!v.frame) v.frame = v.start;
+				newScene.timeline = v;
+
+				sequence[v.name] = newScene;
+			});
+
+			return {
+				scene: sequence
+				
+			}
+		},
 
 
+		_Scene: function () {
+			return {
+				getSequence: function () { return scene; },
 
-
-//================================================
 //================================================
 // run animation
-	Run: function (startFrame,endFrame) {
-		if (startFrame) start = startFrame;
-		if (endFrame) end = endFrame;
+				run: function (cast) {
 
-		var frame = start;
-		status = "run";
-		GUI.showStatus();
+// set current sequence
+					currScene = this;
+					currScene.cast = cast;
+					currScene.timeline.frame = currScene.timeline.start;
+
+					status = "run";
+					GUI.showStatus(currScene);
 		
-	// start animation
-		setTimeout(Animation.Step, loopTime);
-	},
-
+// start animation
+					setTimeout(this.Step,loopTime);
+				},
 
 //================================================
 // stop animation
-	Stop: function () {
-		status = "stop";
-		GUI.showStatus();
+				Stop: function () {
+					status = "stop";
+					GUI.showStatus(this);
 		
 //TODO jump to next animation
-	},
+				},
 
 
 //================================================
 // next animation step
-	Step: function () {
+				Step: function () {
+					var scene = currScene.timeline;
+					var cast = currScene.cast;
 
-		GUI.showFrame();
-		GUI.showStatus();
+					GUI.showFrame(scene);
+//					GUI.showStatus(this);
 
 //		GUI.showBar(frame / (end - start) * 100);
 
 // execute keyframe
-			$.each(player, function () {
-				var playObj = this.obj;
-				var playLay = this.layer;
-				var keys = this.keys;
-
+						$.each(scene.actor, function (i,v) {
+// get actor data from definition
+							var playObj = cast.actor[v.name].obj;
+							var playLay = playObj.layer;
+							var keys = v.keys;
 
 // keys defined
-				if (keys != undefined) {
+							if (keys != undefined) {
 
 // get last and next keyframe
-					var keyVal = Animation.getKeyValues(keys,frame);
+console.dir(scene);
+								var keyVal = sequence.getKeyValues(keys,scene.frame);
 
-			// update player attributes
-					$.each (keyVal, function (ind,val) {
-						playObj.setAttr(ind,val);
-					});
+// update actor attributes
+								$.each (keyVal, function (ind,val) {
+									playObj.setAttr(ind,val);
+								});
 
-					stage.draw();
-				}
-			});
-
+								stage.draw();
+							}
+						});
 
 
 //*******************************
 // set new animation position
-		frame++;
+					scene.frame++;
 
 // loop
-		if (frame > end) {
+					if (scene.frame > scene.end) {
 
-			frame = start;
-			if (!loop || (loopPos < loop)) {
-				loopPos++;
+						scene.frame = scene.start;
+						if (!scene.loop || (loopPos < scene.loop)) {
+							loopPos++;
 
 // restart loop
-				setTimeout(Animation.Step, loopTime);
-			}
-			else {
-				Animation.Stop();
-			}
-		}
-		else
-			setTimeout(Animation.Step, loopTime);
-	},
+							setTimeout(this.Step, loopTime);
+						}
+						else {
+							this.Stop();
+						}
+					}
+					else
+						setTimeout(this.Step, loopTime);
+				},
 
 
 //================================================
-	getKeyValues: function (keys,frame) {
-		var keyArea = Animation._getKeyArea(keys,frame);
-		var keyVal = {};
-		
+				getKeyValues: function (keys,frame) {
+					var sequObj = this;
+
+					var keyArea = sequObj._getKeyArea(keys,frame);
+					var keyVal = {};
+
 // calculate current values at frame
-		$.each(keyArea, function (ind,val) {
-			if (val.start.time == "hold")
-				val.start.time = start;
+					$.each(keyArea, function (ind,val) {
+						if (val.start.time == "hold")
+							val.start.time = start;
 
-			if (val.end.time == "hold")
-				val.end.time = end;
+						if (val.end.time == "hold")
+							val.end.time = end;
 
-			var dt =  (frame - val.start.time) / (val.end.time - val.start.time);
-			var dv = parseFloat(val.start.val) + parseFloat((dt * (val.end.val - val.start.val)));
-			
-			keyVal[ind] = dv;
-		});
+						if (val.end.time - val.start.time)
+							var dt =  (frame - val.start.time) / (val.end.time - val.start.time);
+						else
+							var dt = 0;
 
-		return keyVal;
-	},
+						var dv = parseFloat(val.start.val) + parseFloat((dt * (val.end.val - val.start.val)));
+
+						keyVal[ind] = dv;
+					});
+
+					return keyVal;
+				},
 
 
 //================================================
 // get key values
-	_getKeyArea: function (keys,frame) {
-		var last;
-		var next;
-		var keyVal = {};
-		var keyTime;
+				_getKeyArea: function (keys,frame) {
+					var last;
+					var next;
+					var keyVal = {};
+					var keyTime;
 
-		last = $.grep(keys, function(obj) {
-			if (frame >= obj.time)
-				return obj.time;
-		});
+					last = $.grep(keys, function(obj) {
+						if (frame >= obj.time)
+							return obj;
+					});
 
-		next = $.grep(keys, function(obj) {
-			if (frame < obj.time)
-				return obj.time;
-		});
+					next = $.grep(keys, function(obj) {
+						if (frame < obj.time)
+							return obj;
+					});
 
 //************************************
 // loop all last keys backwards
-		last.reverse();
+					last.reverse();
 
-		$.each(last, function () {
-			keyTime = this.time;
+					$.each(last, function () {
+						keyTime = this.time;
 			
 	// loop parameters
-			$.each (this, function (ind,val) {
+						$.each (this, function (ind,val) {
 
 		// save first instance of value in last
-				if (!keyVal[ind] && !(ind == "time" || ind == "layer" || ind == "player")) {
-					keyVal[ind] = { start: { val: val, time: keyTime } };
-				}
-			});
-		});
+							if (!keyVal[ind] && !(ind == "time" || ind == "layer" || ind == "actor")) {
+								keyVal[ind] = { start: { val: val, time: keyTime } };
+							}
+						});
+					});
 
 
 //************************************
 // loop all next keys
-		$.each(next, function () {
-			keyTime = this.time;
+					$.each(next, function () {
+						keyTime = this.time;
 			
 	// loop parameters
-			$.each (this, function (ind,val) {
+						$.each (this, function (ind,val) {
 
 		// save first instance of value in last
-				if (!(ind == "time" || ind == "layer" || ind == "player")) {
+							if (!(ind == "time" || ind == "layer" || ind == "actor")) {
 
-					if (!keyVal[ind])
-						keyVal[ind] = {};
+								if (!keyVal[ind])
+									keyVal[ind] = {};
 
-					if (!keyVal[ind].end)
-						keyVal[ind].end = { val: val, time: keyTime };
-				}
-			});
-		});
+								if (!keyVal[ind].end)
+									keyVal[ind].end = { val: val, time: keyTime };
+							}
+						});
+					});
 
 
 //************************************
 // set hold values
-		$.each(keyVal, function () {
+					$.each(keyVal, function () {
 
 // hold before first keyframe
-			if (!this.start)
-				this.start = { val: this.end.val, time: "hold" };
+						if (!this.start)
+							this.start = { val: this.end.val, time: "hold" };
 
 // hold after last keyframe
-			if (!this.end) {
-				this.end = { val: this.start.val, time: "hold" };
-			}
-		});
+						if (!this.end) {
+							this.end = { val: this.start.val, time: "hold" };
+						}
+					});
 
-		return (keyVal);
-	},
-};
-}();
+					return (keyVal);
+				}
+
+
+			}
+		},
+
+
+
+
+
+
+
+//************************************************************************
+// key object
+		Keys: function (keyValues) {
+			var keys = keyValues;
+
+			return {
+				keys: keyValues,
+				
+//================================================
+				getKeyValues: function (keys,frame) {
+					var sequObj = this;
+
+					var keyArea = sequObj._getKeyArea(keys,frame);
+					var keyVal = {};
+
+// calculate current values at frame
+					$.each(keyArea, function (ind,val) {
+						if (val.start.time == "hold")
+							val.start.time = start;
+
+						if (val.end.time == "hold")
+							val.end.time = end;
+
+						if (val.end.time - val.start.time)
+							var dt =  (frame - val.start.time) / (val.end.time - val.start.time);
+						else
+							var dt = 0;
+
+						var dv = parseFloat(val.start.val) + parseFloat((dt * (val.end.val - val.start.val)));
+
+						keyVal[ind] = dv;
+					});
+
+					return keyVal;
+				},
+
+
+//================================================
+// get key values
+				_getKeyArea: function (keys,frame) {
+					var last;
+					var next;
+					var keyVal = {};
+					var keyTime;
+
+					last = $.grep(keys, function(obj) {
+						if (frame >= obj.time)
+							return obj;
+					});
+
+					next = $.grep(keys, function(obj) {
+						if (frame < obj.time)
+							return obj;
+					});
+
+//************************************
+// loop all last keys backwards
+					last.reverse();
+
+					$.each(last, function () {
+						keyTime = this.time;
+			
+	// loop parameters
+						$.each (this, function (ind,val) {
+
+		// save first instance of value in last
+							if (!keyVal[ind] && !(ind == "time" || ind == "layer" || ind == "actor")) {
+								keyVal[ind] = { start: { val: val, time: keyTime } };
+							}
+						});
+					});
+
+
+//************************************
+// loop all next keys
+					$.each(next, function () {
+						keyTime = this.time;
+			
+	// loop parameters
+						$.each (this, function (ind,val) {
+
+		// save first instance of value in last
+							if (!(ind == "time" || ind == "layer" || ind == "actor")) {
+
+								if (!keyVal[ind])
+									keyVal[ind] = {};
+
+								if (!keyVal[ind].end)
+									keyVal[ind].end = { val: val, time: keyTime };
+							}
+						});
+					});
+
+
+//************************************
+// set hold values
+					$.each(keyVal, function () {
+
+// hold before first keyframe
+						if (!this.start)
+							this.start = { val: this.end.val, time: "hold" };
+
+// hold after last keyframe
+						if (!this.end) {
+							this.end = { val: this.start.val, time: "hold" };
+						}
+					});
+
+					return (keyVal);
+				}
+			}
+		}
+
+	}
+})();
+
+
+
 
 
 //================================================
@@ -582,8 +567,8 @@ var GUI = function () {
 			});
 		},
 			
-		showFrame: function () {
-			$("#"+this.frameId).text("Frame "+frame+" ("+start+"-"+end+")");
+		showFrame: function (e) {
+			$("#"+this.frameId).text("Frame "+e.frame+" ("+e.start+"-"+e.end+")");
 		},
 
 		showStatus: function (id) {
@@ -592,7 +577,4 @@ var GUI = function () {
 	};
 
 }();
-
-
-
 

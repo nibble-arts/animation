@@ -1,0 +1,70 @@
+Definition file for animation
+-----------------------------
+
+The animation definition has three parts: The stage, the players and the sequences.
+
+Stage
+-----
+The stage defines the area, where all animation is played. It has a size and basic styles of the animation area.
+
+Player
+------
+The players are the actors, whitch can be animated on the stage. Each actor has its basic geometry, defined to its local coordinate system. Besides different types of actors, like rectangle, circle, text, i.e. an actor can also be a group. Groups are animated in the same manor as normal players and have their own geometric definitions, but have no renderable geometry. Normal players can be assigned to a group by the group-parameter instead of a layer definition. The group itself can be part of a layer or another group. Animations of a player in a group is done relative to the position of the group.
+
+Sequence
+--------
+The animation of players are defined in sequences. A sequence has a start and end frame defining the runtime. Each sequence can select defined players to act in. A player can have different animations in each sequence.
+
+Events can cause a sequence to jump to a new frame number or a different sequence. The parameter <onend> in the sequence definition contains the sequence to be started, after all loops of the current sequence ended. If no <onend> is given, the execution stops.
+
+Events can be triggert from keyframes, mouseevents, keyboardevents od with a html-request plugin.
+
+
+
+Definition file
+---------------
+
+{
+# animation definition
+
+	animation: {
+
+# definition of the stage
+		stage: {
+			name: <stage_name>,
+			geometry: ...<stage geometry values>...
+		},
+
+
+# array of player definitions
+		player: [
+			{
+				name: <player_name>,
+				geometry: { ...<geometry definition for kineticjs object> ... },
+				layer / group: <layer_name> / <group_name>			# layer = single object / group = animated with a group
+			}
+		]
+
+
+# array of sequence definitions
+		sequence: [
+			{
+				name: <sequence_name>,				# name of the sequence
+				start: <start_frame>,
+				end: <end_frame>,
+				loop: <number of loops>,			# 0 = loop forever, 0 < x < n = loop x times
+				onend: <sequence_name>,				# sequence name to run after loops ended
+				onenable: <...???...>	,				# action done when player is enabled for this sequence
+				ondisable: <...???...>,				# action done when player is disabled from this sequence
+				player : [
+					{
+						name: <player_name>,
+						keys: [
+							{ time: <frame_number>, ...<list of key values>... }
+						]
+					}
+				]
+			}
+		]
+	}
+}
