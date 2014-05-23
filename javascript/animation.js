@@ -21,7 +21,7 @@ function init(data) {
 
 	newstage = new Animation.Stage(data.stage);
 
-	newactor = new Animation.Actor(data.actor);
+	newactor = new Animation.Actor(data.cast);
 	newstage.addActor(newactor);
 
 	newScene = new Animation.Sequence(data.sequence);
@@ -50,7 +50,9 @@ var Animation = (function () {
 
 	var currScene; // current sequence
 	var status = "undef";
-	var loopTime = 30; // step time in ms
+
+	var timer;
+	var loopTime = 20; // step time in ms
 	var loop = 1; // number of loops: 0 => loop forever
 	var loopPos = 1; // number of loop
 
@@ -157,29 +159,21 @@ var Animation = (function () {
 						break;
 				}
 
-				newactor.layer = actorLayer;
 				newactor.group = actorGroup;
 				newactor.geometry = this.geometry;
 
-// add actor to layer
-				if (!layer[actorLayer]) {
-					layer[actorLayer] = new Kinetic.Layer();
-				}
-
-				if (actorLayer) {
-					layer[actorLayer].add(newactor.obj);
-				}
+//				newactor.layer = actorLayer;
 
 // add actor to group
 				if (actorGroup) {
-					if (actor[actorGroup])
-						newactor[actorGroup].obj.add(newactor.obj);
+					if (cast[actorGroup])
+						cast[actorGroup].obj.add(newactor.obj);
 					else
 						console.log("group don't exist");
 				}
 
 // add layer to stage
-				stage.add(layer[actorLayer]);
+//				stage.add(layer[actorLayer]);
 
 				cast[actorName] = newactor;
 			});
@@ -232,17 +226,66 @@ var Animation = (function () {
 //================================================
 // run animation
 				run: function (cast) {
+					var event;
+					status = "run";
 
 // set current sequence
 					currScene = this;
 					currScene.cast = cast;
 					currScene.timeline.frame = currScene.timeline.start;
 
-					status = "run";
+// activate actors
+					$.each(currScene.timeline.cast, function (idx) {
+
+// set events
+						if(this.event) {
+							$.each(this.event, function () {
+								
+								switch (this.type) {
+									case "click":
+										currScene.cast.actor[idx].obj.action = this.action;
+
+// add event to actor
+										currScene.cast.actor[idx].obj.on("click", function (evt) {
+// parse actions
+console.log(evt);
+											switch (evt.target.action) {
+												case "resume":
+													currScene.setFrame(currScene.timeline);
+													status = "run";
+													timer = setTimeout(currScene.Step,loopTime);
+													break;
+
+												case "goto":
+						console.log("goto");
+													break;
+											}
+										});
+
+										break;
+								}
+							});
+						}
+
+// add actor to layer
+						if (!layer[this.layer]) {
+							layer[this.layer] = new Kinetic.Layer();
+						}
+
+						if (this.layer) {
+							layer[this.layer].add(currScene.cast.actor[idx].obj);
+							stage.add(layer[this.layer]);
+						}
+
+					});
+
+// draw result
+					stage.draw();
+
 					GUI.showStatus(currScene);
 		
 // start animation
-					setTimeout(this.Step,loopTime);
+					timer = setTimeout(this.Step,loopTime);
 				},
 
 //================================================
@@ -252,8 +295,8 @@ var Animation = (function () {
 					GUI.showStatus(this);
 
 //TODO jump to next animation
-					currScene = {};
-console.dir(this);
+//					currScene = {};
+//console.dir(stage);
 				},
 
 
@@ -269,7 +312,9 @@ console.dir(this);
 //		GUI.showBar(frame / (end - start) * 100);
 
 // execute keyframe
-					$.each(scene.actor, function (i,v) {
+					$.each(scene.cast, function (i,v) {
+
+
 // get actor data from definition
 						if (v.keys) {
 							var playObj = cast.actor[i].obj;
@@ -290,34 +335,69 @@ console.dir(this);
 								stage.draw();
 							}
 						}
+
 					});
+
+
+// check time event
+					if (scene.event) {
+						$.each(scene.event, function () {
+
+							if (this.time == scene.frame) {
+								switch (this.action) {
+									case "stop":
+										clearTimeout(timer);
+										currScene.Stop();
+										break;
+								}
+							}
+						});
+					}
 
 
 //*******************************
 // set new animation position
-					scene.frame++;
+					if (status == "run") {
+						currScene.setFrame(scene);
+					}
+				},
+
+
+//================================================
+// set new frame position
+				setFrame: function (scene,frame) {
+
+// goto frame
+					if (frame != undefined) {
+						if (frame >= scene.start && frame <= scene.end)
+							scene.frame = frame;
+					}
+					
 // loop
-					if (scene.frame > scene.end) {
+					if (scene.frame >= scene.end) {
 
 						if (!scene.loop || (loopPos < scene.loop)) {
 							scene.frame = scene.start;
 							loopPos++;
 
 // restart loop
-							setTimeout(currScene.Step, loopTime);
+							timer = setTimeout(currScene.Step, loopTime);
 						}
 						else {
+							clearTimeout(timer);
 							currScene.Stop();
 						}
 					}
 // next frame
 					else {
-						setTimeout(currScene.Step, loopTime);
+						scene.frame++;
+						timer = setTimeout(currScene.Step, loopTime);
 					}
 				},
-
+				
 
 //================================================
+// get values of object on frame
 				getKeyValues: function (keys,frame) {
 					var sequObj = this;
 
