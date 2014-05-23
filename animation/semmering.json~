@@ -7,9 +7,8 @@
 			"height": 600
 		},
 
-		"actor": [
-			{
-				"name": "background",
+		"actor": {
+			"background": {
 
 				"geometry":
 					{
@@ -26,9 +25,24 @@
 				"layer": "background"
 			},
 
-			
-			{
-				"name": "image2",
+			"image1": {
+
+				"geometry":
+					{
+						"width": 50,
+						"height": 50,
+						"offsetX": 25,
+						"offsetY": 25,
+						"type": "rect",
+						"stroke": "blue",
+						"strokeWidth": 1,
+						"opacity": 1
+					},
+
+				"layer": "Foto1"
+			},
+
+			"image2": {
 
 				"geometry":
 					{
@@ -44,7 +58,7 @@
 
 				"layer": "Foto1"
 			}
-		],
+		},
 
 		"sequence": [
 			{
@@ -60,9 +74,29 @@
 				"loop": 1,
 				"onstop": "start",
 				
-				"actor": [
-					{
-						"name": "image2",
+				"actor": {
+					"image1": {
+						"keys": [
+							{
+								"time": 0,
+								"x": 500,
+								"y": 500,
+								"rotation": 0
+							},
+							{
+								"time": 10,
+								"rotation": -180
+							},
+							{
+								"time": 20,
+								"x": 200,
+								"y": 150,
+								"rotation": -360
+							}
+						]
+					},
+
+					"image2": {
 						"keys": [
 							{
 								"time": 0,
@@ -82,7 +116,7 @@
 							}
 						]
 					}
-				]
+				}
 			}
 		]
 	}

@@ -32,8 +32,8 @@
 			<noscript><div id="noscript">Sie müssen Javascript aktiviert haben, um die Animation nutzen zu können.</div></noscript>
 		</div>
 
-		<div id="scene"></div>
 		<div><span id="frame"></span> <span id="status">Status</span></div>
+		<div id="scene"></div>
 		<div id="bar"></div>
 	</body>
 </html>

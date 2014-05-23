@@ -19,17 +19,17 @@ function load(path) {
 // init animation engine
 function init(data) {
 
-	stage = new Animation.Stage(data.stage);
+	newstage = new Animation.Stage(data.stage);
 
 	newactor = new Animation.Actor(data.actor);
-	stage.addActor(newactor);
+	newstage.addActor(newactor);
 
 	newScene = new Animation.Sequence(data.sequence);
-	stage.addScene(newScene);
+	newstage.addScene(newScene);
 
-console.dir(stage);
+console.dir(newstage);
 
-	stage.run("intro");
+	newstage.run("intro");
 };
 
 
@@ -50,7 +50,7 @@ var Animation = (function () {
 
 	var currScene; // current sequence
 	var status = "undef";
-	var loopTime = 100; // step time in ms
+	var loopTime = 30; // step time in ms
 	var loop = 1; // number of loops: 0 => loop forever
 	var loopPos = 1; // number of loop
 
@@ -109,6 +109,9 @@ var Animation = (function () {
 
 				run: function (sceneName) {
 					this.sequence.scene[sceneName].run(this.cast);
+				},
+
+				stop: function () {
 				}
 			}
 		},
@@ -120,10 +123,10 @@ var Animation = (function () {
 			var actorCnt = data.length;
 			var cast = {};
 
-			$.each(data, function () {
+			$.each(data, function (idx) {
 				var newactor = new Animation._Actor();
 
-				var actorName = this.name;
+				var actorName = idx;
 				var actorLayer = this.layer;
 				var actorGroup = this.group;
 
@@ -205,18 +208,8 @@ var Animation = (function () {
 // sequence constructor
 		Sequence: function (data) {
 			var sequence = {};
-
 			$.each(data, function (i,v) {
 				var newScene = new Animation._Scene();
-
-				if (v.actor) {
-					$.each(v.actor, function () {
-						if (this.keys) {
-							var newKeys = new Animation.Keys(this.keys);
-							newScene.keys = newKeys;
-						}
-					});
-				}
 
 				if (!v.frame) v.frame = v.start;
 				newScene.timeline = v;
@@ -226,13 +219,14 @@ var Animation = (function () {
 
 			return {
 				scene: sequence
-				
 			}
 		},
 
 
-		_Scene: function () {
+		_Scene: function (cast) {
+
 			return {
+				
 				getSequence: function () { return scene; },
 
 //================================================
@@ -256,8 +250,10 @@ var Animation = (function () {
 				Stop: function () {
 					status = "stop";
 					GUI.showStatus(this);
-		
+
 //TODO jump to next animation
+					currScene = {};
+console.dir(this);
 				},
 
 
@@ -273,9 +269,10 @@ var Animation = (function () {
 //		GUI.showBar(frame / (end - start) * 100);
 
 // execute keyframe
-						$.each(scene.actor, function (i,v) {
+					$.each(scene.actor, function (i,v) {
 // get actor data from definition
-							var playObj = cast.actor[v.name].obj;
+						if (v.keys) {
+							var playObj = cast.actor[i].obj;
 							var playLay = playObj.layer;
 							var keys = v.keys;
 
@@ -283,8 +280,7 @@ var Animation = (function () {
 							if (keys != undefined) {
 
 // get last and next keyframe
-console.dir(scene);
-								var keyVal = sequence.getKeyValues(keys,scene.frame);
+								var keyVal = currScene.getKeyValues(keys,scene.frame);
 
 // update actor attributes
 								$.each (keyVal, function (ind,val) {
@@ -293,29 +289,31 @@ console.dir(scene);
 
 								stage.draw();
 							}
-						});
+						}
+					});
 
 
 //*******************************
 // set new animation position
 					scene.frame++;
-
 // loop
 					if (scene.frame > scene.end) {
 
-						scene.frame = scene.start;
 						if (!scene.loop || (loopPos < scene.loop)) {
+							scene.frame = scene.start;
 							loopPos++;
 
 // restart loop
-							setTimeout(this.Step, loopTime);
+							setTimeout(currScene.Step, loopTime);
 						}
 						else {
-							this.Stop();
+							currScene.Stop();
 						}
 					}
-					else
-						setTimeout(this.Step, loopTime);
+// next frame
+					else {
+						setTimeout(currScene.Step, loopTime);
+					}
 				},
 
 
@@ -328,11 +326,12 @@ console.dir(scene);
 
 // calculate current values at frame
 					$.each(keyArea, function (ind,val) {
+
 						if (val.start.time == "hold")
-							val.start.time = start;
+							val.start.time = currScene.timeline.start;
 
 						if (val.end.time == "hold")
-							val.end.time = end;
+							val.end.time = currScene.timeline.end;
 
 						if (val.end.time - val.start.time)
 							var dt =  (frame - val.start.time) / (val.end.time - val.start.time);
