@@ -123,7 +123,9 @@
 				"loop": 1,
 				"onstop": "start",
 				"event": [
+					{ "time": "*", "action": "post", "url":"http://localhost/animation/controler/api.php", "value": "$time" },
 					{ "time": 0, "action": "stop" },
+					{ "time": 100, "action": "post", "url":"http://localhost/animation/controler/api.php", "value": "cmd=stop&seq=intro" },
 					{ "time": 100, "action": "stop" }
 				],
 

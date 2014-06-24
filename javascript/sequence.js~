@@ -1,8 +1,0 @@
-var Sequenze = function () {
-
-return {
-
-
-
-};
-}();

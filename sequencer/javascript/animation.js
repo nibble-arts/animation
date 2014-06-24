@@ -248,6 +248,7 @@ var Animation = (function () {
 // add event to actor
 										currScene.cast.actor[idx].obj.on("click", function (evt) {
 // parse actions
+console.log(evt);
 											switch (evt.target.action) {
 												case "resume":
 													currScene.setFrame(currScene.timeline);
@@ -342,11 +343,48 @@ var Animation = (function () {
 					if (scene.event) {
 						$.each(scene.event, function () {
 
+							if (this.time == "*") {
+								switch (this.action) {
+									case "post":
+										var done = Math.round(scene.frame * 100 / scene.end);
+										var param = this.value.split("&");
+
+										param.push("done="+done);
+										param.push("time="+scene.frame);
+
+										$.ajax(
+											{
+												url: this.url,
+												data: param.join("&")
+											})
+										break;
+								}
+							}
+
 							if (this.time == scene.frame) {
 								switch (this.action) {
 									case "stop":
 										clearTimeout(timer);
 										currScene.Stop();
+										break;
+
+									case "post":
+										var param = this.value.split("&");
+										param.push("time="+scene.frame);
+										
+										$.ajax(
+											{
+												url: this.url,
+												data: param.join("&")
+											})
+											
+											.success(function (data) {
+											console.log(data);
+											})
+											
+											.error(function (jqXHR) {
+												console.log("error: "+jqXHR.statusText+" status: "+jqXHR.status+" readyState: "+jqXHR.readyState);
+											});
 										break;
 								}
 							}
