@@ -345,9 +345,11 @@ console.log(evt);
 
 							if (this.time == "*") {
 								switch (this.action) {
-									case: "post":
+									case "post":
 										var done = Math.round(scene.frame * 100 / scene.end);
 										var param = this.value.split("&");
+
+										param.push("client=sequencer");
 
 										param.push("done="+done);
 										param.push("time="+scene.frame);
@@ -370,6 +372,8 @@ console.log(evt);
 
 									case "post":
 										var param = this.value.split("&");
+										param.push("client=sequencer");
+
 										param.push("time="+scene.frame);
 										
 										$.ajax(

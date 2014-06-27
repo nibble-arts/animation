@@ -1,0 +1,11 @@
+body {
+	perspective: 200px;
+	transform-style: preserve-3d;
+	margin: 0;
+	padding: 0;
+}
+
+#scene {
+	margin-top: 20px;
+}
+

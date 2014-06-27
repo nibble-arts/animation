@@ -7,39 +7,29 @@
 			"height": 600
 		},
 
-		"player": [
-			{
-				"name": "background",
-
+		"cast": {
+			"background": {
 				"geometry":
 					{
 						"x": 0,
 						"y": 300,
 						"width": 800,
 						"height": 300,
-						"stroke": "black",
-						"strokeWidth": 1,
+						"strokeWidth": 0,
 						"fill": "#f0f0ff",
 						"type": "rect"
-					},
-
-				"layer": "background"
+					}
 			},
 
-			{
-				"name": "group1",
-
+			"group1": {
 				"geometry":
 					{
 						"type": "group"
-					},
-
-				"layer": "Foto1"
+					}
 			},
 
-			{
-				"name": "grouped1",
-
+			"grouped1": {
+				"group": "group1",
 				"geometry":
 					{
 						"x": 0,
@@ -53,14 +43,11 @@
 						"strokeWidth": 2,
 						"fill": "green",
 						"opacity": 1
-					},
-
-				"group": "group1"
+					}
 			},
 
-			{
-				"name": "grouped2",
-
+			"grouped2": {
+				"group": "group1",
 				"geometry":
 					{
 						"x": 20,
@@ -74,31 +61,39 @@
 						"strokeWidth": 2,
 						"fill": "yellow",
 						"opacity": 1
-					},
-
-				"group": "group1"
+					}
 			},
 
-			{
-				"name": "grouped_text",
-
+			"grouped_text": {
+				"group": "group1",
 				"geometry":
 					{
 						"type": "text",
-						"x": -30,
 						"text": "Ich bin ein Text",
 						"fontSize": 15,
 						"fontFamily": "Calibri",
 						"align": "center",
 						"fill": "black"
-					},
-
-				"group": "group1"
+					}
 			},
 			
-			{
-				"name": "image2",
+			"image1": {
+				"geometry":
+					{
+						"width": 50,
+						"height": 50,
+						"offsetX": 25,
+						"offsetY": 25,
+						"type": "rect",
+						"stroke": "blue",
+						"strokeWidth": 1,
+						"fill": "yellow",
+						"opacity": 1
+					},
+					"event": { "type": "click", "action": "goto", "time": 0 }
+			},
 
+			"image2": {
 				"geometry":
 					{
 						"width": 150,
@@ -109,11 +104,9 @@
 						"stroke": "red",
 						"strokeWidth": 2,
 						"opacity": 1
-					},
-
-				"layer": "Foto1"
+					}
 			}
-		],
+		},
 
 		"sequence": [
 			{
@@ -122,16 +115,30 @@
 				"end": 0,
 				"loop": 1
 			},
+
 			{
 				"name": "intro",
 				"start": 0,
-				"end": 20,
+				"end": 200,
 				"loop": 1,
 				"onstop": "start",
-				
-				"player": [
-					{
-						"name": "group1",
+				"event": [
+					{ "time": 0, "action": "stop" },
+					{ "time": 50, "action": "post", "url":"http://localhost/animation/api/api.php", "value": "cmd=done&val=50" },
+					{ "time": 100, "action": "post", "url":"http://localhost/animation/api/api.php", "value": "cmd=stop" },
+					{ "time": 100, "action": "stop" }
+				],
+
+				"cast": {
+					"background" : {
+						"layer": "background",
+						"event": [
+							{ "type": "click", "action": "resume" }
+						]
+					},
+					
+					"group1": {
+						"layer": "Foto1",
 						"keys": [
 							{
 								"time": 0,
@@ -141,21 +148,21 @@
 								"rotation": 0
 							},
 							{
-								"time": 10,
+								"time": 100,
 								"x": 200,
 								"y": 200,
 								"opacity": 0.5,
 								"rotation": -45
 							},
 							{
-								"time": 20,
+								"time": 200,
 								"rotation": 20,
 								"opacity": 0.7
 							}
 						]
 					},
-					{
-						"name": "grouped1",
+
+					"grouped1": {
 						"keys": [
 							{
 								"time": 100,
@@ -167,48 +174,37 @@
 							}
 						]
 					},
-					{
-						"name": "grouped2",
 
+					"grouped_text": {
 						"keys": [
-							{
-								"time": 150,
-								"rotation": 0,
-								"strokeWidth": 1,
-								"scaleX": 1,
-								"scaleY": 1
-							},
-							{
-								"time": 250,
-								"rotation": 180,
-								"strokeWidth": 10,
-								"scaleX": 0.2,
-								"scaleY": 0.2
-							}
+							{ "time": 120, "x": -30, "rotation": 0 },
+							{ "time": 160, "x": 100, "rotation": -30 }
 						]
 					},
-					{
-						"name": "image2",
+					
+					"image1": {
+						"layer": "Foto2",
 						"keys": [
 							{
-								"time": 25,
+								"time": 50,
 								"x": 500,
 								"y": 500,
 								"rotation": 0
 							},
 							{
-								"time": 35,
-								"rotation": 180
+								"time": 100,
+								"rotation": -180
 							},
 							{
-								"time": 45,
-								"x": 600,
+								"time": 150,
+								"x": 200,
 								"y": 150,
-								"rotation": 360
+								"rotation": -360
 							}
 						]
+
 					}
-				]
+				}
 			}
 		]
 	}

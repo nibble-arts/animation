@@ -1,8 +1,9 @@
 //=====================================================================================
 // load data file
+var animationPath = "../animation/";
 
 function load(path) {
-	$.ajax(path, {
+	$.ajax(animationPath+path, {
 		dataType: "json",
 		type: "GET",
 	})
@@ -348,7 +349,9 @@ console.log(evt);
 									case "post":
 										var done = Math.round(scene.frame * 100 / scene.end);
 										var param = this.value.split("&");
+console.log(scene);
 
+										param.push("sequ="+scene.name);
 										param.push("done="+done);
 										param.push("time="+scene.frame);
 
@@ -370,6 +373,8 @@ console.log(evt);
 
 									case "post":
 										var param = this.value.split("&");
+
+										param.push("sequ="+scene.name);
 										param.push("time="+scene.frame);
 										
 										$.ajax(
