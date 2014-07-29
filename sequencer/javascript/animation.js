@@ -1,6 +1,7 @@
 //=====================================================================================
 // load data file
 var animationPath = "../animation/";
+var imagePath = "../animation/images/";
 
 function load(path) {
 	$.ajax(animationPath+path, {
@@ -30,7 +31,7 @@ function init(data) {
 
 console.dir(newstage);
 
-	newstage.run("intro");
+	newstage.run("home");
 };
 
 
@@ -149,6 +150,11 @@ var Animation = (function () {
 						break;
 
 					case "image":
+						var imageObj = new Image();
+						imageObj.src = imagePath+this.geometry.src;
+						this.geometry.image = imageObj;
+						
+						newactor.obj = new Kinetic.Image(this.geometry);
 						break;
 
 					case "group":
@@ -274,8 +280,15 @@ console.log(evt);
 						}
 
 						if (this.layer) {
-							layer[this.layer].add(currScene.cast.actor[idx].obj);
-							stage.add(layer[this.layer]);
+//TODO
+// actor error
+							if (!currScene.cast.actor[idx])
+								alert("Actor "+idx+" not defined");
+
+							else {
+								layer[this.layer].add(currScene.cast.actor[idx].obj);
+								stage.add(layer[this.layer]);
+							}
 						}
 
 					});
@@ -306,6 +319,8 @@ console.log(evt);
 				Step: function () {
 					var scene = currScene.timeline;
 					var cast = currScene.cast;
+
+console.log(scene.frame);
 
 					GUI.showFrame(scene);
 //					GUI.showStatus(this);
