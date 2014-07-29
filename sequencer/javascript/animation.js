@@ -1,8 +1,23 @@
-//=====================================================================================
+///=====================================================================================
 // load data file
 var animationPath = "../animation/";
 var imagePath = "../animation/images/";
+var globalStage;
 
+
+// definition in debugLevel for debug informations to show
+// CREATE ... show creation information
+// EVENT ... show event information
+// RUN ... show runtime information
+// ERROR ... show errors
+// WARNING ... show warnings
+var debug = true; // show/hide debug information on consol
+//var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
+var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
+
+
+//=====================================================================================
+// load animation data
 function load(path) {
 	$.ajax(animationPath+path, {
 		dataType: "json",
@@ -12,32 +27,35 @@ function load(path) {
 		init(data.animation);
 	})
 	.error(function (xhr,type) {
-		console.log(xhr);
-		console.log(type);
+		debug_msg(xhr,"ERROR");
+		debug_msg(type,"ERROR");
 	});
 };
 
 
+
+
+//=====================================================================================
 // init animation engine
 function init(data) {
-
-	newstage = new Animation.Stage(data.stage);
+	globalStage = new Animation.Stage(data.stage);
 
 	newactor = new Animation.Actor(data.cast);
-	newstage.addActor(newactor);
+	globalStage.addActor(newactor);
 
 	newScene = new Animation.Sequence(data.sequence);
-	newstage.addScene(newScene);
+	globalStage.addScene(newScene);
 
-console.dir(newstage);
+	debug_msg(globalStage,"CREATE");
 
-	newstage.run("home");
+	globalStage.run("main");
 };
 
 
 
 
 
+//=====================================================================================
 //=====================================================================================
 var Animation = (function () {
 
@@ -50,8 +68,8 @@ var Animation = (function () {
 //	var end = 200; // animation end frame
 //	var frame = 0; // animation position
 
-	var currScene; // current sequence
-	var status = "undef";
+	var currScene = {}; // current sequence
+	currScene.status = "started";
 
 	var timer;
 	var loopTime = 20; // step time in ms
@@ -63,7 +81,7 @@ var Animation = (function () {
 	return {
 		Load: function (path) {
 			var data = {};
-			status = "init";
+			currScene.status = "init";
 
 			$.ajax(path, {
 				dataType: "json",
@@ -71,11 +89,11 @@ var Animation = (function () {
 			})
 			.done(function (animJSON) {
 				this.data = animJSON;
-				status = "loaded";
+				currScene.status = "loaded";
 			})
 			.error(function (xhr,type) {
-				console.log(xhr);
-				console.log(type);
+				debug_msg(xhr,"ERROR");
+				debug_msg(type,"ERROR");
 			});
 		},
 
@@ -116,6 +134,7 @@ var Animation = (function () {
 				},
 
 				stop: function () {
+					debug_msg("sequence ended","RUN");
 				}
 			}
 		},
@@ -135,7 +154,7 @@ var Animation = (function () {
 				var actorGroup = this.group;
 
 				if (!this.geometry.type) {
-					console.log("error - no geometry type defined"); 
+					debug_msg("error - no geometry type defined","ERROR"); 
 				}
 
 //Animation
@@ -176,7 +195,7 @@ var Animation = (function () {
 					if (cast[actorGroup])
 						cast[actorGroup].obj.add(newactor.obj);
 					else
-						console.log("group don't exist");
+						debug_msg("group don't exist","WARNING");
 				}
 
 // add layer to stage
@@ -208,6 +227,7 @@ var Animation = (function () {
 //************************************************************************
 // sequence constructor
 		Sequence: function (data) {
+
 			var sequence = {};
 			$.each(data, function (i,v) {
 				var newScene = new Animation._Scene();
@@ -227,17 +247,38 @@ var Animation = (function () {
 		_Scene: function (cast) {
 
 			return {
-				
 				getSequence: function () { return scene; },
 
 //================================================
 // run animation
 				run: function (cast) {
 					var event;
-					status = "run";
+					var timeline = this.timeline;
+
+
+// init actors
+					$.each(cast.actor, function (idx,val) {
+
+// check if used and not in a group
+// hide unused actors
+						if (!timeline.cast[idx] && timeline.cast[this.group] == undefined) {
+							this.obj.setAttr("opacity",0);
+						}
+
+// init actor
+						else {
+							(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",1);
+						}
+					});
+
+					stage.draw();
+
+
+					debug_msg("run sequence '"+this.timeline.name+"'","RUN");
 
 // set current sequence
 					currScene = this;
+					currScene.status = "run";
 					currScene.cast = cast;
 					currScene.timeline.frame = currScene.timeline.start;
 
@@ -250,21 +291,37 @@ var Animation = (function () {
 								
 								switch (this.type) {
 									case "click":
+										debug_msg("set click event on '"+idx+"'","CREATE");
+										
 										currScene.cast.actor[idx].obj.action = this.action;
 
+										if (this.value)
+											currScene.cast.actor[idx].obj.value = this.value;
+										
+										debug_msg(currScene.cast.actor[idx].obj,"EVENT");
+										
 // add event to actor
 										currScene.cast.actor[idx].obj.on("click", function (evt) {
+
 // parse actions
-console.log(evt);
-											switch (evt.target.action) {
+											switch (this.action) {
 												case "resume":
-													currScene.setFrame(currScene.timeline);
-													status = "run";
-													timer = setTimeout(currScene.Step,loopTime);
+													debug_msg("click event fired","EVENT");
+													debug_msg("resume animation","EVENT");
+
+													currScene.Resume();
 													break;
 
 												case "goto":
-						console.log("goto");
+													debug_msg("goto event fired","EVENT");
+													debug_msg("goto frame","EVENT");
+													break;
+
+												case "scene":
+													debug_msg("scene event fired","EVENT");
+													debug_msg("start scene '"+this.value+"'","EVENT");
+
+													globalStage.run(this.value);
 													break;
 											}
 										});
@@ -305,7 +362,11 @@ console.log(evt);
 //================================================
 // stop animation
 				Stop: function () {
-					status = "stop";
+
+//DEBUG
+					debug_msg("animation stopped","RUN");
+					
+					currScene.status = "stop";
 					GUI.showStatus(this);
 
 //TODO jump to next animation
@@ -315,21 +376,29 @@ console.log(evt);
 
 
 //================================================
+// resume animation
+				Resume: function () {
+					debug_msg("resume animation","RUN");
+
+					clearTimeout(timer);
+
+					currScene.status = "run";
+					currScene.setFrame(currScene.timeline);
+
+					timer = setTimeout(currScene.Step,loopTime);
+				},
+
+//================================================
 // next animation step
 				Step: function () {
 					var scene = currScene.timeline;
 					var cast = currScene.cast;
-
-console.log(scene.frame);
-
-					GUI.showFrame(scene);
-//					GUI.showStatus(this);
+					var nextFrame;
 
 //		GUI.showBar(frame / (end - start) * 100);
 
 // execute keyframe
 					$.each(scene.cast, function (i,v) {
-
 
 // get actor data from definition
 						if (v.keys) {
@@ -359,12 +428,16 @@ console.log(scene.frame);
 					if (scene.event) {
 						$.each(scene.event, function () {
 
+
 							if (this.time == "*") {
 								switch (this.action) {
 									case "post":
+// DEBUG
+										debug_msg("post event fired at frame "+frame,"RUN");
+										
 										var done = Math.round(scene.frame * 100 / scene.end);
 										var param = this.value.split("&");
-console.log(scene);
+//console.log(scene);
 
 										param.push("sequ="+scene.name);
 										param.push("done="+done);
@@ -379,14 +452,38 @@ console.log(scene);
 								}
 							}
 
+
+//=================================================================
+// execute event
 							if (this.time == scene.frame) {
 								switch (this.action) {
+// stop animation
 									case "stop":
+										debug_msg("stop event at frame "+scene.frame,"EVENT");
 										clearTimeout(timer);
 										currScene.Stop();
 										break;
 
+// wait animation
+									case "wait":
+										debug_msg("wait event at frame "+scene.frame+" for "+this.value+"ms","EVENT");
+										clearTimeout(timer);
+										currScene.Stop();
+
+										timer = setTimeout(currScene.Resume, this.value);
+										
+										break;
+
+// goto frame
+									case "goto":
+										debug_msg("event goto frame "+this.frame,"EVENT");
+										nextFrame = this.frame;
+										break;
+
+
+// send post message
 									case "post":
+										debug_msg("post event at frame "+frame,"EVENT");
 										var param = this.value.split("&");
 
 										param.push("sequ="+scene.name);
@@ -399,12 +496,13 @@ console.log(scene);
 											})
 											
 											.success(function (data) {
-											console.log(data);
+												debug_msg(data,"EVENT");
 											})
 											
 											.error(function (jqXHR) {
-												console.log("error: "+jqXHR.statusText+" status: "+jqXHR.status+" readyState: "+jqXHR.readyState);
+												debug_msg("error: "+jqXHR.statusText+" status: "+jqXHR.status+" readyState: "+jqXHR.readyState,"ERROR");
 											});
+
 										break;
 								}
 							}
@@ -414,9 +512,10 @@ console.log(scene);
 
 //*******************************
 // set new animation position
-					if (status == "run") {
+					if (nextFrame != undefined)
+						currScene.setFrame(scene,nextFrame);
+					else
 						currScene.setFrame(scene);
-					}
 				},
 
 
@@ -426,30 +525,48 @@ console.log(scene);
 
 // goto frame
 					if (frame != undefined) {
-						if (frame >= scene.start && frame <= scene.end)
+						if (frame >= scene.start && frame <= scene.end) {
+							debug_msg("set frame to "+frame,"RUN");
 							scene.frame = frame;
+						}
 					}
-					
+					else {
 // loop
-					if (scene.frame >= scene.end) {
+						if (scene.frame > scene.end) {
 
-						if (!scene.loop || (loopPos < scene.loop)) {
-							scene.frame = scene.start;
-							loopPos++;
+							if (!scene.loop || (loopPos < scene.loop)) {
+								scene.frame = scene.start;
+								loopPos++;
 
 // restart loop
-							timer = setTimeout(currScene.Step, loopTime);
+								timer = setTimeout(currScene.Step, loopTime);
+							}
+							else {
+								debug_msg("end of sequence","RUN");
+								
+								clearTimeout(timer);
+								currScene.Stop();
+
+// onstop found => start new scene
+								if (currScene.timeline.onstop) {
+									globalStage.run(currScene.timeline.onstop);
+								}
+							}
 						}
-						else {
-							clearTimeout(timer);
-							currScene.Stop();
-						}
-					}
+
+
 // next frame
-					else {
-						scene.frame++;
-						timer = setTimeout(currScene.Step, loopTime);
+						else {
+
+							if (currScene.status == "run") {
+								scene.frame++;
+								timer = setTimeout(currScene.Step, loopTime);
+							}
+						}
 					}
+					
+					GUI.showFrame(scene);
+//					GUI.showStatus(this);
 				},
 				
 
@@ -713,4 +830,23 @@ var GUI = function () {
 	};
 
 }();
+
+
+
+//================================================
+//================================================
+// debug method
+function debug_msg(text,level) {
+
+	if (debug) {
+		if ($.inArray(level.toUpperCase(),debugLevel) >= 0) {
+			if (typeof(text) == "object") {
+				console.log(level);
+				console.log(text);
+			}
+			else
+				console.log(level+" "+text);
+		}
+	}
+}
 

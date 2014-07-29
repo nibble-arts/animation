@@ -46,6 +46,7 @@ Definition file
 
 
 # array of sequence definitions
+# sequence main is mandatory and started automatically
 		sequence: [
 			<scene_name>: {
 				start: <start_frame>,
@@ -54,11 +55,25 @@ Definition file
 				onend: <sequence_name>,				# sequence name to run after loops ended
 				onenable: <...???...>	,				# action done when player is enabled for this sequence
 				ondisable: <...???...>,				# action done when player is disabled from this sequence
+				event:  [
+					{ time: <frame>, action: <event action>, [value: <post value> }
+																			# event actions:	stop - stops execution
+																			#									wait / value - resume after value ms
+																			#									resume - resume execution at current frame
+																			#									post / value - send to post-address parameter string in value
+																			#									goto / frame - resume at frame
+				],
 				cast : [
 					<actor_name>: {
 						layer / group: <layer_name> / <group_name>			# layer = single object / group = animated with a group
 						keys: [
 							{ time: <frame_number>, ...<list of key values>... }
+						],
+						event: [
+							{ type: <event type>, action: <event action> }
+																			# event types:	click - mouse click
+																											key / value - keytouch wait for key in value
+																											get / value - hear for html event in value
 						]
 					}
 				]
