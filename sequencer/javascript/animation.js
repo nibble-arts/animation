@@ -12,8 +12,9 @@ var globalStage;
 // ERROR ... show errors
 // WARNING ... show warnings
 var debug = true; // show/hide debug information on consol
-//var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
-var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
+var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
+//var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
+
 
 
 //=====================================================================================
@@ -27,8 +28,8 @@ function load(path) {
 		init(data.animation);
 	})
 	.error(function (xhr,type) {
-		debug_msg(xhr,"ERROR");
-		debug_msg(type,"ERROR");
+		console.log(xhr,"ERROR");
+		console.log(type,"ERROR");
 	});
 };
 
@@ -39,6 +40,9 @@ function load(path) {
 // init animation engine
 function init(data) {
 	globalStage = new Animation.Stage(data.stage);
+
+	newremote = new Animation.Remote();
+	globalStage.addRemote(newremote);
 
 	newactor = new Animation.Actor(data.cast);
 	globalStage.addActor(newactor);
@@ -76,6 +80,9 @@ var Animation = (function () {
 	var loop = 1; // number of loops: 0 => loop forever
 	var loopPos = 1; // number of loop
 
+	var remoteTimer;
+	var remoteTime = 250;
+	var remoteRetryTime = 5000;
 
 // global methods
 	return {
@@ -87,10 +94,12 @@ var Animation = (function () {
 				dataType: "json",
 				type: "GET",
 			})
+
 			.done(function (animJSON) {
 				this.data = animJSON;
 				currScene.status = "loaded";
 			})
+
 			.error(function (xhr,type) {
 				debug_msg(xhr,"ERROR");
 				debug_msg(type,"ERROR");
@@ -104,6 +113,7 @@ var Animation = (function () {
 			var cast = {};
 			var sequence = {};
 			var layer = {};
+			var remote = {};
 
 
 //************************************************************************
@@ -124,6 +134,11 @@ var Animation = (function () {
 
 				addScene: function (scene) {
 					this.sequence = scene;
+				},
+
+				addRemote: function (remote) {
+					this.remote = remote;
+					this.remote.Start();
 				},
 				
 				getWidth: function () { return stage.getWidth(); },
@@ -796,8 +811,65 @@ var Animation = (function () {
 					return (keyVal);
 				}
 			}
-		}
+		},
 
+
+
+//================================================
+// create remote objects
+		Remote: function () {
+			var apiPath = "../remote/remote.php";
+			var status = "undefined";
+			var data = {};
+			var callback;
+
+			return {
+// get api data
+				Start: function () {	
+
+					$.ajax(apiPath, {
+						dataType: "json",
+						type: "GET",
+						callback: this
+					})
+
+					.success(function (data) {
+						clearTimeout(remoteTimer);
+
+// start remote timeout
+						if (data.name = "animation_remote") {
+
+							if (status == "undefined")
+								debug_msg("remote connected","RUN");
+
+							status = "connected";
+							data = data;
+
+							remoteTimer = setTimeout(callback,remoteTime);
+						}
+
+// retry remote connection
+						else {
+							debug_msg("no remote connection","RUN");
+
+// connection lost ?
+							if (status == "connected")
+								debug_msg("remote connection lost","RUN");
+								
+							status = "undefined";
+
+							remoteTimer = setTimeout(callback,remoteRetryTime);
+						}
+					})
+
+					.error(function (xhr,type) {
+						console.log(xhr,"ERROR");
+						console.log(type,"ERROR");
+					});
+				}
+				
+			}
+		}
 	}
 })();
 
@@ -841,11 +913,11 @@ function debug_msg(text,level) {
 	if (debug) {
 		if ($.inArray(level.toUpperCase(),debugLevel) >= 0) {
 			if (typeof(text) == "object") {
-				console.log(level);
+				console.log(level)+":";
 				console.log(text);
 			}
 			else
-				console.log(level+" "+text);
+				console.log(level+": "+text);
 		}
 	}
 }
