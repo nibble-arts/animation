@@ -32,12 +32,12 @@ switch ($cmd) {
 			$element = $xml->createElement("done",$done);
 			$xml->appendChild($element);
 
-//			$xml->save("status/".$sequ.".xml");
+			$xml->save("status/".$sequ.".xml");
 		}
 		break;
 	
 	default:
-//		$xml->save("status/".$sequ.".xml");
+		$xml->save("status/".$sequ.".xml");
 		break;
 }
 
