@@ -1,12 +1,13 @@
 ///=====================================================================================
-// load data file
-var animationPath = "../animation/";
-var imagePath = "../animation/images/";
-var globalStage;
+// settings
+var animationPath = "animation/";
+var imagePath = "animation/images/";
+
+var remotePath = "remote/remote.php";
 
 var remote;
 var remoteTimer;
-var remoteTime = 250;
+var remoteTime = 1000;
 var remoteRetryTime = 5000;
 
 // definition in debugLevel for debug informations to show
@@ -16,14 +17,19 @@ var remoteRetryTime = 5000;
 // ERROR ... show errors
 // WARNING ... show warnings
 var debug = true; // show/hide debug information on consol
-var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
-//var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
+//var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
+var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
+
+// global parameters
+var globalStage;
+
 
 
 
 //=====================================================================================
 // load animation data
 function load(path) {
+
 	$.ajax(animationPath+path, {
 		dataType: "json",
 		type: "GET",
@@ -43,7 +49,7 @@ function load(path) {
 //=====================================================================================
 // init animation engine
 function init(data) {
-	remote = new Remote.Start();
+//	remote = new Remote.Start();
 
 	globalStage = new Animation.Stage(data.stage);
 
@@ -212,7 +218,6 @@ var Animation = (function () {
 				cast[actorName] = newactor;
 			});
 
-
 // global methods
 			return {
 				actor: cast,
@@ -295,6 +300,7 @@ var Animation = (function () {
 
 // set events
 						if(this.event) {
+
 							$.each(this.event, function () {
 								
 								switch (this.type) {
@@ -306,11 +312,10 @@ var Animation = (function () {
 										if (this.value)
 											currScene.cast.actor[idx].obj.value = this.value;
 										
-										debug_msg(currScene.cast.actor[idx].obj,"EVENT");
+//										debug_msg(currScene.cast.actor[idx].obj,"EVENT");
 										
 // add event to actor
 										currScene.cast.actor[idx].obj.on("click", function (evt) {
-
 // parse actions
 											switch (this.action) {
 												case "resume":
@@ -329,7 +334,12 @@ var Animation = (function () {
 													debug_msg("scene event fired","EVENT");
 													debug_msg("start scene '"+this.value+"'","EVENT");
 
+//TODO remove use of global variable
 													globalStage.run(this.value);
+													break;
+
+												case "post":
+													debug_msg("post event fired","EVENT");
 													break;
 											}
 										});
@@ -396,6 +406,8 @@ var Animation = (function () {
 					timer = setTimeout(currScene.Step,loopTime);
 				},
 
+
+//================================================
 //================================================
 // next animation step
 				Step: function () {
@@ -436,11 +448,10 @@ var Animation = (function () {
 					if (scene.event) {
 						$.each(scene.event, function () {
 
-
 							if (this.time == "*") {
 								switch (this.action) {
+// post event
 									case "post":
-// DEBUG
 										debug_msg("post event fired at frame "+frame,"RUN");
 										
 										var done = Math.round(scene.frame * 100 / scene.end);
@@ -600,7 +611,12 @@ var Animation = (function () {
 						else
 							var dt = 0;
 
-						var dv = parseFloat(val.start.val) + parseFloat((dt * (val.end.val - val.start.val)));
+// key only numbers
+
+
+						if (parseInt(val.start.val) == NaN && parseInt(val.end.val) == NaN)
+							var dv = parseFloat(val.start.val) + parseFloat((dt * (val.end.val - val.start.val)));
+						else dv = val.end.val;
 
 						keyVal[ind] = dv;
 					});
@@ -814,7 +830,6 @@ var Animation = (function () {
 //================================================
 // create remote objects
 var Remote = function () {
-	var apiPath = "../remote/remote.php";
 	var status = "undefined";
 	var data = {};
 	var callback;
@@ -823,7 +838,7 @@ var Remote = function () {
 // get api data
 		Start: function () {	
 
-			$.ajax(apiPath, {
+			$.ajax(remotePath, {
 				dataType: "json",
 				type: "GET",
 				callback: this
@@ -867,7 +882,7 @@ var Remote = function () {
 
 // check for remote event
 		Event: function () {
-			console.log(this.data);
+//			console.log(this.data);
 		}
 	}
 }();
