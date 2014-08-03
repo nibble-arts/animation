@@ -298,56 +298,61 @@ var Animation = (function () {
 // activate actors
 					$.each(currScene.timeline.cast, function (idx) {
 
-// set events
+//================================================
+// bind events
 						if(this.event) {
 
-//TODO pass all events to click
-							$.each(this.event, function () {
-								
-								switch (this.type) {
-									case "click":
-										debug_msg("set click event on '"+idx+"'","CREATE");
-										
-										currScene.cast.actor[idx].obj.action = this.action;
+// set new scene events
+							currScene.cast.actor[idx].obj.remove("event");
+							currScene.cast.actor[idx].obj.event = this.event;
 
-										if (this.value)
-											currScene.cast.actor[idx].obj.value = this.value;
-										
-//										debug_msg(currScene.cast.actor[idx].obj,"EVENT");
-										
+//TODO check if click defined
+							if (true) {
+// remove old click event
+								currScene.cast.actor[idx].obj.off("click");
+
 // add event to actor
-										currScene.cast.actor[idx].obj.on("click", function (evt) {
-// parse actions
-											switch (this.action) {
-												case "resume":
-													debug_msg("click event fired","EVENT");
-													debug_msg("resume animation","EVENT");
+								currScene.cast.actor[idx].obj.on("click", function (evt) {
 
-													currScene.Resume();
-													break;
+// parse events
+									$.each(this.event, function () {
+										switch (this.action) {
+											case "resume":
+												debug_msg("click event fired","EVENT");
+												debug_msg("resume animation","EVENT");
 
-												case "goto":
-													debug_msg("goto event fired","EVENT");
-													debug_msg("goto frame","EVENT");
-													break;
+												currScene.Resume();
+												break;
 
-												case "scene":
-													debug_msg("scene event fired","EVENT");
-													debug_msg("start scene '"+this.value+"'","EVENT");
+											case "goto":
+												debug_msg("goto event fired","EVENT");
+												debug_msg("goto frame","EVENT");
+												break;
+
+											case "scene":
+												debug_msg("scene event fired","EVENT");
+												debug_msg("start scene '"+this.value+"'","EVENT");
 
 //TODO remove use of global variable
-													globalStage.run(this.value);
-													break;
+												globalStage.run(this.value);
+												break;
 
-												case "post":
-													debug_msg("post event fired","EVENT");
-													break;
-											}
-										});
+											case "post":
+												debug_msg("post event fired","EVENT");
+												
+												var param = new Array;
 
-										break;
-								}
-							});
+												param.push("sequ="+currScene.timeline.name);
+												param.push("time="+currScene.timeline.frame);
+												param.push("action="+this.action);
+												param.push("value="+this.value);
+
+												Remote.Send(remotePath,param.join("&"));
+												break;
+										}
+									});
+								});
+							}
 						}
 
 // add actor to layer
@@ -387,10 +392,6 @@ var Animation = (function () {
 					
 					currScene.status = "stop";
 					GUI.showStatus(this);
-
-//TODO jump to next animation
-//					currScene = {};
-//console.dir(stage);
 				},
 
 
@@ -884,6 +885,15 @@ var Remote = function () {
 // check for remote event
 		Event: function () {
 //			console.log(this.data);
+		},
+
+
+		Send: function (url, data) {
+			$.ajax(
+			{
+				url: url,
+				data: data
+			});
 		}
 	}
 }();

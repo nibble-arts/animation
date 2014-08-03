@@ -66,8 +66,8 @@
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "time": 0, "type": "click", "action": "post", "value": "ghegabahn" },
-							{ "time": 0, "type": "click", "action": "scene", "value": "ghegabahn" }
+							{ "type": "click", "action": "post", "value": "ghegabahn" },
+							{ "type": "click", "action": "scene", "value": "scene:ghegabahn" }
 						]
 					},
 
@@ -77,7 +77,7 @@
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "otter" },
+							{ "type": "click", "action": "post", "value": "scene:otter" },
 							{ "type": "click", "action": "scene", "value": "otter" }
 						]
 					}
@@ -107,7 +107,7 @@
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "otter" },
+							{ "type": "click", "action": "post", "value": "scene:otter" },
 							{ "type": "click", "action": "scene", "value": "otter" }
 						]
 					},
@@ -118,7 +118,7 @@
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "main" },
+							{ "type": "click", "action": "post", "value": "scene:main" },
 							{ "type": "click", "action": "scene", "value": "main" }
 						]
 					}
@@ -141,8 +141,8 @@
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "scene", "value": "ghegabahn" },
-							{ "type": "click", "action": "post", "value": "ghegabahn" }
+							{ "type": "click", "action": "post", "value": "scene:ghegabahn" },
+							{ "type": "click", "action": "scene", "value": "ghegabahn" }
 						]
 					},
 
@@ -159,7 +159,7 @@
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "main" },
+							{ "type": "click", "action": "post", "value": "scene:main" },
 							{ "type": "click", "action": "scene", "value": "main" }
 						]
 					}
