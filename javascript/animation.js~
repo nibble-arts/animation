@@ -347,7 +347,7 @@ var Animation = (function () {
 												param.push("action="+this.action);
 												param.push("value="+this.value);
 
-												Remote.Send(url,param.join("&"));
+												Remote.Send(remotePath,param);
 												break;
 										}
 									});
@@ -460,15 +460,10 @@ var Animation = (function () {
 										var param = this.value.split("&");
 //console.log(scene);
 
-										param.push("sequ="+scene.name);
-										param.push("done="+done);
+										param.push("scene="+scene.name);
 										param.push("time="+scene.frame);
 
-										$.ajax(
-											{
-												url: this.url,
-												data: param.join("&")
-											})
+										Remote.Send(param);
 										break;
 								}
 							}
@@ -507,23 +502,10 @@ var Animation = (function () {
 										debug_msg("post event at frame "+frame,"EVENT");
 										var param = this.value.split("&");
 
-										param.push("sequ="+scene.name);
+										param.push("scene="+scene.name);
 										param.push("time="+scene.frame);
-										
-										$.ajax(
-											{
-												url: this.url,
-												data: param.join("&")
-											})
-											
-											.success(function (data) {
-												debug_msg(data,"EVENT");
-											})
-											
-											.error(function (jqXHR) {
-												debug_msg("error: "+jqXHR.statusText+" status: "+jqXHR.status+" readyState: "+jqXHR.readyState,"ERROR");
-											});
 
+										Remote.Send(this.url,param);
 										break;
 								}
 							}
@@ -888,15 +870,30 @@ var Remote = function () {
 		},
 
 
+//************************
+// send remote command
 		Send: function (url, data) {
+			data.push("cmd=post");
+
 			$.ajax(
-			{
-				url: url,
-				data: data
+				{
+					url: url,
+					data: data.join("&")
+				}
+			)
+
+			.success(function (data) {
+				debug_msg(data,"EVENT");
+			})
+
+			.error(function (jqXHR) {
+				debug_msg("error: "+jqXHR.statusText+" status: "+jqXHR.status+" readyState: "+jqXHR.readyState,"ERROR");
 			});
 		}
 	}
 }();
+
+
 
 
 //================================================
