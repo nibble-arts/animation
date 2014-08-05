@@ -19,6 +19,8 @@
 				load("semmering.json");
 			});
 		</script>
+
+		<?PHP include_once("remote/remote.php"); ?>
 	</head>
 
 

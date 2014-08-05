@@ -16,10 +16,11 @@
 		
 		<script type="text/javascript">
 			$(document).ready(function () {
-//				Animation.Load("semmering");
-				load("semmering.json");
+				load("control.json");
 			});
 		</script>
+
+		<?PHP include_once("remote/remote.php"); ?>
 	</head>
 
 

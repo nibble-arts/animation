@@ -4,10 +4,12 @@
 include_once("dom.php");
 include_once("config.php");
 
+global $config;
 
 //***********************************
 // variable definition
 $cmd = ""; // remote command
+$animation = ""; // name of animation
 $version = ""; // animation version
 $scene = ""; // event time
 $time = "-1"; // event time
@@ -19,7 +21,9 @@ $value = ""; // action value
 // set html parameters
 if (isset($_GET["version"])) $version = $_GET["version"];
 
+if (isset($_GET["animation"])) $animation = $_GET["animation"];
 if (isset($_GET["cmd"])) $cmd = $_GET["cmd"];
+if (isset($_GET["animation"])) $animation = $_GET["animation"];
 if (isset($_GET["scene"])) $scene = $_GET["scene"];
 if (isset($_GET["time"])) $time = $_GET["time"];
 if (isset($_GET["action"])) $action = $_GET["action"];
@@ -28,7 +32,7 @@ if (isset($_GET["value"])) $value = $_GET["value"];
 
 //***********************************
 // init querys
-$query = new Query($scene,$time,$action,$value);
+$query = new Query($animation,$scene,$time,$action,$value);
 $retQuery = new Query();
 
 
@@ -72,6 +76,7 @@ else {
 
 //***********************************
 // set output dom data
+	if ($retQuery->animation()) $xml->appendChild($xml->createElement("animation",$retQuery->animation()));
 	if ($retQuery->scene()) $xml->appendChild($xml->createElement("scene",$retQuery->scene()));
 	if ($retQuery->time() >= 0) $xml->appendChild($xml->createElement("time",$retQuery->time()));
 	if ($retQuery->action()) $xml->appendChild($xml->createElement("action",$retQuery->action()));
@@ -95,7 +100,7 @@ echo		send_http($pair,$cmd,$query);
 echo "</pre>";
 	}
 
-	return new Query($query->scene(),$query->time(),"status","sent:".count($config["pair"]));
+	return new Query($query->animation(),$query->scene(),$query->time(),"status","sent:".count($config["pair"]));
 }
 
 
@@ -109,7 +114,7 @@ function get_from_paired ($query) {
 		$retData.push(send_http($pair,"get",$query));
 	}
 
-	return $query; //new Query($scene,$time,$action,$value);
+	return $query;
 }
 
 
@@ -117,9 +122,7 @@ function get_from_paired ($query) {
 // save remote data
 function remote_from_paired ($query) {
 	$timestamp = time();
-	$statusPath = "status/";
-	$statusFile = "";
-	$filePath = $statusPath.$timestamp.".status";
+	$statusPath = "../remote/status/";
 
 // extract action and value from value-parameter (action:value)
 	$act_val = explode(":",$query->value());
@@ -127,15 +130,8 @@ function remote_from_paired ($query) {
 	$query->set_action($act_val[0]);
 	$query->set_value($act_val[1]);
 
-
-//TODO choose method
-// write status with timestamp
-//	if (!file_exists($filePath)) {
-//		file_put_contents($filePath,$query->as_ini());
-//	}
-
 // rewrite status
-	file_put_contents($statusPath."status.txt",$query->as_ini());
+	file_put_contents($statusPath.$query->animation().".txt",$query->as_ini());
 }
 
 //=====================================================================
@@ -154,12 +150,14 @@ function send_http ($url,$cmd,$param) {
 //=====================================================================
 // query class
 class Query {
+	private $queryAnimation = "";
 	private $queryScene = "";
 	private $queryTime = "-1";
 	private $queryAction = "";
 	private $queryValue = "";
 	
-	function __construct ($queryScene = "",$queryTime = "-1",$queryAction = "",$queryValue = "") {
+	function __construct ($queryAnimation = "",$queryScene = "",$queryTime = "-1",$queryAction = "",$queryValue = "") {
+		if ($queryAnimation) $this->queryAnimation = $queryAnimation;
 		if ($queryScene) $this->queryScene = $queryScene;
 		if ($queryTime >= 0) $this->queryTime = $queryTime;
 		if ($queryAction) $this->queryAction = $queryAction;
@@ -167,12 +165,13 @@ class Query {
 	}
 
 	function get() {
-		return new Query($this->queryScene,$this->queryTime,$this->queryAction,$this->queryValue);
+		return new Query($this->queryAnimation,$this->queryScene,$this->queryTime,$this->queryAction,$this->queryValue);
 	}
 	
 	function get_array() {
 		$retArray = array();
 		
+		if ($this->queryAnimation) $retArray["animation"] = $this->queryAnimation;
 		if ($this->queryScene) $retArray["scene"] = $this->queryScene;
 		if ($this->queryTime >= 0) $retArray["time"] = $this->queryTime;
 		if ($this->queryAction) $retArray["action"] = $this->queryAction;
@@ -191,36 +190,44 @@ class Query {
 		return $retString;
 	}
 	
+	function animation() {
+		return $this->queryAnimation;
+	}
+
+	function set_animation($data) {
+		$this->queryAnimation = $data;
+	}
+
 	function scene() {
 		return $this->queryScene;
 	}
 
-	function set_scene($scene) {
-		$this->queryScene = $scene;
+	function set_scene($data) {
+		$this->queryScene = $data;
 	}
 
 	function time() {
 		return $this->queryTime;
 	}
 
-	function set_time($time) {
-		$this->queryTime = $time;
+	function set_time($data) {
+		$this->queryTime = $data;
 	}
 
 	function action() {
 		return $this->queryAction;
 	}
 
-	function set_action($action) {
-		$this->queryAction = $action;
+	function set_action($data) {
+		$this->queryAction = $data;
 	}
 
 	function value() {
 		return $this->queryValue;
 	}
 
-	function set_value($value) {
-		$this->queryValue = $value;
+	function set_value($data) {
+		$this->queryValue = $data;
 	}
 
 }

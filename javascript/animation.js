@@ -1,5 +1,7 @@
 ///=====================================================================================
 // settings
+var animationName = "";
+
 var animationPath = "animation/";
 var imagePath = "animation/images/";
 
@@ -29,6 +31,7 @@ var globalStage;
 //=====================================================================================
 // load animation data
 function load(path) {
+	animationName = path.split(".")[0];
 
 	$.ajax(animationPath+path, {
 		dataType: "json",
@@ -497,6 +500,13 @@ var Animation = (function () {
 										break;
 
 
+// stopto frame
+									case "stopto":
+										debug_msg("event goto frame and stop "+this.frame,"EVENT");
+										nextFrame = this.frame;
+//TODO
+										break;
+
 // send post message
 									case "post":
 										debug_msg("post event at frame "+frame,"EVENT");
@@ -874,7 +884,8 @@ var Remote = function () {
 // send remote command
 		Send: function (url, data) {
 			data.push("cmd=post");
-
+			data.push("animation="+animationName);
+			
 			$.ajax(
 				{
 					url: url,
