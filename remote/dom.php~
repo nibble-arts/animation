@@ -1,5 +1,5 @@
 <?php
-
+echo "include dom";
 // saveJSON: XML to JSON conversion/transformation
  
 // The saveJSON method is implemented as a method of the example DOMDocumentExtended class, which

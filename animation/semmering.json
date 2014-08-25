@@ -1,11 +1,5 @@
 {
 	"animation": {
-		"stage1": {
-			"id": "scene",
-			"width": 860,
-			"height": 540
-		},
-
 		"stage": {
 			"id": "scene",
 			"width": 1920,
@@ -32,7 +26,7 @@
 					{
 						"x": 850,
 						"y": 200,
-						"text": "Variante Kleiner Otter",
+						"text": "Basistunnel",
 						"fontSize": "50",
 						"fill": "black",
 						"align": "center",
@@ -193,6 +187,7 @@
 				"end": 0,
 				"loop": 1,
 				"event": [
+					{ "time": 0, "action": "post", "value": "scene:main" },
 					{ "time": 0, "action": "stop" }
 				],
 
@@ -226,6 +221,7 @@
 				"end": 200,
 				"loop": 1,
 				"event": [
+					{ "time": 0, "action": "post", "value": "scene:ghegabahn" },
 					{ "time": 25, "action": "stop" },
 					{ "time": 25, "action": "wait", "value": 1000 },
 					{ "time": 50, "action": "stop" }
@@ -273,6 +269,7 @@
 				"loop": 1,
 				"onstop": "main",
 				"event": [
+					{ "time": 0, "action": "post", "value": "scene:otter" },
 					{ "time": 50, "action": "stop" },
 					{ "time": 50, "action": "wait", "value": 1000 },
 					{ "time": 75, "action": "stop" }

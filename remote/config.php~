@@ -1,6 +1,8 @@
 <?PHP
 
 // configuration
+echo "config loaded";
+
 $config = array(
 	"pair" => array(
 		"http://localhost/animation/remote/remote.php"

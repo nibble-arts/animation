@@ -9,7 +9,7 @@ var remotePath = "remote/remote.php";
 
 var remote;
 var remoteTimer;
-var remoteTime = 1000;
+var remoteTime = 500;
 var remoteRetryTime = 5000;
 
 // definition in debugLevel for debug informations to show
@@ -24,6 +24,7 @@ var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
 
 // global parameters
 var globalStage;
+var currScene = {}; // current scene
 
 
 
@@ -52,7 +53,7 @@ function load(path) {
 //=====================================================================================
 // init animation engine
 function init(data) {
-//	remote = new Remote.Start();
+	remote = new Remote.Start();
 
 	globalStage = new Animation.Stage(data.stage);
 
@@ -84,7 +85,6 @@ var Animation = (function () {
 //	var end = 200; // animation end frame
 //	var frame = 0; // animation position
 
-	var currScene = {}; // current sequence
 	currScene.status = "started";
 
 	var timer;
@@ -283,12 +283,11 @@ var Animation = (function () {
 
 // init actor
 						else {
-							(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",1);
+							(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
 						}
 					});
 
-					stage.draw();
-
+//					stage.draw();
 
 					debug_msg("run sequence '"+this.timeline.name+"'","RUN");
 
@@ -378,7 +377,7 @@ var Animation = (function () {
 					});
 
 // draw result
-					stage.draw();
+					//stage.draw();
 
 					GUI.showStatus(currScene);
 		
@@ -457,16 +456,16 @@ var Animation = (function () {
 								switch (this.action) {
 // post event
 									case "post":
-										debug_msg("post event fired at frame "+frame,"RUN");
+										debug_msg("scene post event fired at frame "+frame,"RUN");
 										
 										var done = Math.round(scene.frame * 100 / scene.end);
-										var param = this.value.split("&");
+										var param = new Array;
 //console.log(scene);
 
 										param.push("scene="+scene.name);
 										param.push("time="+scene.frame);
 
-										Remote.Send(param);
+										Remote.Send(remotePath,param);
 										break;
 								}
 							}
@@ -474,7 +473,7 @@ var Animation = (function () {
 
 //=================================================================
 // execute event
-							if (this.time == scene.frame) {
+							if (this.time == scene.frame || this.time == undefined) {
 								switch (this.action) {
 // stop animation
 									case "stop":
@@ -509,13 +508,13 @@ var Animation = (function () {
 
 // send post message
 									case "post":
-										debug_msg("post event at frame "+frame,"EVENT");
-										var param = this.value.split("&");
+										debug_msg("post remote event","EVENT");
+										var param = new Array;
 
-										param.push("scene="+scene.name);
+										param.push("value="+this.value);
 										param.push("time="+scene.frame);
 
-										Remote.Send(this.url,param);
+										Remote.Send(remotePath,param);
 										break;
 								}
 							}
@@ -607,8 +606,7 @@ var Animation = (function () {
 
 // key only numbers
 
-
-						if (parseInt(val.start.val) == NaN && parseInt(val.end.val) == NaN)
+						if (typeof(val.start.val) == "number" && typeof(val.end.val) == "number")
 							var dv = parseFloat(val.start.val) + parseFloat((dt * (val.end.val - val.start.val)));
 						else dv = val.end.val;
 
@@ -831,16 +829,43 @@ var Remote = function () {
 	return {
 // get api data
 		Start: function () {	
+			var sceneName;
+
+			if (currScene.timeline) sceneName = currScene.timeline.name;
 
 			$.ajax(remotePath, {
 				dataType: "json",
 				type: "GET",
+				data: { "cmd": "get", "animation": animationName },
 				callback: this
 			})
 
 			.success(function (data) {
-				
 				clearTimeout(remoteTimer);
+
+//***********************************
+// parse action
+				switch (data.action) {
+					case "scene":
+						debug_msg("remote scene event","EVENT");
+						debug_msg("remote start scene '"+data.value+"'","EVENT");
+
+//TODO remove use of global variable
+						globalStage.run(data.value);
+						break;
+
+					case "stop":
+						break;
+
+					case "resume":
+						break;
+
+					case "goto":
+						break;
+
+					case "stopto":
+						break;
+				}
 
 // start remote timeout
 				if (data.name = "animation_remote") {
@@ -872,12 +897,6 @@ var Remote = function () {
 				console.log(type,"ERROR");
 			});
 		},
-		
-
-// check for remote event
-		Event: function () {
-//			console.log(this.data);
-		},
 
 
 //************************
@@ -885,7 +904,7 @@ var Remote = function () {
 		Send: function (url, data) {
 			data.push("cmd=post");
 			data.push("animation="+animationName);
-			
+
 			$.ajax(
 				{
 					url: url,

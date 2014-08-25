@@ -63,22 +63,35 @@
 					"start_ghega" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "fill": "black" }
+							{ "time": 0, "fill": "black" },
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:ghegabahn" },
-							{ "type": "click", "action": "scene", "value": "ghegabahn" }
+							{ "type": "click", "action": "post", "value": "scene:ghegabahn" }
 						]
 					},
 
 					"start_otter" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "fill": "black" }
+							{ "time": 0, "fill": "black" },
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:otter" },
-							{ "type": "click", "action": "scene", "value": "otter" }
+							{ "type": "click", "action": "post", "value": "scene:otter" }
+						]
+					},
+
+					"reset" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "fill": "black" },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 },
+							{ "time": 10, "opacity": 1 }
+						],
+						"event": [
+							{ "type": "click", "action": "post", "value": "scene:main" }
 						]
 					}
 				}
@@ -97,29 +110,30 @@
 					"start_ghega" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "fill": "green" }
+							{ "time": 0, "fill": "green" },
+							{ "time": 0, "scaleX": 1, "scaleY": 1 }
 						]
 					},
 
 					"start_otter" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "fill": "black" }
+							{ "time": 0, "fill": "black" },
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:otter" },
-							{ "type": "click", "action": "scene", "value": "otter" }
+							{ "type": "click", "action": "post", "value": "scene:otter" }
 						]
 					},
 
 					"reset" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "fill": "black" }
+							{ "time": 0, "fill": "black" },
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:main" },
-							{ "type": "click", "action": "scene", "value": "main" }
+							{ "type": "click", "action": "post", "value": "scene:main" }
 						]
 					}
 				}
@@ -138,17 +152,18 @@
 					"start_ghega" : {
 						"layer": "main",
 						"keys": [
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 },
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:ghegabahn" },
-							{ "type": "click", "action": "scene", "value": "ghegabahn" }
+							{ "type": "click", "action": "post", "value": "scene:ghegabahn" }
 						]
 					},
 
 					"start_otter" : {
 						"layer": "main",
 						"keys": [
+							{ "time": 0, "scaleX": 1, "scaleY": 1 },
 							{ "time": 0, "fill": "green" }
 						]
 					},
@@ -156,11 +171,11 @@
 					"reset" : {
 						"layer": "main",
 						"keys": [
+							{ "time": 0, "scaleX": 0.5, "scaleY": 0.5 },
 							{ "time": 0, "fill": "black" }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:main" },
-							{ "type": "click", "action": "scene", "value": "main" }
+							{ "type": "click", "action": "post", "value": "scene:main" }
 						]
 					}
 				}
