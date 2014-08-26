@@ -18,7 +18,7 @@ var remoteRetryTime = 5000;
 // RUN ... show runtime information
 // ERROR ... show errors
 // WARNING ... show warnings
-var debug = false; // show/hide debug information on consol
+var debug = true; // show/hide debug information on consol
 //var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
 var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
 
@@ -174,8 +174,6 @@ var Animation = (function () {
 					debug_msg("error - no geometry type defined","ERROR"); 
 				}
 
-				if (!this.geometry.opacity) this.geometry.opacity = 1;
-
 //Animation
 // create kinetic object
 				switch (this.geometry.type) {
@@ -272,80 +270,24 @@ var Animation = (function () {
 				run: function (cast) {
 					var event;
 					var timeline = this.timeline;
-					var fadeTime = 100;
 
-					if (timeline.fade != "none") {
-console.log(timeline.name);
 
-						var dissolve = {
-							"name": "dissolve",
-							"start": 0,
-							"end": fadeTime, // length of dissolve
-							"onstop": timeline.name, // name of next sequence
-							"fade": "none",
-							"loop": 0,
-							"frame": 0,
-							"cast": {
-							}
-						};
-
-//******************************
-// dissolve actors
-						$.each(cast.actor, function (idx,val) {
+// init actors
+					$.each(cast.actor, function (idx,val) {
 
 // check if used and not in a group
 // hide unused actors
-							if (!timeline.cast[idx] && timeline.cast[this.group] == undefined) {
+						if (!timeline.cast[idx] && timeline.cast[this.group] == undefined) {
+							this.obj.setAttr("opacity",0);
+						}
 
-//**********
-// fade out
-								dissolve.cast[idx] = { keys: [] };
+// init actor
+						else {
+							(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
+						}
+					});
 
-								var newKeyStart = { "time": 0, "opacity": this.obj.attrs.opacity };
-								var newKeyEnd = { "time": fadeTime, "opacity": 0 };
-
-								dissolve.cast[idx].keys.push(newKeyStart);
-								dissolve.cast[idx].keys.push(newKeyEnd);
-
-
-								this.obj.setAttr("opacity",0);
-							}
-
-							else {
-//**********
-// fade in
-								dissolve.cast[idx] = { keys: [] };
-
-								if (timeline.cast[idx])
-									var endVal = timeline.cast[idx].keys[0];
-								else
-									var endVal = { "time": fadeTime, "opacity": 1 };
-
-								var newKeyStart = { "time": fadeTime, "opacity": this.obj.attrs.opacity };
-								var newKeyEnd = endVal;
-
-								dissolve.cast[idx].keys.push(newKeyEnd);
-								dissolve.cast[idx].keys.push(newKeyStart);
-
-
-								(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
-							}
-						});
-
-/*						var newScene = new Animation._Scene();
-
-						newScene["timeline"] = dissolve;
-						globalStage.sequence.scene["_dissolve"] = newScene;
-
-						globalStage.run("_dissolve");*/
-					}
-
-//console.log(dissolve);
-
-
-
-
-
+//					stage.draw();
 
 					debug_msg("run sequence '"+this.timeline.name+"'","RUN");
 
@@ -395,7 +337,7 @@ console.log(timeline.name);
 
 
 // create dissolve to new scene
-//												this.CreateDissolve(this);
+												this.CreateDissolve(this);
 
 //TODO remove use of global variable
 												globalStage.run(this.value);
@@ -758,9 +700,9 @@ console.log(timeline.name);
 //================================================
 // create dissolve to switch to new scene
 				CreateDissolve: function (newScene) {
+//console.log(currScene.cast.actor);
 
-console.log(globalStage.cast.actor);
-console.log(globalStage.sequence.scene[newScene].timeline.cast);
+console.log(globalStage.sequence);
 
 
 				}
@@ -924,7 +866,8 @@ var Remote = function () {
 						debug_msg("remote start scene '"+data.value+"'","EVENT");
 
 // create dissolve to new scene
-//						currScene.CreateDissolve(data.value);
+
+						currScene.CreateDissolve(data.value);
 
 //TODO remove use of global variable
 						globalStage.run(data.value);
