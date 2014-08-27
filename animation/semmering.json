@@ -38,8 +38,7 @@
 						"fontSize": "80",
 						"fill": "white",
 						"align": "center",
-						"type": "text",
-						"opacity": 1
+						"type": "text"
 					}
 			},
 
@@ -64,7 +63,7 @@
 					{
 						"x": 0,
 						"y": 110,
-						"text": "Choose a stroy",
+						"text": "Choose a story",
 						"fontSize": "25",
 						"fill": "grey",
 						"align": "center",

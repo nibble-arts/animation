@@ -272,18 +272,23 @@ var Animation = (function () {
 				run: function (cast) {
 					var event;
 					var timeline = this.timeline;
-					var fadeTime = 100;
+					var fadeTime = 0;
+					var prevScene;
+					
+					if (currScene.timeline)
+						prevScene = currScene.timeline.name;
+					else
+						prevScene = "";
 
-					if (timeline.fade != "none") {
-console.log(timeline.name);
+					if (timeline.fade == undefined && prevScene != "_dissolve") {
 
 						var dissolve = {
-							"name": "dissolve",
+							"name": "_dissolve",
 							"start": 0,
 							"end": fadeTime, // length of dissolve
 							"onstop": timeline.name, // name of next sequence
-							"fade": "none",
-							"loop": 0,
+							"fade": true,
+							"loop": 1,
 							"frame": 0,
 							"cast": {
 							}
@@ -299,16 +304,22 @@ console.log(timeline.name);
 
 //**********
 // fade out
-								dissolve.cast[idx] = { keys: [] };
+console.log(timeline.name);
+console.log("fade out "+idx);
+console.log(this.obj.attrs.opacity+" -> 0");
 
-								var newKeyStart = { "time": 0, "opacity": this.obj.attrs.opacity };
-								var newKeyEnd = { "time": fadeTime, "opacity": 0 };
+// don't hide group members
+								if (this.group == undefined) {
+									dissolve.cast[idx] = { keys: [] };
 
-								dissolve.cast[idx].keys.push(newKeyStart);
-								dissolve.cast[idx].keys.push(newKeyEnd);
+									var newKeyStart = { "time": 0, "opacity": this.obj.attrs.opacity };
+									var newKeyEnd = { "time": fadeTime, "opacity": 0 };
 
+									dissolve.cast[idx].keys.push(newKeyStart);
+									dissolve.cast[idx].keys.push(newKeyEnd);
 
-								this.obj.setAttr("opacity",0);
+//									this.obj.setAttr("opacity",0);
+								}
 							}
 
 							else {
@@ -316,8 +327,13 @@ console.log(timeline.name);
 // fade in
 								dissolve.cast[idx] = { keys: [] };
 
-								if (timeline.cast[idx])
-									var endVal = timeline.cast[idx].keys[0];
+								if (timeline.cast[idx]) {
+console.log(timeline.name);
+console.log("fade in "+idx);
+console.log(this.obj.attrs.opacity+" -> "+timeline.cast[idx].keys[0].opacity);
+
+									var endVal = { "time": fadeTime, "opacity": timeline.cast[idx].keys[0].opacity };
+								}
 								else
 									var endVal = { "time": fadeTime, "opacity": 1 };
 
@@ -328,24 +344,25 @@ console.log(timeline.name);
 								dissolve.cast[idx].keys.push(newKeyStart);
 
 
-								(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
+//								(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
 							}
 						});
+console.log(dissolve);
 
-/*						var newScene = new Animation._Scene();
+						var newScene = new Animation._Scene();
 
 						newScene["timeline"] = dissolve;
 						globalStage.sequence.scene["_dissolve"] = newScene;
 
-						globalStage.run("_dissolve");*/
+						globalStage.run("_dissolve");
 					}
 
 //console.log(dissolve);
 
 
 
-
-
+					
+else {
 
 					debug_msg("run sequence '"+this.timeline.name+"'","RUN");
 
@@ -445,6 +462,7 @@ console.log(timeline.name);
 		
 // start animation
 					timer = setTimeout(this.Step,loopTime);
+}
 				},
 
 //================================================
