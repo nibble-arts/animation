@@ -147,6 +147,7 @@ var Animation = (function () {
 				getHeight: function () { return stage.getHeight(); },
 
 				run: function (sceneName) {
+console.log(this.sequence.scene[sceneName]);
 					this.sequence.scene[sceneName].run(this.cast);
 				},
 

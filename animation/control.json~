@@ -207,6 +207,7 @@
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
+							{ "type": "click", "action": "post", "value": "scene:tunnel" },
 							{ "type": "click", "action": "scene", "value": "start_tunnel" }
 						]
 					},

@@ -46,7 +46,7 @@ $xml->appendChild($xml->createElement("version","0.1"));
 // check for paired sequencers
 
 if (!count($config["pair"])) {
-//	$xml->appendChild($xml->createElement("warning","no sequencer paired"));
+	$xml->appendChild($xml->createElement("warning","no sequencer paired"));
 }
 
 
