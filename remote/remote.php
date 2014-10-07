@@ -127,19 +127,19 @@ function get_from_paired ($query) {
 //=====================================================================
 // save remote data
 function remote_from_paired ($query) {
-
 	$timestamp = time();
 	$statusPath = "../remote/status/";
 
 // extract action and value from value-parameter (action:value)
 	$act_val = explode(":",$query->value());
 
-	$query->set_action($act_val[0]);
-	$query->set_value($act_val[1]);
+	$query->set_action(array_shift($act_val));
+	$query->set_value(implode(":",$act_val));
 
 // rewrite status
 	file_put_contents($statusPath.$query->animation().".txt",$query->as_ini());
 }
+
 
 //=====================================================================
 // send http request and return

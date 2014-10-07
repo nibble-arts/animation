@@ -20,7 +20,7 @@ var remoteRetryTime = 5000;
 // WARNING ... show warnings
 var debug = false; // show/hide debug information on consol
 //var debugLevel = new Array("CREATE","RUN","EVENT","ERROR","WARNING");
-var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
+//var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
 
 // global parameters
 var globalStage;
@@ -146,8 +146,10 @@ var Animation = (function () {
 				getWidth: function () { return stage.getWidth(); },
 				getHeight: function () { return stage.getHeight(); },
 
-				run: function (sceneName) {
-					this.sequence.scene[sceneName].run(this.cast);
+				run: function (sceneName,startFrame) {
+					if (startFrame == undefined) startFrame = 0;
+
+					this.sequence.scene[sceneName].run(this.cast,startFrame);
 				},
 
 				stop: function () {
@@ -269,12 +271,12 @@ var Animation = (function () {
 
 //================================================
 // run animation
-				run: function (cast) {
+				run: function (cast,startFrame) {
 					var event;
 					var timeline = this.timeline;
 					var fadeTime = 0;
 					var prevScene;
-					
+
 					if (currScene.timeline)
 						prevScene = currScene.timeline.name;
 					else
@@ -287,6 +289,7 @@ var Animation = (function () {
 							"start": 0,
 							"end": fadeTime, // length of dissolve
 							"onstop": timeline.name, // name of next sequence
+							"onstopframe": startFrame,
 							"fade": true,
 							"loop": 1,
 							"frame": 0,
@@ -304,9 +307,9 @@ var Animation = (function () {
 
 //**********
 // fade out
-console.log(timeline.name);
-console.log("fade out "+idx);
-console.log(this.obj.attrs.opacity+" -> 0");
+//console.log(timeline.name);
+//console.log("fade out "+idx);
+//console.log(this.obj.attrs.opacity+" -> 0");
 
 // don't hide group members
 								if (this.group == undefined) {
@@ -329,7 +332,7 @@ console.log(this.obj.attrs.opacity+" -> 0");
 
 								if (timeline.cast[idx]) {
 //console.log(timeline.name);
-console.log("fade in "+idx);
+//console.log("fade in "+idx);
 //console.log(this.obj.attrs.opacity+" -> "+timeline.cast[idx].keys[0].opacity);
 
 									var endVal = { "time": fadeTime, "opacity": timeline.cast[idx].keys[0].opacity };
@@ -347,37 +350,44 @@ console.log("fade in "+idx);
 //								(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
 							}
 						});
-console.log(dissolve);
+//console.log(dissolve);
 
 						var newScene = new Animation._Scene();
 
 						newScene["timeline"] = dissolve;
 						globalStage.sequence.scene["_dissolve"] = newScene;
 
-						globalStage.run("_dissolve");
+						globalStage.run("_dissolve",startFrame);
 					}
 
-//console.log(dissolve);
+// end of dissolve
+//******************************
 
 
 
-					
-else {
 
-					debug_msg("run sequence '"+this.timeline.name+"'","RUN");
+//******************************
+// start scene
+
+					else {
+						debug_msg("run sequence '"+this.timeline.name+"'","RUN");
 
 // set current sequence
-					currScene = this;
-					currScene.status = "run";
-					currScene.cast = cast;
-					currScene.timeline.frame = currScene.timeline.start;
+						currScene = this;
+						currScene.status = "run";
+						currScene.cast = cast;
+						currScene.timeline.frame = currScene.timeline.start;
+
+// set startframe after onstop
+						if (currScene.timeline.onstopframe != 0)
+							startFrame = currScene.timeline.onstopframe;
 
 // activate actors
-					$.each(currScene.timeline.cast, function (idx) {
+						$.each(currScene.timeline.cast, function (idx) {
 
 //================================================
 // bind events
-						if(this.event) {
+							if(this.event) {
 
 // set new scene events
 							currScene.cast.actor[idx].obj.remove("event");
@@ -415,7 +425,7 @@ else {
 //												this.CreateDissolve(this);
 
 //TODO remove use of global variable
-												globalStage.run(this.value);
+												globalStage.run(this.value,startFrame);
 												break;
 
 											case "post":
@@ -427,6 +437,7 @@ else {
 												param.push("time="+currScene.timeline.frame);
 												param.push("action="+this.action);
 												param.push("value="+this.value);
+												param.push("cmd=post");
 
 												Remote.Send(remotePath,param);
 												break;
@@ -460,6 +471,12 @@ else {
 
 					GUI.showStatus(currScene);
 		
+// set start frame
+//					currScene.setFrame(currScene,20);
+					if (startFrame != undefined)
+						currScene.timeline.frame = startFrame;
+					else currScene.timeline.frame = 0;
+
 // start animation
 					timer = setTimeout(this.Step,loopTime);
 }
@@ -498,8 +515,26 @@ else {
 					var scene = currScene.timeline;
 					var cast = currScene.cast;
 					var nextFrame;
+					var progress = 0;
+					var eventValue;
 
-//		GUI.showBar(frame / (end - start) * 100);
+// calculate progess: 0-100%
+					var sceneLength = scene.end - scene.start;
+					if (sceneLength)
+						progress = Math.round(scene.frame / (sceneLength) * 100)
+
+// limit to 100%
+					if (progress > 100) progress = 100;
+
+// set screen progress
+					if (progress == undefined)
+						scene.progress = progress;
+
+					if (scene.progress != progress) {
+						scene.progress = progress;
+					}
+
+
 
 // execute keyframe
 					$.each(scene.cast, function (i,v) {
@@ -532,7 +567,7 @@ else {
 					if (scene.event) {
 						$.each(scene.event, function () {
 
-							if (this.time == "*") {
+/*							if (this.time == "*") {
 								switch (this.action) {
 // post event
 									case "post":
@@ -548,12 +583,28 @@ else {
 										Remote.Send(remotePath,param);
 										break;
 								}
-							}
+							}*/
 
 
 //=================================================================
 // execute event
 							if (this.time == scene.frame || this.time == undefined) {
+
+								eventValue = this.value;
+								
+// insert progress value
+								if (this.value != undefined && typeof (this.value) == "string") {
+									var progArray = this.value.split(":");
+
+									if (progArray.length > 2) {
+										if (progArray[2] == "progress") {
+
+										eventValue = progArray[0]+":"+progArray[1]+":"+scene.progress;
+										}
+									}
+								}
+								
+
 								switch (this.action) {
 // stop animation
 									case "stop":
@@ -564,11 +615,11 @@ else {
 
 // wait animation
 									case "wait":
-										debug_msg("wait event at frame "+scene.frame+" for "+this.value+"ms","EVENT");
+										debug_msg("wait event at frame "+scene.frame+" for "+eventValue+"ms","EVENT");
 										clearTimeout(timer);
 										currScene.Stop();
 
-										timer = setTimeout(currScene.Resume, this.value);
+										timer = setTimeout(currScene.Resume, eventValue);
 										
 										break;
 
@@ -583,7 +634,6 @@ else {
 									case "stopto":
 										debug_msg("event goto frame and stop "+this.frame,"EVENT");
 										nextFrame = this.frame;
-//TODO
 										break;
 
 // send post message
@@ -591,8 +641,10 @@ else {
 										debug_msg("post remote event","EVENT");
 										var param = new Array;
 
-										param.push("value="+this.value);
+										param.push("value="+eventValue);
+										param.push("progress"+progress);
 										param.push("time="+scene.frame);
+										param.push("cmd=post");
 
 										Remote.Send(remotePath,param);
 										break;
@@ -641,7 +693,7 @@ else {
 
 // onstop found => start new scene
 								if (currScene.timeline.onstop) {
-									globalStage.run(currScene.timeline.onstop);
+									globalStage.run(currScene.timeline.onstop,currScene.timeline.onstopframe);
 								}
 							}
 						}
@@ -777,8 +829,8 @@ else {
 // create dissolve to switch to new scene
 				CreateDissolve: function (newScene) {
 
-console.log(globalStage.cast.actor);
-console.log(globalStage.sequence.scene[newScene].timeline.cast);
+//console.log(globalStage.cast.actor);
+//console.log(globalStage.sequence.scene[newScene].timeline.cast);
 
 
 				}
@@ -958,6 +1010,13 @@ var Remote = function () {
 						break;
 
 					case "stopto":
+						if (data.value) {
+							if (data.value != undefined) {
+								var stoptoVal = data.value.split(":");
+
+								globalStage.run(stoptoVal[0],stoptoVal[1]);
+							}
+						}
 						break;
 				}
 
@@ -996,7 +1055,6 @@ var Remote = function () {
 //************************
 // send remote command
 		Send: function (url, data) {
-			data.push("cmd=post");
 			data.push("animation="+animationName);
 
 			$.ajax(

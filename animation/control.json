@@ -60,7 +60,7 @@
 					{
 						"x": 55,
 						"y": 65,
-						"text": "Above - The Semmeringbahn",
+						"text": "Above - The Semmering Railway",
 						"fontSize": "30",
 						"fill": "black",
 						"type": "text",
@@ -230,7 +230,8 @@
 				"loop": 1,
 				"onstop": "ghegabahn",
 				"event": [
-					{ "time": 25, "action": "post", "value": "scene:ghegabahn" }
+					{ "time": 25, "action": "post", "value": "scene:ghegabahn" },
+					{ "action": "progress" }
 				],
 				
 				"cast": {
@@ -246,6 +247,14 @@
 						"keys": [
 							{ "time": 0, "x": 120, "y": 170 },
 							{ "time": 25, "x": 570, "y": 450 }
+						]
+					},
+
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 25, "opacity": 0 }
 						]
 					},
 
@@ -272,7 +281,7 @@
 				"end": 100,
 				"loop": 1,
 				"event": [
-					{ "time": 0, "action": "stop" }
+					{ "action": "stop" }
 				],
 
 				"cast": {
@@ -334,6 +343,14 @@
 						"keys": [
 							{ "time": 0, "x": 120, "y": 400 },
 							{ "time": 25, "x": 570, "y": 450 }
+						]
+					},
+
+					"ghega" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 25, "opacity": 0 }
 						]
 					},
 

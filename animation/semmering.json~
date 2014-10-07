@@ -229,8 +229,9 @@
 				"end": 200,
 				"loop": 1,
 				"onstop": "main",
+
 				"event": [
-					{ "time": 0, "action": "post", "value": "scene:ghegabahn" },
+					{ "action": "post", "value": "stopto:progress" },
 					{ "time": 50, "action": "stop" },
 					{ "time": 50, "action": "wait", "value": 3000 },
 					{ "time": 200, "action": "wait", "value": 5000 }
