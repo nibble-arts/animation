@@ -1,182 +1,89 @@
 {
 	"animation": {
-		"stage": {
-			"id": "scene",
-			"width": 1920,
-			"height": 1080,
-			"fill": "black"
-		},
+		"stage": { "id": "scene", "width": 1920, "height": 1080, "fill": "black" },
 
 		"cast": {
 			"home": {
-				"geometry": {
-					"x": 0,
-					"y": 0,
-					"width": 1920,
-					"height": 1080,
-					"fill": "black",
-					"type": "rect"
-				}
+				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "fill": "black", "type": "rect" }
 			},
 			
 			"title": {
-				"geometry":
-					{
-						"x": 850,
-						"y": 900,
-						"type": "group"
-					}
+				"geometry": { "x": 850, "y": 900, "type": "group" }
 			},
 
 			"title_text": {
 				"group": "title",
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"text": "bahnen",
-						"fontSize": "80",
-						"fill": "white",
-						"align": "center",
-						"type": "text"
-					}
+				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"subtitle": {
 				"group": "title",
-				"geometry":
-					{
-						"x": 0,
-						"y": 80,
-						"text": "Wählen sie eine Geschichte",
-						"fontSize": "25",
-						"fill": "white",
-						"align": "center",
-						"type": "text",
-						"opacity": 1
-					}
+				"geometry": { "x": 0, "y": 80, "text": "Wählen sie eine Geschichte", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"subtitle_en": {
 				"group": "title",
-				"geometry":
-					{
-						"x": 0,
-						"y": 110,
-						"text": "Choose a story",
-						"fontSize": "25",
-						"fill": "grey",
-						"align": "center",
-						"type": "text",
-						"opacity": 1
-					}
+				"geometry": { "x": 0, "y": 110, "text": "Choose a story", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
 			},
 
 			"luftbild": {
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"strokeWidth": 0,
-						"fill": "black",
-						"src": "Luftbild.jpg",
-						"type": "image",
-						"opacity": 0
-					}
+				"geometry": { "x": 29, "y": 0, "src": "Luftbild1.jpg", "type": "image" }
 			},
 
 			"kartenfarben": {
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"strokeWidth": 0,
-						"src": "Kartenfarben.png",
-						"type": "image"
-					}
+				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "src": "Kartenfarben.png", "type": "image" }
 			},
 
 			"hoehen_dark": {
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"strokeWidth": 0,
-						"src": "Höhenlinien dunkel.png",
-						"type": "image"					}
+				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "src": "Höhenlinien dunkel.png", "type": "image" }
 			},
 
 			"hoehen_light": {
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"strokeWidth": 0,
-						"src": "Höhenlinien hell.png",
-						"type": "image",
-						"opacity": 1
-					}
+				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "src": "Höhenlinien hell.png", "type": "image" }
 			},
 
-			"semmeringbahn": {
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"strokeWidth": 0,
-						"src": "Semmeringbahn.png",
-						"type": "image",
-						"opacity": 0
-					}
+			"s00": {
+				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "src": "s00a.png", "type": "image" }
 			},
 
-			"tunnel": {
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"type": "group"
-					}
+			"s01": {
+				"geometry": { "x": 1283, "y": 79, "src": "s01_1254-79.png", "type": "image" }
 			},
 
-			"strecke_tunnel": {
-				"group": "tunnel",
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"src": "Strecke Kleiner Otter.png",
-						"type": "image",
-						"opacity": 1
-					}
+			"s02": {
+				"geometry": { "x": 1315, "y": 127, "src": "s02_1286-127.png", "type": "image" }
 			},
 
-			"luftbild_kleiner_otter": {
-				"group": "tunnel",
-				"geometry":
-					{
-						"x": 0,
-						"y": 0,
-						"width": 1920,
-						"height": 1080,
-						"src": "Luftbild Kleiner Otter.png",
-						"type": "image",
-						"opacity": 1
-					}
+			"s03": {
+				"geometry": { "x": 1413, "y": 222, "src": "s03_1384-222.png", "type": "image" }
+			},
+
+			"s04": {
+				"geometry": { "x": 1345, "y": 263, "src": "s04_1316-263.png", "type": "image" }
+			},
+
+			"s05": {
+				"geometry": { "x": 1208, "y": 304, "src": "s05_1179-304.png", "type": "image" }
+			},
+
+			"s06": {
+				"geometry": { "x": 1073, "y": 318, "src": "s06_1044-318.png", "type": "image" }
+			},
+
+			"s07": {
+				"geometry": { "x": 1036, "y": 351, "src": "s07_1007-351.png", "type": "image" }
+			},
+
+			"s08": {
+				"geometry": { "x": 1095, "y": 411, "src": "s08_1066-411.png", "type": "image" }
+			},
+
+			"s09": {
+				"geometry": { "x": 1113, "y": 460, "src": "s09_1084-460.png", "type": "image" }
+			},
+
+			"s_sued": {
+				"geometry": { "x": 486, "y": 553, "src": "s_sued_457-553.png", "type": "image" }
 			}
 		},
 
@@ -226,7 +133,7 @@
 			{
 				"name": "ghegabahn",
 				"start": 0,
-				"end": 200,
+				"end": 550,
 				"loop": 1,
 				"onstop": "main",
 
@@ -234,7 +141,26 @@
 					{ "action": "post", "value": "stopto:ghegabahn:progress" },
 					{ "time": 50, "action": "stop" },
 					{ "time": 50, "action": "wait", "value": 3000 },
-					{ "time": 200, "action": "wait", "value": 5000 }
+					{ "time": 100, "action": "stop" },
+					{ "time": 100, "action": "wait", "value": 3000 },
+					{ "time": 150, "action": "stop" },
+					{ "time": 150, "action": "wait", "value": 3000 },
+					{ "time": 200, "action": "stop" },
+					{ "time": 200, "action": "wait", "value": 3000 },
+					{ "time": 250, "action": "stop" },
+					{ "time": 250, "action": "wait", "value": 3000 },
+					{ "time": 300, "action": "stop" },
+					{ "time": 300, "action": "wait", "value": 3000 },
+					{ "time": 350, "action": "stop" },
+					{ "time": 350, "action": "wait", "value": 3000 },
+					{ "time": 400, "action": "stop" },
+					{ "time": 400, "action": "wait", "value": 3000 },
+					{ "time": 450, "action": "stop" },
+					{ "time": 450, "action": "wait", "value": 3000 },
+					{ "time": 500, "action": "stop" },
+					{ "time": 500, "action": "wait", "value": 3000 },
+					{ "time": 550, "action": "stop" },
+					{ "time": 550, "action": "wait", "value": 10000 }
 				],
 
 
@@ -246,15 +172,120 @@
 						]
 					},
 
-					"semmeringbahn": {
+					"s00": {
 						"layer": "bahn",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
 							{ "time": 75, "opacity": 0.5 }
-						],
-						"event": [
-							{ "type": "click", "action": "resume" }
+						]
+					},
+
+					"s_sued": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0.5 }
+						]
+					},
+
+					"s01": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s02": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s03": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s04": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s05": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s06": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 325, "opacity": 0 },
+							{ "time": 350, "opacity": 1 },
+							{ "time": 375, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s07": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 375, "opacity": 0 },
+							{ "time": 400, "opacity": 1 },
+							{ "time": 425, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s08": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 425, "opacity": 0 },
+							{ "time": 450, "opacity": 1 },
+							{ "time": 475, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
+						]
+					},
+
+					"s09": {
+						"layer": "bahn",
+						"keys": [
+							{ "time": 475, "opacity": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 525, "opacity": 0.5 },
+							{ "time": 550, "opacity": 1 }
 						]
 					}
 				}

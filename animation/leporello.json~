@@ -1,0 +1,260 @@
+{
+	"animation": {
+		"stage": { "id": "scene", "width": 1920, "height": 1080, "fill": "black" },
+
+		"cast": {
+			"home": {
+				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "fill": "black", "type": "rect" }
+			},
+			
+			"title": {
+				"geometry": { "x": 850, "y": 900, "type": "group" }
+			},
+
+			"title_text": {
+				"group": "title",
+				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"subtitle": {
+				"group": "title",
+				"geometry": { "x": 0, "y": 80, "text": "Wählen sie eine Geschichte", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"subtitle_en": {
+				"group": "title",
+				"geometry": { "x": 0, "y": 110, "text": "Choose a story", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+			"rahmen": {
+				"geometry": { "x": 1000, "y": 897, "width": 235, "height": 90, "type": "rect", "stroke": "red", "strokeWidth": 3 }
+			},
+			
+			"leporello_ganz": {
+				"geometry": { "x": 0, "y": 900, "src": "Leporello 1920.jpg", "type": "image" }
+			},
+
+			"Leporello_01": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_01.jpg", "type": "image" }
+			},
+
+			"Leporello_02": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_02.jpg", "type": "image" }
+			},
+
+			"Leporello_03": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_03.jpg", "type": "image" }
+			},
+
+			"Leporello_04": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_04.jpg", "type": "image" }
+			},
+
+			"Leporello_05": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_05.jpg", "type": "image" }
+			},
+
+			"Leporello_06": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_06.jpg", "type": "image" }
+			},
+
+			"Leporello_07": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_07.jpg", "type": "image" }
+			},
+
+			"Leporello_08": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_08.jpg", "type": "image" }
+			},
+
+			"Leporello_09": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_09.jpg", "type": "image" }
+			}
+		},
+
+
+
+		"sequence": [
+			{
+				"name": "main",
+				"start": 0,
+				"end": 1000,
+				"loop": 0,
+				"event": [
+					{ "time": 0, "action": "post", "value": "scene:main" }
+				],
+
+				"cast": {
+					"home" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 }
+						]
+					},
+					
+					"title" : {
+						"layer": "button",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 0, "x": -300 },
+							{ "time": 0, "y": 1000 },
+							{ "time": 1000, "x": 2050 },
+							{ "time": 1000, "y": 100 }
+						],
+						"event": [
+							{ "type": "click", "action": "scene", "value": "ghegabahn" }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "ghegabahn",
+				"start": 0,
+				"end": 550,
+				"loop": 1,
+				"onstop": "main",
+
+				"event": [
+					{ "action": "post", "value": "stopto:ghegabahn:progress" },
+					{ "time": 50, "action": "stop" },
+					{ "time": 50, "action": "wait", "value": 3000 },
+					{ "time": 100, "action": "stop" },
+					{ "time": 100, "action": "wait", "value": 3000 },
+					{ "time": 150, "action": "stop" },
+					{ "time": 150, "action": "wait", "value": 3000 },
+					{ "time": 200, "action": "stop" },
+					{ "time": 200, "action": "wait", "value": 3000 },
+					{ "time": 250, "action": "stop" },
+					{ "time": 250, "action": "wait", "value": 3000 },
+					{ "time": 300, "action": "stop" },
+					{ "time": 300, "action": "wait", "value": 3000 },
+					{ "time": 350, "action": "stop" },
+					{ "time": 350, "action": "wait", "value": 3000 },
+					{ "time": 400, "action": "stop" },
+					{ "time": 400, "action": "wait", "value": 3000 },
+					{ "time": 450, "action": "stop" },
+					{ "time": 450, "action": "wait", "value": 3000 },
+					{ "time": 500, "action": "stop" },
+					{ "time": 500, "action": "wait", "value": 3000 },
+					{ "time": 550, "action": "stop" },
+					{ "time": 550, "action": "wait", "value": 10000 }
+				],
+
+
+				"cast": {
+					"leporello_ganz" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 550, "opacity": 0 }
+						]
+					},
+					
+					"rahmen" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 0, "x": 1685 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 100, "x": 1685 },
+							{ "time": 150, "x": 1580 },
+							{ "time": 200, "x": 1360 },
+							{ "time": 250, "x": 1030 },
+							{ "time": 300, "x": 865 },
+							{ "time": 350, "x": 590 },
+							{ "time": 400, "x": 480 },
+							{ "time": 450, "x": 155 },
+							{ "time": 500, "x": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 550, "opacity": 0 }
+						]
+					},
+
+
+					"Leporello_01" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0 }
+						]
+					},
+
+					"Leporello_02" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0 }
+						]
+					},
+
+					"Leporello_03" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
+						]
+					},
+
+					"Leporello_04" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
+						]
+					},
+
+					"Leporello_05" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0 }
+						]
+					},
+
+					"Leporello_06" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 325, "opacity": 0 },
+							{ "time": 350, "opacity": 1 },
+							{ "time": 375, "opacity": 0 }
+						]
+					},
+
+					"Leporello_07" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 375, "opacity": 0 },
+							{ "time": 400, "opacity": 1 },
+							{ "time": 425, "opacity": 0 }
+						]
+					},
+
+					"Leporello_08" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 425, "opacity": 0 },
+							{ "time": 450, "opacity": 1 },
+							{ "time": 475, "opacity": 0 }
+						]
+					},
+
+					"Leporello_09" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 475, "opacity": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 525, "opacity": 0 }
+						]
+					}
+				}
+			}
+		]
+	}
+}

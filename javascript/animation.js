@@ -44,6 +44,7 @@ function load(path) {
 	.error(function (xhr,type) {
 		console.log(xhr,"ERROR");
 		console.log(type,"ERROR");
+		alert(type+" in animation file");
 	});
 };
 
@@ -971,7 +972,7 @@ var Remote = function () {
 
 	return {
 // get api data
-		Start: function () {	
+		Start: function () {
 			var sceneName;
 
 			if (currScene.timeline) sceneName = currScene.timeline.name;

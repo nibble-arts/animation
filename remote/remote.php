@@ -85,7 +85,8 @@ else {
 
 
 // send output
-echo $xml->saveJSON();
+if (count($_GET))
+	echo $xml->saveJSON();
 
 
 //=====================================================================

@@ -85,7 +85,8 @@ else {
 
 
 // send output
-echo $xml->saveJSON();
+if (count($_GET))
+	echo $xml->saveJSON();
 
 
 //=====================================================================
@@ -135,12 +136,6 @@ function remote_from_paired ($query) {
 
 	$query->set_action(array_shift($act_val));
 	$query->set_value(implode(":",$act_val));
-
-echo $query->action();
-echo $query->value();
-
-//	$query->set_action($act_val[0]);
-//	$query->set_value($act_val[1]);
 
 // rewrite status
 	file_put_contents($statusPath.$query->animation().".txt",$query->as_ini());

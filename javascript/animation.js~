@@ -44,6 +44,7 @@ function load(path) {
 	.error(function (xhr,type) {
 		console.log(xhr,"ERROR");
 		console.log(type,"ERROR");
+		alert(type+" in animation file");
 	});
 };
 
@@ -473,10 +474,9 @@ var Animation = (function () {
 		
 // set start frame
 //					currScene.setFrame(currScene,20);
-					currScene.timeline.frame = startFrame;
-
-console.log(currScene.timeline.name);
-console.log(startFrame);
+					if (startFrame != undefined)
+						currScene.timeline.frame = startFrame;
+					else currScene.timeline.frame = 0;
 
 // start animation
 					timer = setTimeout(this.Step,loopTime);
@@ -972,7 +972,7 @@ var Remote = function () {
 
 	return {
 // get api data
-		Start: function () {	
+		Start: function () {
 			var sceneName;
 
 			if (currScene.timeline) sceneName = currScene.timeline.name;
@@ -1089,17 +1089,17 @@ var GUI = function () {
 		statusId: "status",
 		
 		showBar: function (percentage) {
-			$("#bar").progressbar({
-				value: percentage
-			});
+//			$("#bar").progressbar({
+//				value: percentage
+//			});
 		},
 			
 		showFrame: function (e) {
-			$("#"+this.frameId).text("Frame "+e.frame+" ("+e.start+"-"+e.end+")");
+//			$("#"+this.frameId).text("Frame "+e.frame+" ("+e.start+"-"+e.end+")");
 		},
 
 		showStatus: function (id) {
-			$("#"+this.statusId).text(status);
+//			$("#"+this.statusId).text(status);
 		}
 	};
 

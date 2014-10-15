@@ -1,11 +1,13 @@
 body {
-	perspective: 200px;
-	transform-style: preserve-3d;
 	margin: 0;
 	padding: 0;
+	background-color: black;
 }
 
 #scene {
-	margin-top: 20px;
+	margin-top: 0px;
 }
 
+/*html {
+	cursor: none;
+}*/

@@ -9,7 +9,6 @@
 		<script src="javascript/kinetic-v5.1.0.min.js"></script>
 
 		<script src="javascript/animation.js" type="text/javascript"></script>
-
 		<script src="javascript/sequence.js" type="text/javascript"></script>
 
 		<link rel="stylesheet" type="text/css" href="animation.css">
