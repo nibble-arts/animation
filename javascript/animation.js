@@ -54,9 +54,10 @@ function load(path) {
 //=====================================================================================
 // init animation engine
 function init(data) {
-	remote = new Remote.Start();
-
 	globalStage = new Animation.Stage(data.stage);
+
+	remote = new Remote.Start();
+	globalStage.addRemote(remote);
 
 	newactor = new Animation.Actor(data.cast);
 	globalStage.addActor(newactor);
@@ -122,6 +123,7 @@ var Animation = (function () {
 			var cast = {};
 			var sequence = {};
 			var layer = {};
+			var remote = {};
 
 
 //************************************************************************
@@ -142,6 +144,10 @@ var Animation = (function () {
 
 				addScene: function (scene) {
 					this.sequence = scene;
+				},
+
+				addRemote: function (remote) {
+					this.remote = remote;
 				},
 
 				getWidth: function () { return stage.getWidth(); },
@@ -1005,6 +1011,7 @@ var Remote = function () {
 						break;
 
 					case "resume":
+					console.log("resume");
 						break;
 
 					case "goto":

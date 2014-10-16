@@ -45,7 +45,7 @@ $xml->appendChild($xml->createElement("version","0.1"));
 //***********************************
 // check for paired sequencers
 
-if (!count($config["pair"])) {
+if (!count($config)) {
 //	$xml->appendChild($xml->createElement("warning","no sequencer paired"));
 }
 
@@ -91,15 +91,28 @@ if (count($_GET))
 
 //=====================================================================
 // send post to all paired sequencers
+// value@target
 function post_to_paired ($query) {
 	global $config;
+	$sent = 0;
 	$cmd = "remote";
-	
-	foreach ($config["pair"] as $pair) {
-		send_http($pair,$cmd,$query);
+
+	$valArray = explode("@",$query->value());
+
+// look for defined target
+	if (count($valArray) > 1) $target = $valArray[1];
+	else $target = "";
+
+// no target => sent to all
+// target => sent to target only
+	foreach ($config as $pair) {
+		if ($target == "" or $target == $pair["name"]) {
+			send_http($pair["uri"],$cmd,$query);
+			$sent++;
+		}
 	}
 
-	return new Query($query->animation(),$query->scene(),$query->time(),"status","sent:".count($config["pair"]));
+	return new Query($query->animation(),$query->scene(),$query->time(),"status","sent:".$sent);
 }
 
 
@@ -109,7 +122,9 @@ function get_from_paired ($query) {
 	$status = new Query();
 	$statusPath = "../remote/status/";
 
-//	foreach ($config["pair"] as $pair) {
+print_r($query);
+
+//	foreach ($config as $pair) {
 //		array_push($retData,send_http($pair,"get",$query));
 //	}
 
@@ -128,17 +143,37 @@ function get_from_paired ($query) {
 //=====================================================================
 // save remote data
 function remote_from_paired ($query) {
+	global $config;
+	
 	$timestamp = time();
 	$statusPath = "../remote/status/";
+	$target = "";
+	$value = $query->value();
+
+// extract target
+	$valArray = explode("@",$value);
+
+// look for defined target
+	if (count($valArray) > 1) {
+		$target = array_pop($valArray);
+		$value = $valArray[0];
+	}
 
 // extract action and value from value-parameter (action:value)
-	$act_val = explode(":",$query->value());
+	$act_val = explode(":",$value);
 
 	$query->set_action(array_shift($act_val));
 	$query->set_value(implode(":",$act_val));
 
 // rewrite status
-	file_put_contents($statusPath.$query->animation().".txt",$query->as_ini());
+	if ($target != "")
+		file_put_contents($statusPath.$target.".".$query->animation().".txt",$query->as_ini());
+	else {
+		foreach ($config as $pair) {
+			file_put_contents($statusPath.$pair["name"].".".$query->animation().".txt",$query->as_ini());
+		}
+	}
+
 }
 
 

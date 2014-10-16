@@ -1,29 +1,53 @@
-{
+﻿{
 	"animation": {
 		"stage": { "id": "scene", "width": 1920, "height": 1080, "fill": "black" },
 
 		"cast": {
 			"home": {
-				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "fill": "black", "type": "rect" }
-			},
-			
-			"title": {
 				"geometry": { "x": 850, "y": 900, "type": "group" }
 			},
 
-			"title_text": {
-				"group": "title",
+			"home_text": {
+				"group": "home",
 				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"home_subtitle": {
+				"group": "home",
+				"geometry": { "x": 0, "y": 80, "text": "Eisenbahn und Berge", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"home_subtitle_en": {
+				"group": "home",
+				"geometry": { "x": 0, "y": 110, "text": "Railway and Mountains", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+			"title": {
+				"geometry": { "x": 100, "y": 810, "type": "group" }
 			},
 
 			"subtitle": {
 				"group": "title",
-				"geometry": { "x": 0, "y": 80, "text": "Wählen sie eine Geschichte", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "Panorama der k.k. Staatsbahn über den Semmering", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"subtitle_en": {
 				"group": "title",
-				"geometry": { "x": 0, "y": 110, "text": "Choose a story", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 30, "text": "Ludwig Czerny, Wien 1854", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+			"credit": {
+				"geometry": { "x": 100, "y": 810, "type": "group" }
+			},
+
+			"credit_sub": {
+				"group": "credit",
+				"geometry": { "x": 0, "y": 0, "text": "Eisenbahnarchiv des Technischen Museums Wien", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"credit_sub_en": {
+				"group": "credit",
+				"geometry": { "x": 0, "y": 30, "text": "Railway Archive of the Vienna Technical Museum", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
 			},
 
 			"rahmen": {
@@ -85,13 +109,6 @@
 
 				"cast": {
 					"home" : {
-						"layer": "main",
-						"keys": [
-							{ "time": 0, "opacity": 1 }
-						]
-					},
-					
-					"title" : {
 						"layer": "button",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
@@ -110,7 +127,7 @@
 			{
 				"name": "ghegabahn",
 				"start": 0,
-				"end": 550,
+				"end": 575,
 				"loop": 1,
 				"onstop": "main",
 
@@ -142,13 +159,31 @@
 
 
 				"cast": {
+					"title" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 }
+						]
+					},
+					
+					"credit" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 525, "opacity": 0 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
+						]
+					},
+					
 					"leporello_ganz" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 500, "opacity": 1 },
-							{ "time": 550, "opacity": 0 }
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
 						]
 					},
 					
@@ -168,7 +203,7 @@
 							{ "time": 450, "x": 155 },
 							{ "time": 500, "x": 0 },
 							{ "time": 500, "opacity": 1 },
-							{ "time": 550, "opacity": 0 }
+							{ "time": 525, "opacity": 0 }
 						]
 					},
 

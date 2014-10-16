@@ -327,7 +327,7 @@
 				"loop": 1,
 				"onstop": "tunnel",
 				"event": [
-					{ "time": 25, "action": "post", "value": "scene:tunnel@semmering" }
+					{ "time": 25, "action": "post", "value": "scene:tunnel" }
 				],
 				
 				"cast": {
