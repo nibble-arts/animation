@@ -1,0 +1,4 @@
+animation = 'karte'
+time = '501'
+action = 'resume'
+value = 'inhalt'

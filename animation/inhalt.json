@@ -113,16 +113,13 @@
 							{ "time": 0, "y": 1000 },
 							{ "time": 1000, "x": 2050 },
 							{ "time": 1000, "y": 100 }
-						],
-						"event": [
-							{ "type": "click", "action": "scene", "value": "ghegabahn" }
 						]
 					}
 				}
 			},
 
 			{
-				"name": "ghegabahn",
+				"name": "leporello",
 				"start": 0,
 				"end": 575,
 				"loop": 1,

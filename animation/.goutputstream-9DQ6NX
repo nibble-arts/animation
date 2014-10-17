@@ -1,0 +1,397 @@
+﻿{
+	"animation": {
+		"stage": { "id": "scene", "width": 1920, "height": 1080, "fill": "black" },
+
+		"cast": {
+			"home": {
+				"geometry": { "x": 850, "y": 900, "type": "group" }
+			},
+
+			"home_text": {
+				"group": "home",
+				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"home_subtitle": {
+				"group": "home",
+				"geometry": { "x": 0, "y": 80, "text": "Eisenbahn und Berge", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"home_subtitle_en": {
+				"group": "home",
+				"geometry": { "x": 0, "y": 110, "text": "Railway and Mountains", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+			"title": {
+				"geometry": { "x": 100, "y": 810, "type": "group" }
+			},
+
+			"subtitle": {
+				"group": "title",
+				"geometry": { "x": 0, "y": 0, "text": "Panorama der k.k. Staatsbahn über den Semmering", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"subtitle_en": {
+				"group": "title",
+				"geometry": { "x": 0, "y": 30, "text": "Ludwig Czerny, Wien 1854", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+			"credit": {
+				"geometry": { "x": 100, "y": 810, "type": "group" }
+			},
+
+			"credit_sub": {
+				"group": "credit",
+				"geometry": { "x": 0, "y": 0, "text": "Eisenbahnarchiv des Technischen Museums Wien", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"credit_sub_en": {
+				"group": "credit",
+				"geometry": { "x": 0, "y": 30, "text": "Railway Archive of the Vienna Technical Museum", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+			"rahmen": {
+				"geometry": { "x": 1000, "y": 897, "width": 235, "height": 90, "type": "rect", "stroke": "red", "strokeWidth": 3 }
+			},
+			
+			"leporello_ganz": {
+				"geometry": { "x": 0, "y": 900, "src": "Leporello 1920.jpg", "type": "image" }
+			},
+
+			"Leporello_01": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_01.jpg", "type": "image" }
+			},
+
+			"txt_schwarzaviadukt": {
+				"geometry": { "x": 1300, "y": 800, "text": "Schwarza Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"Leporello_02": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_02.jpg", "type": "image" }
+			},
+
+			"txt_payerbachgrabenviadukt": {
+				"geometry": { "x": 900, "y": 800, "text": "Payerbachgraben Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"Leporello_03": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_03.jpg", "type": "image" }
+			},
+
+			"txt_abfaltersbachviadukt": {
+				"geometry": { "x": 900, "y": 800, "text": "Abfaltersbach Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_eichberg": {
+				"geometry": { "x": 175, "y": 800, "text": "Station Eichberg", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"Leporello_04": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_04.jpg", "type": "image" }
+			},
+
+			"txt_rumplertunnel": {
+				"geometry": { "x": 620, "y": 800, "text": "Rumplertunnel", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_klamm": {
+				"geometry": { "x": 350, "y": 800, "text": "Station Klamm", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_schlossklamm": {
+				"geometry": { "x": 50, "y": 800, "text": "Schloss Klamm", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"Leporello_05": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_05.jpg", "type": "image" }
+			},
+
+			"txt_wagnergrabenviadukt": {
+				"geometry": { "x": 1250, "y": 800, "text": "Wagnergraben Viadukt, "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_gamperlviadukt": {
+				"geometry": { "x": 350, "y": 800, "text": "Gamperl Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"Leporello_06": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_06.jpg", "type": "image" }
+			},
+
+			"Leporello_07": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_07.jpg", "type": "image" }
+			},
+
+			"Leporello_08": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_08.jpg", "type": "image" }
+			},
+
+			"Leporello_09": {
+				"geometry": { "x": 0, "y": 50, "src": "Leporello_09.jpg", "type": "image" }
+			}
+		},
+
+
+
+		"sequence": [
+			{
+				"name": "main",
+				"start": 0,
+				"end": 1000,
+				"loop": 0,
+
+				"cast": {
+					"home" : {
+						"layer": "button",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 0, "x": -300 },
+							{ "time": 0, "y": 1000 },
+							{ "time": 1000, "x": 2050 },
+							{ "time": 1000, "y": 100 }
+						],
+						"event": [
+							{ "type": "click", "action": "scene", "value": "ghegabahn" }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "ghegabahn",
+				"start": 0,
+				"end": 575,
+				"loop": 1,
+				"onstop": "main",
+
+				"event": [
+					{ "time": 50, "action": "stop" },
+					{ "time": 100, "action": "stop" },
+					{ "time": 150, "action": "stop" },
+					{ "time": 200, "action": "stop" },
+					{ "time": 250, "action": "stop" },
+					{ "time": 300, "action": "stop" },
+					{ "time": 350, "action": "stop" },
+					{ "time": 400, "action": "stop" },
+					{ "time": 450, "action": "stop" },
+					{ "time": 500, "action": "stop" },
+					{ "time": 550, "action": "stop" }
+				],
+
+
+				"cast": {
+					"title" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 }
+						]
+					},
+					
+					"credit" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 525, "opacity": 0 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
+						]
+					},
+					
+					"leporello_ganz" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
+						]
+					},
+					
+					"rahmen" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 0, "x": 1685 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 100, "x": 1685 },
+							{ "time": 150, "x": 1580 },
+							{ "time": 200, "x": 1360 },
+							{ "time": 250, "x": 1030 },
+							{ "time": 300, "x": 865 },
+							{ "time": 350, "x": 590 },
+							{ "time": 400, "x": 370 },
+							{ "time": 450, "x": 155 },
+							{ "time": 500, "x": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 525, "opacity": 0 }
+						]
+					},
+
+
+					"Leporello_01" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0 }
+						]
+					},
+
+					"txt_schwarzaviadukt" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0 }
+						]
+					},
+
+					"Leporello_02" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0 }
+						]
+					},
+
+					"txt_payerbachgrabenviadukt" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0 }
+						]
+					},
+
+					"Leporello_03" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
+						]
+					},
+
+					"txt_abfaltersbachviadukt" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
+						]
+					},
+
+					"txt_eichberg" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
+						]
+					},
+
+					"Leporello_04" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
+						]
+					},
+
+					"txt_rumplertunnel" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
+						]
+					},
+
+					"txt_klamm" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
+						]
+					},
+
+					"txt_schlossklamm" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
+						]
+					},
+
+					"Leporello_05" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0 }
+						]
+					},
+
+					"txt_wagnergrabenviadukt" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0 }
+						]
+					},
+
+					"txt_gamperlviadukt" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0 }
+						]
+					},
+
+					"Leporello_06" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 325, "opacity": 0 },
+							{ "time": 350, "opacity": 1 },
+							{ "time": 375, "opacity": 0 }
+						]
+					},
+
+					"Leporello_07" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 375, "opacity": 0 },
+							{ "time": 400, "opacity": 1 },
+							{ "time": 425, "opacity": 0 }
+						]
+					},
+
+					"Leporello_08" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 425, "opacity": 0 },
+							{ "time": 450, "opacity": 1 },
+							{ "time": 475, "opacity": 0 }
+						]
+					},
+
+					"Leporello_09" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 475, "opacity": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 525, "opacity": 0 }
+						]
+					}
+				}
+			}
+		]
+	}
+}
