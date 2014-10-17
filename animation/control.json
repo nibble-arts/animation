@@ -389,20 +389,11 @@
 			{
 				"name": "benkert",
 				"start": 0,
-				"end": 500,
-				"loop": 1,
+				"end": 100,
+				"loop": 0,
 				"event": [
 					{ "time": 0, "action": "stop" },
-					{ "time": 50, "action": "stop" },
-					{ "time": 100, "action": "stop" },
-					{ "time": 150, "action": "stop" },
-					{ "time": 200, "action": "stop" },
-					{ "time": 250, "action": "stop" },
-					{ "time": 300, "action": "stop" },
-					{ "time": 350, "action": "stop" },
-					{ "time": 400, "action": "stop" },
-					{ "time": 450, "action": "stop" },
-					{ "time": 500, "action": "stop" }
+					{ "time": 50, "action": "stop" }
 				],
 
 				"cast": {
@@ -424,7 +415,7 @@
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },
-							{ "time": 500, "width": 660 }
+							{ "time": 100, "width": 660 }
 						]
 					},
 

@@ -1,4 +1,0 @@
-animation = 'karte_leporello'
-time = '51'
-action = 'resume'
-value = 'leporello'

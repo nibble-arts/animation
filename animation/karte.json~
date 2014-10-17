@@ -20,24 +20,51 @@
 				"geometry": { "x": 29, "y": 0, "src": "Luftbild1.jpg", "type": "image" }
 			},
 
+
+
+
 			"txt_gloggnitz": {
 				"geometry": { "x": 1650, "y": 230, "text": "Gloggnitz", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
 			},
 
-			"txt_muerzzuschlag": {
-				"geometry": { "x": 380, "y": 750, "text": "Mürzzuschlag", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			"txt_payerbach": {
+				"geometry": { "x": 1250, "y": 45, "text": "Payerbach", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_krauselklause": {
+				"geometry": { "x": 950, "y": 250, "text": "Krauselklause Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_bolleroswand": {
+				"geometry": { "x": 850, "y": 300, "text": "Bollerostunnel", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_kalterinne": {
+				"geometry": { "x": 750, "y": 350, "text": "Kalte Rinne Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+			"txt_adlitzgraben": {
+				"geometry": { "x": 780, "y": 460, "text": "Adlitzgraben Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
 			},
 
 			"txt_semmering": {
 				"geometry": { "x": 930, "y": 530, "text": "Semmering", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
 			},
 
+			"txt_muerzzuschlag": {
+				"geometry": { "x": 380, "y": 750, "text": "Mürzzuschlag", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+			},
+
+
+
+
+
 			"s00": {
 				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "src": "s00a.png", "type": "image" }
 			},
 
 			"s_semmering": {
-				"geometry": { "x": 29, "y": 0, "src": "s_semmering.jpg", "type": "image" }
+				"geometry": { "x": 29, "y": 0, "src": "s_semmering.png", "type": "image" }
 			},
 
 			"s01": {
@@ -78,6 +105,15 @@
 
 			"s_sued": {
 				"geometry": { "x": 486, "y": 553, "src": "s_sued_457-553.png", "type": "image" }
+			},
+
+
+			"k_tallachini": {
+				"geometry": { "x": 990, "y": 318, "src": "k_tallachini.jpg", "type": "image" }
+			},
+			
+			"s_tallachini": {
+				"geometry": { "x": 990, "y": 318, "src": "s_tallachini.png", "type": "image" }
 			}
 		},
 
@@ -109,13 +145,10 @@
 						"layer": "button",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 0, "x": -300 },
+							{ "time": 0, "x": -600 },
 							{ "time": 0, "y": 1000 },
 							{ "time": 1000, "x": 2050 },
 							{ "time": 1000, "y": 100 }
-						],
-						"event": [
-							{ "type": "click", "action": "scene", "value": "leporello" }
 						]
 					}
 				}
@@ -124,7 +157,7 @@
 			{
 				"name": "leporello",
 				"start": 0,
-				"end": 550,
+				"end": 551,
 				"loop": 1,
 				"onstop": "main",
 
@@ -160,7 +193,8 @@
 					{ "time": 500, "action": "wait", "value": 3000 },
 					{ "time": 501, "action": "post", "value": "resume:inhalt" },
 					{ "time": 550, "action": "stop" },
-					{ "time": 550, "action": "wait", "value": 5000 }
+					{ "time": 550, "action": "wait", "value": 5000 },
+					{ "time": 551, "action": "post", "value": "scene:main@control" }
 				],
 
 
@@ -180,7 +214,7 @@
 						]
 					},
 
-					"txt_muerzzuschlag" : {
+					"txt_payerbach" : {
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
@@ -189,6 +223,14 @@
 					},
 
 					"txt_semmering" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 }
+						]
+					},
+
+					"txt_muerzzuschlag" : {
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
@@ -319,7 +361,7 @@
 			{
 				"name": "benkert",
 				"start": 0,
-				"end": 550,
+				"end": 701,
 				"loop": 1,
 				"onstop": "main",
 
@@ -344,7 +386,6 @@
 					{ "time": 301, "action": "post", "value": "resume:inhalt" },
 					{ "time": 350, "action": "stop" },
 					{ "time": 350, "action": "wait", "value": 3000 },
-					{ "time": 351, "action": "post", "value": "resume:inhalt" },
 					{ "time": 400, "action": "stop" },
 					{ "time": 400, "action": "wait", "value": 3000 },
 					{ "time": 401, "action": "post", "value": "resume:inhalt" },
@@ -355,7 +396,18 @@
 					{ "time": 500, "action": "wait", "value": 3000 },
 					{ "time": 501, "action": "post", "value": "resume:inhalt" },
 					{ "time": 550, "action": "stop" },
-					{ "time": 550, "action": "wait", "value": 5000 }
+					{ "time": 550, "action": "wait", "value": 3000 },
+					{ "time": 551, "action": "post", "value": "resume:inhalt" },
+					{ "time": 600, "action": "stop" },
+					{ "time": 600, "action": "wait", "value": 3000 },
+					{ "time": 601, "action": "post", "value": "resume:inhalt" },
+					{ "time": 650, "action": "stop" },
+					{ "time": 650, "action": "wait", "value": 3000 },
+					{ "time": 651, "action": "post", "value": "resume:inhalt" },
+
+					{ "time": 700, "action": "stop" },
+					{ "time": 700, "action": "wait", "value": 5000 },
+					{ "time": 701, "action": "post", "value": "scene:main@control" }
 				],
 
 
@@ -363,7 +415,10 @@
 					"luftbild" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 0, "opacity": 1 }
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.5 }
 						]
 					},
 
@@ -371,15 +426,19 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0 }
 						]
 					},
 
-					"txt_muerzzuschlag" : {
+					"txt_payerbach" : {
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0 }
 						]
 					},
 
@@ -387,7 +446,19 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0 }
+						]
+					},
+
+					"txt_muerzzuschlag" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0 }
 						]
 					},
 
@@ -400,14 +471,77 @@
 						]
 					},
 
+					"s00" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0.5 }
+						]
+					},
+
 					"s_semmering" : {
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0.5 }
+						]
+					},
+
+					"k_tallachini" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 }
+						]
+					},
+					
+					"s_tallachini" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 }
+						]
+					},
+
+					"txt_krauselklause" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0 }
+						]
+					},
+					
+					"txt_bolleroswand" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
+						]
+					},
+					
+					"txt_kalterinne" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 1 }
+						]
+					},
+					
+					"txt_adlitzgraben" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 575, "opacity": 0 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					}
-
 				}
 			}
 

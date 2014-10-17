@@ -19,7 +19,7 @@
 					}
 			},
 			
-			"ghega": {
+			"leporello": {
 				"geometry":
 					{
 						"x": 570,
@@ -29,8 +29,8 @@
 					}
 			},
 
-			"ghega_block": {
-				"group": "ghega",
+			"leporello_block": {
+				"group": "leporello",
 				"geometry": {
 					"x": 0,
 					"y": 0,
@@ -39,8 +39,8 @@
 				}
 			},
 			
-			"ghega_text_de": {
-				"group": "ghega",
+			"leporello_text_de": {
+				"group": "leporello",
 				"geometry":
 					{
 						"x": 55,
@@ -54,8 +54,8 @@
 					}
 			},
 
-			"ghega_text_en": {
-				"group": "ghega",
+			"leporello_text_en": {
+				"group": "leporello",
 				"geometry":
 					{
 						"x": 55,
@@ -68,8 +68,8 @@
 					}
 			},
 
-			"ghega_progress": {
-				"group": "ghega",
+			"leporello_progress": {
+				"group": "leporello",
 				"geometry":
 					{
 						"x": 55,
@@ -178,18 +178,18 @@
 						]
 					},
 					
-					"ghega" : {
+					"leporello" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "x": 570, "y": 120 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
-							{ "type": "click", "action": "scene", "value": "start_ghega" }
+							{ "type": "click", "action": "scene", "value": "start_leporello" }
 						]
 					},
 
-					"ghega_progress": {
+					"leporello_progress": {
 						"keys": [
 							{ "time": 0, "opacity": 0 },
 							{ "time": 0, "width": 10 }
@@ -226,14 +226,14 @@
 			},
 
 			{
-				"name": "start_ghega",
+				"name": "start_leporello",
 				"start": 0,
 				"end": 25,
 				"loop": 1,
-				"onstop": "ghegabahn",
+				"onstop": "leporello",
 				"event": [
-					{ "time": 25, "action": "post", "value": "scene:ghegabahn@karte" },
-					{ "time": 25, "action": "post", "value": "scene:ghegabahn@inhalt" }
+					{ "time": 25, "action": "post", "value": "scene:leporello@karte" },
+					{ "time": 25, "action": "post", "value": "scene:leporello@inhalt" }
 				],
 				
 				"cast": {
@@ -244,7 +244,7 @@
 						]
 					},
 
-					"ghega" : {
+					"leporello" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "x": 570, "y": 170 },
@@ -260,7 +260,7 @@
 						]
 					},
 
-					"ghega_progress": {
+					"leporello_progress": {
 						"keys": [
 							{ "time": 0, "opacity": 0 },
 							{ "time": 25, "opacity": 1 }
@@ -279,7 +279,7 @@
 			},
 
 			{
-				"name": "ghegabahn",
+				"name": "leporello",
 				"start": 0,
 				"end": 500,
 				"loop": 1,
@@ -305,14 +305,14 @@
 						]
 					},
 					
-					"ghega" : {
+					"leporello" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 }
 						]
 					},
 
-					"ghega_progress": {
+					"leporello_progress": {
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },
@@ -352,7 +352,7 @@
 						]
 					},
 
-					"ghega" : {
+					"leporello" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
@@ -389,20 +389,11 @@
 			{
 				"name": "benkert",
 				"start": 0,
-				"end": 500,
+				"end": 100,
 				"loop": 1,
 				"event": [
 					{ "time": 0, "action": "stop" },
-					{ "time": 50, "action": "stop" },
-					{ "time": 100, "action": "stop" },
-					{ "time": 150, "action": "stop" },
-					{ "time": 200, "action": "stop" },
-					{ "time": 250, "action": "stop" },
-					{ "time": 300, "action": "stop" },
-					{ "time": 350, "action": "stop" },
-					{ "time": 400, "action": "stop" },
-					{ "time": 450, "action": "stop" },
-					{ "time": 500, "action": "stop" }
+					{ "time": 50, "action": "stop" }
 				],
 
 				"cast": {
@@ -424,7 +415,7 @@
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },
-							{ "time": 500, "width": 660 }
+							{ "time": 100, "width": 660 }
 						]
 					},
 

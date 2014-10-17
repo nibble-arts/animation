@@ -22,19 +22,39 @@
 				"geometry": { "x": 0, "y": 110, "text": "Railway and Mountains", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
 			},
 
-			"title": {
+
+
+			"title_leporello": {
 				"geometry": { "x": 100, "y": 810, "type": "group" }
 			},
 
-			"subtitle": {
-				"group": "title",
+			"subtitle_leporello": {
+				"group": "title_leporello",
 				"geometry": { "x": 0, "y": 0, "text": "Panorama der k.k. Staatsbahn über den Semmering", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
 			},
 
-			"subtitle_en": {
-				"group": "title",
+			"subtitle_en_leporello": {
+				"group": "title_leporello",
 				"geometry": { "x": 0, "y": 30, "text": "Ludwig Czerny, Wien 1854", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
 			},
+
+
+
+			"title_benkert": {
+				"geometry": { "x": 100, "y": 810, "type": "group" }
+			},
+
+			"subtitle_benkert": {
+				"group": "title_benkert",
+				"geometry": { "x": 0, "y": 0, "text": "Lithographien vom Bau der Semmeringbahn", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+			},
+
+			"subtitle_en_benkert": {
+				"group": "title_benkert",
+				"geometry": { "x": 0, "y": 30, "text": "Imre Mária Benkert, 1848-1854", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+			},
+
+
 
 			"credit": {
 				"geometry": { "x": 100, "y": 810, "type": "group" }
@@ -49,6 +69,8 @@
 				"group": "credit",
 				"geometry": { "x": 0, "y": 30, "text": "Railway Archive of the Vienna Technical Museum", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
 			},
+
+
 
 			"rahmen": {
 				"geometry": { "x": 1000, "y": 897, "width": 235, "height": 90, "type": "rect", "stroke": "red", "strokeWidth": 3 }
@@ -92,6 +114,52 @@
 
 			"Leporello_09": {
 				"geometry": { "x": 0, "y": 50, "src": "Leporello_09.jpg", "type": "image" }
+			},
+
+
+
+			"Benkert_01": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_krauselklause_01.jpg", "type": "image" }
+			},
+
+			"Benkert_02": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_krauselklause_02.jpg", "type": "image" }
+			},
+
+			"Benkert_03": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_bolleroswand.jpg", "type": "image" }
+			},
+
+			"Benkert_04": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_01.jpg", "type": "image" }
+			},
+
+			"Benkert_05": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_02.jpg", "type": "image" }
+			},
+
+			"Benkert_06": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_03.jpg", "type": "image" }
+			},
+
+			"Benkert_07": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_04.jpg", "type": "image" }
+			},
+
+			"Benkert_08": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_05.jpg", "type": "image" }
+			},
+
+			"Benkert_09": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_06.jpg", "type": "image" }
+			},
+
+			"Benkert_10": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_07.jpg", "type": "image" }
+			},
+
+			"Benkert_11": {
+				"geometry": { "x": 320, "y": 0, "src": "benk_adlitzgraben.jpg", "type": "image" }
 			}
 		},
 
@@ -113,9 +181,6 @@
 							{ "time": 0, "y": 1000 },
 							{ "time": 1000, "x": 2050 },
 							{ "time": 1000, "y": 100 }
-						],
-						"event": [
-							{ "type": "click", "action": "scene", "value": "leporello" }
 						]
 					}
 				}
@@ -144,7 +209,7 @@
 
 
 				"cast": {
-					"title" : {
+					"title_leporello" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
@@ -271,6 +336,141 @@
 							{ "time": 475, "opacity": 0 },
 							{ "time": 500, "opacity": 1 },
 							{ "time": 525, "opacity": 0 }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "benkert",
+				"start": 0,
+				"end": 650,
+				"loop": 1,
+				"onstop": "main",
+
+				"event": [
+					{ "time": 50, "action": "stop" },
+					{ "time": 100, "action": "stop" },
+					{ "time": 150, "action": "stop" },
+					{ "time": 200, "action": "stop" },
+					{ "time": 250, "action": "stop" },
+					{ "time": 300, "action": "stop" },
+					{ "time": 350, "action": "stop" },
+					{ "time": 400, "action": "stop" },
+					{ "time": 450, "action": "stop" },
+					{ "time": 500, "action": "stop" },
+					{ "time": 550, "action": "stop" },
+					{ "time": 600, "action": "stop" },
+					{ "time": 650, "action": "stop" }
+				],
+
+
+				"cast": {
+					"title_benkert" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 }
+						]
+					},
+					
+					"Benkert_01" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0 }
+						]
+					},
+
+					"Benkert_02" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0 }
+						]
+					},
+
+					"Benkert_03" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
+						]
+					},
+
+					"Benkert_04" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
+						]
+					},
+
+					"Benkert_05" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0 }
+						]
+					},
+
+					"Benkert_06" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 325, "opacity": 0 },
+							{ "time": 350, "opacity": 1 },
+							{ "time": 375, "opacity": 0 }
+						]
+					},
+
+					"Benkert_07" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 375, "opacity": 0 },
+							{ "time": 400, "opacity": 1 },
+							{ "time": 425, "opacity": 0 }
+						]
+					},
+
+					"Benkert_08" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 425, "opacity": 0 },
+							{ "time": 450, "opacity": 1 },
+							{ "time": 475, "opacity": 0 }
+						]
+					},
+
+					"Benkert_09" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 475, "opacity": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 525, "opacity": 0 }
+						]
+					},
+
+					"Benkert_10" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 525, "opacity": 0 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
+						]
+					},
+
+					"Benkert_11" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 575, "opacity": 0 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					}
 				}

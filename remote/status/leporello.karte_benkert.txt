@@ -1,4 +1,0 @@
-animation = 'karte_benkert'
-time = '501'
-action = 'resume'
-value = 'leporello'
