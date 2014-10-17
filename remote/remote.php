@@ -6,6 +6,7 @@ include_once("config.php");
 
 global $config;
 
+
 //***********************************
 // variable definition
 $cmd = ""; // remote command
@@ -15,6 +16,7 @@ $scene = ""; // event time
 $time = "-1"; // event time
 $action = ""; // remote action
 $value = ""; // action value
+
 
 
 //***********************************
@@ -29,8 +31,9 @@ if (isset($_GET["time"])) $time = $_GET["time"];
 if (isset($_GET["action"])) $action = $_GET["action"];
 if (isset($_GET["value"])) $value = $_GET["value"];
 
+
 //***********************************
-// init querys
+// create query object
 $query = new Query($animation,$scene,$time,$action,$value);
 $retQuery = new Query();
 
@@ -42,15 +45,16 @@ $xml->appendChild($xml->createElement("name","animation_remote"));
 $xml->appendChild($xml->createElement("version","0.1"));
 
 
+
 //***********************************
 // check for paired sequencers
 
 if (!count($config)) {
-//	$xml->appendChild($xml->createElement("warning","no sequencer paired"));
+	$xml->appendChild($xml->createElement("warning","no sequencer paired"));
 }
 
 
-//***********************************
+//==========================================================================
 // paired sequencer defined
 else {
 //	$xml->appendChild($xml->createElement("cmd",$cmd));
@@ -74,7 +78,8 @@ else {
 			break;
 	}
 
-//***********************************
+
+//==========================================================================
 // set output dom data
 	if ($retQuery->animation()) $xml->appendChild($xml->createElement("animation",$retQuery->animation()));
 	if ($retQuery->scene()) $xml->appendChild($xml->createElement("scene",$retQuery->scene()));
@@ -84,12 +89,18 @@ else {
 }
 
 
+//==========================================================================
 // send output
 if (count($_GET))
 	echo $xml->saveJSON();
 
 
-//=====================================================================
+
+
+
+
+//==========================================================================
+//==========================================================================
 // send post to all paired sequencers
 // value@target
 function post_to_paired ($query) {
@@ -119,17 +130,26 @@ function post_to_paired ($query) {
 //=====================================================================
 // get events
 function get_from_paired ($query) {
+	$animation = "";
+	$target = "";
+	$fileArray = array();
+
 	$status = new Query();
 	$statusPath = "../remote/status/";
+	$animationName = $query->animation();
 
-print_r($query);
 
 //	foreach ($config as $pair) {
 //		array_push($retData,send_http($pair,"get",$query));
 //	}
 
 		foreach (scandir($statusPath) as $file) {
-			if ($file != "." and $file != ".." and $file != $query->animation().".txt") {
+			$fileArray = explode(".",$file);
+			$target = $fileArray[0];
+			$animation = $fileArray[1];
+
+// load file if not written from own animation and target is own animation
+			if ($file != "." and $file != ".." and $animation != $animationName and $target == $animationName) {
 				$status = new Query(parse_ini_file($statusPath.$file));
 
 				unlink($statusPath.$file);
@@ -166,14 +186,24 @@ function remote_from_paired ($query) {
 	$query->set_value(implode(":",$act_val));
 
 // rewrite status
+// send to specified target if target != own animation
 	if ($target != "")
-		file_put_contents($statusPath.$target.".".$query->animation().".txt",$query->as_ini());
+		write_status($statusPath,$target,$query->animation(),$query->as_ini());
+
+// send to all targets
 	else {
 		foreach ($config as $pair) {
-			file_put_contents($statusPath.$pair["name"].".".$query->animation().".txt",$query->as_ini());
+			write_status($statusPath,$pair["name"],$query->animation(),$query->as_ini());
 		}
 	}
 
+}
+
+
+//=====================================================================
+function write_status($path,$target,$animation,$content) {
+	if ($target != $animation)
+		file_put_contents($path.$target.".".$animation.".txt",$content);
 }
 
 
@@ -190,7 +220,12 @@ function send_http ($url,$cmd,$param) {
 }
 
 
-//=====================================================================
+
+
+
+
+//==========================================================================
+//==========================================================================
 // query class
 class Query {
 	private $queryAnimation = "";

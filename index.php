@@ -12,10 +12,15 @@
 		<script src="javascript/sequence.js" type="text/javascript"></script>
 
 		<link rel="stylesheet" type="text/css" href="animation.css">
-		
+
+		<?PHP
+			if (isset($_GET["animation"])) $animation = $_GET["animation"];
+			else $animation = "";
+		?>
+
 		<script type="text/javascript">
 			$(document).ready(function () {
-				load("semmering.json");
+				load("<?PHP echo $animation; ?>.json");
 			});
 		</script>
 

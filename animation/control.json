@@ -22,7 +22,7 @@
 			"ghega": {
 				"geometry":
 					{
-						"x": 120,
+						"x": 570,
 						"y": 120,
 						"type": "group",
 						"opacity": 0
@@ -73,7 +73,7 @@
 				"geometry":
 					{
 						"x": 55,
-						"y": 100,
+						"y": 105,
 						"width": 10,
 						"height": 6,
 						"type": "rect",
@@ -85,7 +85,7 @@
 			"tunnel": {
 				"geometry":
 					{
-						"x": 120,
+						"x": 570,
 						"y": 400,
 						"type": "group",
 						"opacity": 0
@@ -108,7 +108,7 @@
 					{
 						"x": 55,
 						"y": 30,
-						"text": "Unten durch - Der Basistunnel",
+						"text": "Brücken- und Tunnelbau",
 						"fontSize": "30",
 						"fontStyle": "bold",
 						"fill": "black",
@@ -123,7 +123,7 @@
 					{
 						"x": 55,
 						"y": 65,
-						"text": "To pass through - The Tunnel",
+						"text": "Building Bridges and Tunnels",
 						"fontSize": "30",
 						"fill": "black",
 						"type": "text",
@@ -136,7 +136,7 @@
 				"geometry":
 					{
 						"x": 55,
-						"y": 100,
+						"y": 105,
 						"width": 10,
 						"height": 6,
 						"type": "rect",
@@ -180,7 +180,7 @@
 					"ghega" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 120, "y": 120 },
+							{ "time": 0, "x": 570, "y": 120 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -203,7 +203,7 @@
 					"tunnel" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 120, "y": 400 },
+							{ "time": 0, "x": 570, "y": 400 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -231,7 +231,7 @@
 				"onstop": "ghegabahn",
 				"event": [
 					{ "time": 25, "action": "post", "value": "scene:ghegabahn@semmering" },
-					{ "action": "progress" }
+					{ "time": 25, "action": "post", "value": "scene:ghegabahn@leporello" }
 				],
 				
 				"cast": {
@@ -245,7 +245,7 @@
 					"ghega" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 120, "y": 170 },
+							{ "time": 0, "x": 570, "y": 170 },
 							{ "time": 25, "x": 570, "y": 450 }
 						]
 					},
@@ -254,7 +254,7 @@
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 25, "opacity": 0 }
+							{ "time": 12, "opacity": 0 }
 						]
 					},
 
@@ -268,8 +268,9 @@
 					"reset" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "opacity": 0 },
-							{ "time": 25, "opacity": 1 }
+							{ "time": 0, "opacity": 1 },
+							{ "time": 0, "x": -100 },
+							{ "time": 25, "x": 0 }
 						]
 					}
 				}
@@ -278,10 +279,20 @@
 			{
 				"name": "ghegabahn",
 				"start": 0,
-				"end": 100,
+				"end": 500,
 				"loop": 1,
 				"event": [
-					{ "action": "stop" }
+					{ "time": 0, "action": "stop" },
+					{ "time": 50, "action": "stop" },
+					{ "time": 100, "action": "stop" },
+					{ "time": 150, "action": "stop" },
+					{ "time": 200, "action": "stop" },
+					{ "time": 250, "action": "stop" },
+					{ "time": 300, "action": "stop" },
+					{ "time": 350, "action": "stop" },
+					{ "time": 400, "action": "stop" },
+					{ "time": 450, "action": "stop" },
+					{ "time": 500, "action": "stop" }
 				],
 
 				"cast": {
@@ -303,7 +314,7 @@
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },
-							{ "time": 100, "width": 660 }
+							{ "time": 500, "width": 660 }
 						]
 					},
 
@@ -341,7 +352,7 @@
 					"tunnel" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 120, "y": 400 },
+							{ "time": 0, "x": 570, "y": 400 },
 							{ "time": 25, "x": 570, "y": 450 }
 						]
 					},
@@ -350,7 +361,7 @@
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 25, "opacity": 0 }
+							{ "time": 12, "opacity": 0 }
 						]
 					},
 

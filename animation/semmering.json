@@ -13,17 +13,7 @@
 
 			"title_text": {
 				"group": "title",
-				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
-			},
-
-			"subtitle": {
-				"group": "title",
-				"geometry": { "x": 0, "y": 80, "text": "Wählen sie eine Geschichte", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
-			},
-
-			"subtitle_en": {
-				"group": "title",
-				"geometry": { "x": 0, "y": 110, "text": "Choose a story", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "Semmeringbahn", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"luftbild": {
@@ -138,29 +128,38 @@
 				"onstop": "main",
 
 				"event": [
-					{ "action": "post", "value": "stopto:ghegabahn:progress" },
 					{ "time": 50, "action": "stop" },
 					{ "time": 50, "action": "wait", "value": 3000 },
+					{ "time": 51, "action": "post", "value": "resume:leporello" },
 					{ "time": 100, "action": "stop" },
 					{ "time": 100, "action": "wait", "value": 3000 },
+					{ "time": 101, "action": "post", "value": "resume:leporello" },
 					{ "time": 150, "action": "stop" },
 					{ "time": 150, "action": "wait", "value": 3000 },
+					{ "time": 151, "action": "post", "value": "resume:leporello" },
 					{ "time": 200, "action": "stop" },
 					{ "time": 200, "action": "wait", "value": 3000 },
+					{ "time": 201, "action": "post", "value": "resume:leporello" },
 					{ "time": 250, "action": "stop" },
 					{ "time": 250, "action": "wait", "value": 3000 },
+					{ "time": 251, "action": "post", "value": "resume:leporello" },
 					{ "time": 300, "action": "stop" },
 					{ "time": 300, "action": "wait", "value": 3000 },
+					{ "time": 301, "action": "post", "value": "resume:leporello" },
 					{ "time": 350, "action": "stop" },
 					{ "time": 350, "action": "wait", "value": 3000 },
+					{ "time": 351, "action": "post", "value": "resume:leporello" },
 					{ "time": 400, "action": "stop" },
 					{ "time": 400, "action": "wait", "value": 3000 },
+					{ "time": 401, "action": "post", "value": "resume:leporello" },
 					{ "time": 450, "action": "stop" },
 					{ "time": 450, "action": "wait", "value": 3000 },
+					{ "time": 451, "action": "post", "value": "resume:leporello" },
 					{ "time": 500, "action": "stop" },
 					{ "time": 500, "action": "wait", "value": 3000 },
+					{ "time": 501, "action": "post", "value": "resume:leporello" },
 					{ "time": 550, "action": "stop" },
-					{ "time": 550, "action": "wait", "value": 10000 }
+					{ "time": 550, "action": "wait", "value": 5000 }
 				],
 
 

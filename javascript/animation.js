@@ -995,6 +995,7 @@ var Remote = function () {
 
 //***********************************
 // parse action
+// only if adressed
 				switch (data.action) {
 					case "scene":
 						debug_msg("remote scene event","EVENT");
@@ -1008,10 +1009,12 @@ var Remote = function () {
 						break;
 
 					case "stop":
+						currScene.Stop();
 						break;
 
 					case "resume":
-					console.log("resume");
+						console.log("resume");
+						currScene.Resume();
 						break;
 
 					case "goto":
