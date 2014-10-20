@@ -107,7 +107,10 @@
 				"geometry": { "x": 486, "y": 553, "src": "s_sued_457-553.png", "type": "image" }
 			},
 
-
+			"k_leporello": {
+				"geometry": { "x": 1009, "y": 57, "src": "k_leporello.jpg", "type": "image" }
+			},
+			
 			"k_tallachini": {
 				"geometry": { "x": 990, "y": 318, "src": "k_tallachini.jpg", "type": "image" }
 			},
@@ -157,7 +160,7 @@
 			{
 				"name": "leporello",
 				"start": 0,
-				"end": 551,
+				"end": 625,
 				"loop": 1,
 				"onstop": "main",
 
@@ -193,8 +196,12 @@
 					{ "time": 500, "action": "wait", "value": 3000 },
 					{ "time": 501, "action": "post", "value": "resume:inhalt" },
 					{ "time": 550, "action": "stop" },
-					{ "time": 550, "action": "wait", "value": 5000 },
-					{ "time": 551, "action": "post", "value": "scene:main@control" }
+					{ "time": 550, "action": "wait", "value": 3000 },
+					{ "time": 551, "action": "post", "value": "resume:inhalt" },
+					{ "time": 600, "action": "stop" },
+					{ "time": 600, "action": "wait", "value": 5000 },
+					{ "time": 601, "action": "post", "value": "resume:inhalt" },
+					{ "time": 625, "action": "post", "value": "scene:main@control" }
 				],
 
 
@@ -202,7 +209,20 @@
 					"luftbild" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 0, "opacity": 1 }
+							{ "time": 0, "opacity": 0.3 },
+							{ "time": 25, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 }
+						]
+					},
+
+					"k_leporello" : {
+						"layer": "luftbild",
+						"keys": [
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
@@ -210,7 +230,11 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 600, "opacity": 0.3 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
@@ -218,7 +242,9 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
@@ -226,7 +252,9 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
@@ -234,7 +262,11 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 }
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 600, "opacity": 0.3 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
@@ -243,7 +275,10 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.5 }
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 600, "opacity": 0.3 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
@@ -252,106 +287,143 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.5 }
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 600, "opacity": 0.3 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s01": {
 						"layer": "bahn",
 						"keys": [
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
-							{ "time": 100, "opacity": 1 },
-							{ "time": 125, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 175, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s02": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 125, "opacity": 0 },
-							{ "time": 150, "opacity": 1 },
-							{ "time": 175, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 175, "opacity": 0 },
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s03": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 175, "opacity": 0 },
-							{ "time": 200, "opacity": 1 },
-							{ "time": 225, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s04": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 225, "opacity": 0 },
-							{ "time": 250, "opacity": 1 },
-							{ "time": 275, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 325, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s05": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 275, "opacity": 0 },
-							{ "time": 300, "opacity": 1 },
-							{ "time": 325, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 325, "opacity": 0 },
+							{ "time": 350, "opacity": 1 },
+							{ "time": 375, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s06": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 325, "opacity": 0 },
-							{ "time": 350, "opacity": 1 },
-							{ "time": 375, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 375, "opacity": 0 },
+							{ "time": 400, "opacity": 1 },
+							{ "time": 425, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s07": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 375, "opacity": 0 },
-							{ "time": 400, "opacity": 1 },
-							{ "time": 425, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 425, "opacity": 0 },
+							{ "time": 450, "opacity": 1 },
+							{ "time": 475, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s08": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 425, "opacity": 0 },
-							{ "time": 450, "opacity": 1 },
-							{ "time": 475, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 475, "opacity": 0 },
+							{ "time": 500, "opacity": 1 },
+							{ "time": 525, "opacity": 0.3 },
+							{ "time": 575, "opacity": 0.3 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 
 					"s09": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 475, "opacity": 0 },
-							{ "time": 500, "opacity": 1 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 525, "opacity": 0.5 },
-							{ "time": 550, "opacity": 1 }
+							{ "time": 25, "opacity": 0 },
+							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 525, "opacity": 0 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					}
 				}
@@ -418,7 +490,7 @@
 							{ "time": 0, "opacity": 0 },
 							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0.5 }
+							{ "time": 100, "opacity": 0.3 }
 						]
 					},
 
@@ -467,7 +539,7 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.5 }
+							{ "time": 75, "opacity": 0.3 }
 						]
 					},
 
@@ -476,7 +548,7 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.5 }
+							{ "time": 75, "opacity": 0.3 }
 						]
 					},
 
@@ -485,7 +557,7 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.5 }
+							{ "time": 75, "opacity": 0.3 }
 						]
 					},
 

@@ -189,7 +189,7 @@
 			{
 				"name": "leporello",
 				"start": 0,
-				"end": 575,
+				"end": 625,
 				"loop": 1,
 				"onstop": "main",
 
@@ -204,7 +204,8 @@
 					{ "time": 400, "action": "stop" },
 					{ "time": 450, "action": "stop" },
 					{ "time": 500, "action": "stop" },
-					{ "time": 550, "action": "stop" }
+					{ "time": 550, "action": "stop" },
+					{ "time": 600, "action": "stop" }
 				],
 
 
@@ -214,24 +215,25 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0 }
+							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0 }
 						]
 					},
 					
 					"credit" : {
 						"layer": "bilder",
 						"keys": [
-							{ "time": 525, "opacity": 0 },
-							{ "time": 550, "opacity": 1 },
-							{ "time": 575, "opacity": 0 }
+							{ "time": 575, "opacity": 0 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 					
 					"leporello_ganz" : {
 						"layer": "bilder",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 75, "opacity": 0 },
+							{ "time": 100, "opacity": 1 },
 							{ "time": 550, "opacity": 1 },
 							{ "time": 575, "opacity": 0 }
 						]
@@ -241,33 +243,24 @@
 						"layer": "bilder",
 						"keys": [
 							{ "time": 0, "x": 1685 },
-							{ "time": 75, "opacity": 0 },
-							{ "time": 100, "opacity": 1 },
-							{ "time": 100, "x": 1685 },
-							{ "time": 150, "x": 1580 },
-							{ "time": 200, "x": 1360 },
-							{ "time": 250, "x": 1030 },
-							{ "time": 300, "x": 865 },
-							{ "time": 350, "x": 590 },
-							{ "time": 400, "x": 370 },
-							{ "time": 450, "x": 155 },
-							{ "time": 500, "x": 0 },
-							{ "time": 500, "opacity": 1 },
-							{ "time": 525, "opacity": 0 }
+							{ "time": 125, "opacity": 0 },
+							{ "time": 150, "opacity": 1 },
+							{ "time": 150, "x": 1685 },
+							{ "time": 200, "x": 1580 },
+							{ "time": 250, "x": 1360 },
+							{ "time": 300, "x": 1030 },
+							{ "time": 350, "x": 865 },
+							{ "time": 400, "x": 590 },
+							{ "time": 450, "x": 370 },
+							{ "time": 500, "x": 155 },
+							{ "time": 550, "x": 0 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
 						]
 					},
 
 
 					"Leporello_01" : {
-						"layer": "bilder",
-						"keys": [
-							{ "time": 75, "opacity": 0 },
-							{ "time": 100, "opacity": 1 },
-							{ "time": 125, "opacity": 0 }
-						]
-					},
-
-					"Leporello_02" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 125, "opacity": 0 },
@@ -276,16 +269,16 @@
 						]
 					},
 
-					"Leporello_03" : {
+					"Leporello_02" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 175, "opacity": 0 },
 							{ "time": 200, "opacity": 1 },
-							{ "time": 225, "opacity": 0 }
+							{ "time": 255, "opacity": 0 }
 						]
 					},
 
-					"Leporello_04" : {
+					"Leporello_03" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 225, "opacity": 0 },
@@ -294,7 +287,7 @@
 						]
 					},
 
-					"Leporello_05" : {
+					"Leporello_04" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 275, "opacity": 0 },
@@ -303,7 +296,7 @@
 						]
 					},
 
-					"Leporello_06" : {
+					"Leporello_05" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 325, "opacity": 0 },
@@ -312,7 +305,7 @@
 						]
 					},
 
-					"Leporello_07" : {
+					"Leporello_06" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 375, "opacity": 0 },
@@ -321,7 +314,7 @@
 						]
 					},
 
-					"Leporello_08" : {
+					"Leporello_07" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 425, "opacity": 0 },
@@ -330,12 +323,21 @@
 						]
 					},
 
-					"Leporello_09" : {
+					"Leporello_08" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 475, "opacity": 0 },
 							{ "time": 500, "opacity": 1 },
 							{ "time": 525, "opacity": 0 }
+						]
+					},
+
+					"Leporello_09" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 525, "opacity": 0 },
+							{ "time": 550, "opacity": 1 },
+							{ "time": 575, "opacity": 0 }
 						]
 					}
 				}
