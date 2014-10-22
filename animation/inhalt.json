@@ -119,47 +119,47 @@
 
 
 			"Benkert_01": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_krauselklause_01.jpg", "type": "image" }
+				"geometry": { "x": 557, "y": 0, "src": "benk_krauselklause_01.jpg", "type": "image" }
 			},
 
 			"Benkert_02": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_krauselklause_02.jpg", "type": "image" }
+				"geometry": { "x": 222, "y": 0, "src": "benk_krauselklause_02.jpg", "type": "image" }
 			},
 
 			"Benkert_03": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_bolleroswand.jpg", "type": "image" }
+				"geometry": { "x": 252, "y": 0, "src": "benk_bolleroswand.jpg", "type": "image" }
 			},
 
 			"Benkert_04": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_01.jpg", "type": "image" }
+				"geometry": { "x": 261, "y": 0, "src": "benk_kalterinne_01.jpg", "type": "image" }
 			},
 
 			"Benkert_05": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_02.jpg", "type": "image" }
+				"geometry": { "x": 259, "y": 0, "src": "benk_kalterinne_02.jpg", "type": "image" }
 			},
 
 			"Benkert_06": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_03.jpg", "type": "image" }
+				"geometry": { "x": 235, "y": 0, "src": "benk_kalterinne_03.jpg", "type": "image" }
 			},
 
 			"Benkert_07": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_04.jpg", "type": "image" }
+				"geometry": { "x": 235, "y": 0, "src": "benk_kalterinne_04.jpg", "type": "image" }
 			},
 
 			"Benkert_08": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_05.jpg", "type": "image" }
+				"geometry": { "x": 261, "y": 0, "src": "benk_kalterinne_05.jpg", "type": "image" }
 			},
 
 			"Benkert_09": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_06.jpg", "type": "image" }
+				"geometry": { "x": 226, "y": 0, "src": "benk_kalterinne_06.jpg", "type": "image" }
 			},
 
 			"Benkert_10": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_kalterinne_07.jpg", "type": "image" }
+				"geometry": { "x": 269, "y": 0, "src": "benk_kalterinne_07.jpg", "type": "image" }
 			},
 
 			"Benkert_11": {
-				"geometry": { "x": 320, "y": 0, "src": "benk_adlitzgraben.jpg", "type": "image" }
+				"geometry": { "x": 248, "y": 0, "src": "benk_adlitzgraben.jpg", "type": "image" }
 			}
 		},
 
@@ -346,7 +346,7 @@
 			{
 				"name": "benkert",
 				"start": 0,
-				"end": 650,
+				"end": 725,
 				"loop": 1,
 				"onstop": "main",
 
@@ -363,7 +363,8 @@
 					{ "time": 500, "action": "stop" },
 					{ "time": 550, "action": "stop" },
 					{ "time": 600, "action": "stop" },
-					{ "time": 650, "action": "stop" }
+					{ "time": 650, "action": "stop" },
+					{ "time": 700, "action": "stop" }
 				],
 
 
@@ -373,20 +374,21 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0 }
-						]
-					},
-					
-					"Benkert_01" : {
-						"layer": "bilder",
-						"keys": [
-							{ "time": 75, "opacity": 0 },
 							{ "time": 100, "opacity": 1 },
 							{ "time": 125, "opacity": 0 }
 						]
 					},
-
-					"Benkert_02" : {
+					
+					"credit" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 675, "opacity": 0 },
+							{ "time": 700, "opacity": 1 },
+							{ "time": 725, "opacity": 0 }
+						]
+					},
+					
+					"Benkert_01" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 125, "opacity": 0 },
@@ -395,7 +397,7 @@
 						]
 					},
 
-					"Benkert_03" : {
+					"Benkert_02" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 175, "opacity": 0 },
@@ -404,7 +406,7 @@
 						]
 					},
 
-					"Benkert_04" : {
+					"Benkert_03" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 225, "opacity": 0 },
@@ -413,7 +415,7 @@
 						]
 					},
 
-					"Benkert_05" : {
+					"Benkert_04" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 275, "opacity": 0 },
@@ -422,7 +424,7 @@
 						]
 					},
 
-					"Benkert_06" : {
+					"Benkert_05" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 325, "opacity": 0 },
@@ -431,7 +433,7 @@
 						]
 					},
 
-					"Benkert_07" : {
+					"Benkert_06" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 375, "opacity": 0 },
@@ -440,7 +442,7 @@
 						]
 					},
 
-					"Benkert_08" : {
+					"Benkert_07" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 425, "opacity": 0 },
@@ -449,7 +451,7 @@
 						]
 					},
 
-					"Benkert_09" : {
+					"Benkert_08" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 475, "opacity": 0 },
@@ -458,7 +460,7 @@
 						]
 					},
 
-					"Benkert_10" : {
+					"Benkert_09" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 525, "opacity": 0 },
@@ -467,12 +469,21 @@
 						]
 					},
 
-					"Benkert_11" : {
+					"Benkert_10" : {
 						"layer": "bilder",
 						"keys": [
 							{ "time": 575, "opacity": 0 },
 							{ "time": 600, "opacity": 1 },
 							{ "time": 625, "opacity": 0 }
+						]
+					},
+
+					"Benkert_11" : {
+						"layer": "bilder",
+						"keys": [
+							{ "time": 625, "opacity": 0 },
+							{ "time": 650, "opacity": 1 },
+							{ "time": 675, "opacity": 0 }
 						]
 					}
 				}

@@ -1,0 +1,4 @@
+animation = 'control'
+time = '0'
+action = 'scene'
+value = 'main'

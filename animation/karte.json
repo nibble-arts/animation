@@ -433,7 +433,7 @@
 			{
 				"name": "benkert",
 				"start": 0,
-				"end": 701,
+				"end": 725,
 				"loop": 1,
 				"onstop": "main",
 
@@ -458,6 +458,7 @@
 					{ "time": 301, "action": "post", "value": "resume:inhalt" },
 					{ "time": 350, "action": "stop" },
 					{ "time": 350, "action": "wait", "value": 3000 },
+					{ "time": 351, "action": "post", "value": "resume:inhalt" },
 					{ "time": 400, "action": "stop" },
 					{ "time": 400, "action": "wait", "value": 3000 },
 					{ "time": 401, "action": "post", "value": "resume:inhalt" },
@@ -476,10 +477,10 @@
 					{ "time": 650, "action": "stop" },
 					{ "time": 650, "action": "wait", "value": 3000 },
 					{ "time": 651, "action": "post", "value": "resume:inhalt" },
-
 					{ "time": 700, "action": "stop" },
 					{ "time": 700, "action": "wait", "value": 5000 },
-					{ "time": 701, "action": "post", "value": "scene:main@control" }
+					{ "time": 701, "action": "post", "value": "resume:inhalt" },
+					{ "time": 725, "action": "post", "value": "scene:main@control" }
 				],
 
 
@@ -500,7 +501,9 @@
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0 }
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 700, "opacity": 0.3 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
@@ -510,7 +513,9 @@
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0 }
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 700, "opacity": 0.3 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
@@ -520,7 +525,9 @@
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0 }
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 700, "opacity": 0.3 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
@@ -530,16 +537,9 @@
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0 }
-						]
-					},
-
-					"s00": {
-						"layer": "bahn",
-						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.3 }
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 700, "opacity": 0.3 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
@@ -548,7 +548,10 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.3 }
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 700, "opacity": 0.3 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
@@ -557,7 +560,10 @@
 						"keys": [
 							{ "time": 25, "opacity": 0 },
 							{ "time": 50, "opacity": 1 },
-							{ "time": 75, "opacity": 0.3 }
+							{ "time": 75, "opacity": 1 },
+							{ "time": 100, "opacity": 0.3 },
+							{ "time": 700, "opacity": 0.3 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
@@ -565,7 +571,9 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 75, "opacity": 0 },
-							{ "time": 100, "opacity": 1 }
+							{ "time": 100, "opacity": 1 },
+							{ "time": 700, "opacity": 1 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 					
@@ -573,45 +581,47 @@
 						"layer": "luftbild",
 						"keys": [
 							{ "time": 75, "opacity": 0 },
-							{ "time": 100, "opacity": 1 }
+							{ "time": 100, "opacity": 1 },
+							{ "time": 700, "opacity": 1 },
+							{ "time": 725, "opacity": 0 }
 						]
 					},
 
 					"txt_krauselklause" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 75, "opacity": 0 },
-							{ "time": 100, "opacity": 1 },
+							{ "time": 125, "opacity": 0 },
 							{ "time": 150, "opacity": 1 },
-							{ "time": 175, "opacity": 0 }
+							{ "time": 200, "opacity": 1 },
+							{ "time": 225, "opacity": 0 }
 						]
 					},
 					
 					"txt_bolleroswand" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 175, "opacity": 0 },
-							{ "time": 200, "opacity": 1 },
-							{ "time": 225, "opacity": 0 }
+							{ "time": 225, "opacity": 0 },
+							{ "time": 250, "opacity": 1 },
+							{ "time": 275, "opacity": 0 }
 						]
 					},
 					
 					"txt_kalterinne" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 225, "opacity": 0 },
-							{ "time": 250, "opacity": 1 },
-							{ "time": 550, "opacity": 1 },
-							{ "time": 575, "opacity": 1 }
+							{ "time": 275, "opacity": 0 },
+							{ "time": 300, "opacity": 1 },
+							{ "time": 600, "opacity": 1 },
+							{ "time": 625, "opacity": 0 }
 						]
 					},
 					
 					"txt_adlitzgraben" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 575, "opacity": 0 },
-							{ "time": 600, "opacity": 1 },
-							{ "time": 625, "opacity": 0 }
+							{ "time": 625, "opacity": 0 },
+							{ "time": 650, "opacity": 1 },
+							{ "time": 675, "opacity": 0 }
 						]
 					}
 				}
