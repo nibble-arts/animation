@@ -156,7 +156,9 @@ var Animation = (function () {
 				run: function (sceneName,startFrame) {
 					if (startFrame == undefined) startFrame = 0;
 
-					this.sequence.scene[sceneName].run(this.cast,startFrame);
+					if (this.sequence.scene[sceneName] == undefined) alert("Scene "+sceneName+" not found");
+					else
+						this.sequence.scene[sceneName].run(this.cast,startFrame);
 				},
 
 				stop: function () {
@@ -198,7 +200,7 @@ var Animation = (function () {
 
 					case "image":
 						var imageObj = new Image();
-						imageObj.src = imagePath+this.geometry.src;
+						imageObj.src = imagePath+animationName+"/"+this.geometry.src;
 						this.geometry.image = imageObj;
 						
 						newactor.obj = new Kinetic.Image(this.geometry);

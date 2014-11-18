@@ -16,10 +16,57 @@
 				"geometry": { "x": 0, "y": 0, "text": "Semmeringbahn", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
 			},
 
+
+
 			"luftbild": {
 				"geometry": { "x": 29, "y": 0, "src": "Luftbild1.jpg", "type": "image" }
 			},
 
+
+
+			"unesco_nahbereich": {
+				"geometry": { "x": 403, "y": 44, "src": "unesco_nahbereich.png", "type": "image" }
+			},
+
+			"unesco_siedlung": {
+				"geometry": { "x": 732, "y": 15, "src": "unesco_siedlung.png", "type": "image" }
+			},
+
+
+
+			"wsg_grundwasser": {
+				"geometry": { "x": 29, "y":0, "src": "wsg_grundwasser.png", "type": "image" }
+			},
+
+			"wsg_quellschutz": {
+				"geometry": { "x": 274, "y":178, "src": "wsg_quellschutz.png", "type": "image" }
+			},
+
+			"wsg_wirtschaft": {
+				"geometry": { "x": 1788, "y":133, "src": "wsg_wirtschaft.png", "type": "image" }
+			},
+
+			"wsg_brunnenschutz": {
+				"geometry": { "x": 1723, "y": 207, "src": "wsg_brunnenschutz.png", "type": "image" }
+			},
+
+
+
+			"lsg_veitsch": {
+				"geometry": { "x": 29, "y":0, "src": "lsg_veitsch.png", "type": "image" }
+			},
+
+			"lsg_rax": {
+				"geometry": { "x": 593, "y":0, "src": "lsg_rax.png", "type": "image" }
+			},
+
+			"lsg_natura2000": {
+				"geometry": { "x": 593, "y":0, "src": "lsg_natura2000.png", "type": "image" }
+			},
+
+			"lsg_stuhleck": {
+				"geometry": { "x": 351, "y":888, "src": "lsg_stuhleck.png", "type": "image" }
+			},
 
 
 

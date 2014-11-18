@@ -22,7 +22,7 @@
 			"leporello": {
 				"geometry":
 					{
-						"x": 570,
+						"x": 135,
 						"y": 120,
 						"type": "group",
 						"opacity": 0
@@ -85,7 +85,7 @@
 			"benkert": {
 				"geometry":
 					{
-						"x": 570,
+						"x": 135,
 						"y": 400,
 						"type": "group",
 						"opacity": 0
@@ -148,7 +148,7 @@
 			"lahoda": {
 				"geometry":
 					{
-						"x": 570,
+						"x": 135,
 						"y": 400,
 						"type": "group",
 						"opacity": 0
@@ -208,6 +208,69 @@
 					}
 			},
 
+			"tunnel": {
+				"geometry":
+					{
+						"x": 1025,
+						"y": 120,
+						"type": "group",
+						"opacity": 0
+					}
+			},
+
+			"tunnel_block": {
+				"group": "tunnel",
+				"geometry": {
+					"x": 0,
+					"y": 0,
+					"type": "image",
+					"src": "filmblock.png"
+				}
+			},
+			
+			"tunnel_text_de": {
+				"group": "tunnel",
+				"geometry":
+					{
+						"x": 55,
+						"y": 30,
+						"text": "Semmering Basistunnel",
+						"fontSize": "30",
+						"fontStyle": "bold",
+						"fill": "black",
+						"type": "text",
+						"opacity": 1
+					}
+			},
+
+			"tunnel_text_en": {
+				"group": "tunnel",
+				"geometry":
+					{
+						"x": 55,
+						"y": 65,
+						"text": "Semmering base tunnel",
+						"fontSize": "30",
+						"fill": "black",
+						"type": "text",
+						"opacity": 1
+					}
+			},
+
+			"tunnel_progress": {
+				"group": "tunnel",
+				"geometry":
+					{
+						"x": 55,
+						"y": 105,
+						"width": 10,
+						"height": 6,
+						"type": "rect",
+						"fill": "#ed1c24",
+						"opacity": 0
+					}
+			},
+
 			"reset": {
 				"geometry":
 					{
@@ -244,7 +307,7 @@
 					"leporello" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 570, "y": 120 },
+							{ "time": 0, "x": 135, "y": 120 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -262,7 +325,7 @@
 					"benkert" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 570, "y": 400 },
+							{ "time": 0, "x": 135, "y": 400 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -279,7 +342,7 @@
 					"lahoda" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 570, "y": 680 },
+							{ "time": 0, "x": 135, "y": 680 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -293,13 +356,31 @@
 						]
 					},
 
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "x": 1025, "y": 120 },
+							{ "time": 0, "opacity": 1 }
+						],
+						"event": [
+							{ "type": "click", "action": "scene", "value": "start_tunnel" }
+						]
+					},
+
+					"tunnel_progress": {
+						"keys": [
+							{ "time": 0, "opacity": 0 }
+						]
+					},
+
+
 					"reset" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 0 }
 						],
 						"event": [
-							{ "type": "click", "action": "post", "value": "scene:main@karte_leporello" }
+							{ "type": "click", "action": "post", "value": "scene:main" }
 						]
 					}
 				}
@@ -324,19 +405,35 @@
 						]
 					},
 
-					"leporello" : {
-						"layer": "main",
-						"keys": [
-							{ "time": 0, "x": 570, "y": 170 },
-							{ "time": 25, "x": 570, "y": 400 }
-						]
-					},
-
 					"benkert" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"lahoda" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"leporello" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "x": 135, "y": 170 },
+							{ "time": 25, "x": 570, "y": 400 }
 						]
 					},
 
@@ -441,10 +538,26 @@
 						]
 					},
 
+					"lahoda" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
 					"benkert" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 570, "y": 400 },
+							{ "time": 0, "x": 135, "y": 400 },
 							{ "time": 25, "x": 570, "y": 400 }
 						]
 					},
@@ -552,10 +665,26 @@
 						]
 					},
 
+					"benkert" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
 					"lahoda" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 570, "y": 680 },
+							{ "time": 0, "x": 135, "y": 680 },
 							{ "time": 25, "x": 570, "y": 400 }
 						]
 					},
@@ -614,6 +743,131 @@
 					},
 
 					"lahoda_progress": {
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 0, "width": 10 },
+							{ "time": 625, "width": 660 }
+						]
+					},
+
+					"reset" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 }
+						],
+						"event": [
+							{ "type": "click", "action": "post", "value": "scene:main" },
+							{ "type": "click", "action": "scene", "value": "main" }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "start_tunnel",
+				"start": 0,
+				"end": 25,
+				"loop": 1,
+				"onstop": "tunnel",
+				"event": [
+					{ "time": 25, "action": "post", "value": "scene:tunnel@karte" },
+					{ "time": 25, "action": "post", "value": "scene:tunnel@inhalt" }
+				],
+				
+				"cast": {
+					"background" : {
+						"layer": "back",
+						"keys": [
+							{ "time": 0, "opacity": 1 }
+						]
+					},
+
+					"leporello" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"benkert" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"lahoda" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "x": 1025, "y": 120 },
+							{ "time": 25, "x": 570, "y": 400 }
+						]
+					},
+
+					"tunnel_progress": {
+						"keys": [
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 }
+						]
+					},
+
+					"reset" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 0, "x": -100 },
+							{ "time": 25, "x": 0 }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "tunnel",
+				"start": 0,
+				"end": 625,
+				"loop": 1,
+				"event": [
+					{ "time": 50, "action": "stop" },
+					{ "time": 100, "action": "stop" },
+					{ "time": 150, "action": "stop" },
+					{ "time": 200, "action": "stop" },
+					{ "time": 250, "action": "stop" },
+					{ "time": 300, "action": "stop" },
+					{ "time": 350, "action": "stop" },
+					{ "time": 400, "action": "stop" },
+					{ "time": 450, "action": "stop" },
+					{ "time": 500, "action": "stop" },
+					{ "time": 550, "action": "stop" },
+					{ "time": 600, "action": "stop" }
+				],
+
+				"cast": {
+					"background" : {
+						"layer": "back",
+						"keys": [
+							{ "time": 0, "opacity": 1 }
+						]
+					},
+					
+					"tunnel" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 }
+						]
+					},
+
+					"tunnel_progress": {
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },

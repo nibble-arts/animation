@@ -1,4 +1,4 @@
 animation = 'control'
-time = '0'
+time = '25'
 action = 'scene'
-value = 'main'
+value = 'leporello'
