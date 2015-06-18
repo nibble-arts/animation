@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>HTML5 Animation</title>
@@ -34,7 +34,11 @@
 			<noscript><div id="noscript">Sie müssen Javascript aktiviert haben, um die Animation nutzen zu können.</div></noscript>
 		</div>
 
-		<div id="scene"></div>
+		<div>
+			<span id="scene"></span>
+			<span id="debug"></span>
+		</div>
+
 		<div><span id="frame"></span> <span id="status"></span></div>
 		<div id="bar"></div>
 	</body>

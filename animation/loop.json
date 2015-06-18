@@ -1,6 +1,6 @@
 ﻿{
 	"animation": {
-		"stage": { "id": "scene", "width": 1280, "height": 800, "fill": "black" },
+		"stage": { "id": "scene", "width": 1280, "height": 760, "fill": "black" },
 
 		"cast": {
 			"home": {

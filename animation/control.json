@@ -2,8 +2,8 @@
 	"animation": {
 		"stage": {
 			"id": "scene",
-			"width": 1920,
-			"height": 1080
+			"width": 1366,
+			"height": 730
 		},
 
 		"cast": {
@@ -12,8 +12,8 @@
 					{
 						"x": 0,
 						"y": 0,
-						"width": 1920,
-						"height": 1080,
+						"width": 1366,
+						"height": 760,
 						"type": "rect",
 						"fill": "#231f20"
 					}
@@ -22,8 +22,18 @@
 			"leporello": {
 				"geometry":
 					{
-						"x": 135,
-						"y": 120,
+						"x": 96,
+						"y": 86,
+						"type": "group",
+						"opacity": 0
+					}
+			},
+
+			"benkert": {
+				"geometry":
+					{
+						"x": 96,
+						"y": 286,
 						"type": "group",
 						"opacity": 0
 					}
@@ -43,10 +53,10 @@
 				"group": "leporello",
 				"geometry":
 					{
-						"x": 55,
-						"y": 30,
+						"x": 39,
+						"y": 21,
 						"text": "Panorama der Staatsbahn über den Semmering",
-						"fontSize": "30",
+						"fontSize": "21",
 						"fontStyle": "bold",
 						"fill": "black",
 						"type": "text",
@@ -58,10 +68,10 @@
 				"group": "leporello",
 				"geometry":
 					{
-						"x": 55,
-						"y": 65,
+						"x": 39,
+						"y": 46,
 						"text": "Panorama of the Semmering State Railway",
-						"fontSize": "30",
+						"fontSize": "21",
 						"fill": "black",
 						"type": "text",
 						"opacity": 0
@@ -72,22 +82,12 @@
 				"group": "leporello",
 				"geometry":
 					{
-						"x": 55,
-						"y": 105,
-						"width": 10,
-						"height": 6,
+						"x": 39,
+						"y": 75,
+						"width": 7,
+						"height": 4,
 						"type": "rect",
 						"fill": "#ed1c24",
-						"opacity": 0
-					}
-			},
-
-			"benkert": {
-				"geometry":
-					{
-						"x": 135,
-						"y": 400,
-						"type": "group",
 						"opacity": 0
 					}
 			},
@@ -106,10 +106,10 @@
 				"group": "benkert",
 				"geometry":
 					{
-						"x": 55,
-						"y": 30,
+						"x": 39,
+						"y": 21,
 						"text": "Bau der Viadukte der Semmeringbahn",
-						"fontSize": "30",
+						"fontSize": "21",
 						"fontStyle": "bold",
 						"fill": "black",
 						"type": "text",
@@ -121,10 +121,10 @@
 				"group": "benkert",
 				"geometry":
 					{
-						"x": 55,
-						"y": 65,
+						"x": 39,
+						"y": 46,
 						"text": "Building the bridges of the Semmering Railway",
-						"fontSize": "30",
+						"fontSize": "21",
 						"fill": "black",
 						"type": "text",
 						"opacity": 1
@@ -135,10 +135,10 @@
 				"group": "benkert",
 				"geometry":
 					{
-						"x": 55,
-						"y": 105,
-						"width": 10,
-						"height": 6,
+						"x": 39,
+						"y": 75,
+						"width": 7,
+						"height": 4,
 						"type": "rect",
 						"fill": "#ed1c24",
 						"opacity": 0
@@ -148,8 +148,8 @@
 			"lahoda": {
 				"geometry":
 					{
-						"x": 135,
-						"y": 400,
+						"x": 96,
+						"y": 486,
 						"type": "group",
 						"opacity": 0
 					}
@@ -169,10 +169,10 @@
 				"group": "lahoda",
 				"geometry":
 					{
-						"x": 55,
-						"y": 30,
+						"x": 39,
+						"y": 21,
 						"text": "Tunnelbau auf der Semmeringbahn",
-						"fontSize": "30",
+						"fontSize": "21",
 						"fontStyle": "bold",
 						"fill": "black",
 						"type": "text",
@@ -184,10 +184,10 @@
 				"group": "lahoda",
 				"geometry":
 					{
-						"x": 55,
-						"y": 65,
+						"x": 39,
+						"y": 46,
 						"text": "Building tunnels for the Semmering Railway",
-						"fontSize": "30",
+						"fontSize": "21",
 						"fill": "black",
 						"type": "text",
 						"opacity": 1
@@ -198,84 +198,34 @@
 				"group": "lahoda",
 				"geometry":
 					{
-						"x": 55,
-						"y": 105,
-						"width": 10,
-						"height": 6,
+						"x": 39,
+						"y": 75,
+						"width": 7,
+						"height": 4,
 						"type": "rect",
 						"fill": "#ed1c24",
 						"opacity": 0
 					}
 			},
 
-			"tunnel": {
-				"geometry":
-					{
-						"x": 1025,
-						"y": 120,
-						"type": "group",
-						"opacity": 0
-					}
-			},
 
-			"tunnel_block": {
-				"group": "tunnel",
+			"setup": {
 				"geometry": {
-					"x": 0,
-					"y": 0,
-					"type": "image",
-					"src": "filmblock.png"
+					"x": 1266,
+					"y": 630,
+					"width": 100,
+					"height": 100,
+					"type": "rect",
+					"fill": "#ffffff"
 				}
 			},
-			
-			"tunnel_text_de": {
-				"group": "tunnel",
-				"geometry":
-					{
-						"x": 55,
-						"y": 30,
-						"text": "Semmering Basistunnel",
-						"fontSize": "30",
-						"fontStyle": "bold",
-						"fill": "black",
-						"type": "text",
-						"opacity": 1
-					}
-			},
 
-			"tunnel_text_en": {
-				"group": "tunnel",
-				"geometry":
-					{
-						"x": 55,
-						"y": 65,
-						"text": "Semmering base tunnel",
-						"fontSize": "30",
-						"fill": "black",
-						"type": "text",
-						"opacity": 1
-					}
-			},
-
-			"tunnel_progress": {
-				"group": "tunnel",
-				"geometry":
-					{
-						"x": 55,
-						"y": 105,
-						"width": 10,
-						"height": 6,
-						"type": "rect",
-						"fill": "#ed1c24",
-						"opacity": 0
-					}
-			},
 
 			"reset": {
 				"geometry":
 					{
 						"x": 0,
-						"y": 910,
+						"y": 600,
 						"type": "image",
 						"src": "back.png",
 						"opacity": 1
@@ -307,7 +257,7 @@
 					"leporello" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 135, "y": 120 },
+							{ "time": 0, "x": 96, "y": 86 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -318,14 +268,14 @@
 					"leporello_progress": {
 						"keys": [
 							{ "time": 0, "opacity": 0 },
-							{ "time": 0, "width": 10 }
+							{ "time": 0, "width": 7 }
 						]
 					},
 
 					"benkert" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 135, "y": 400 },
+							{ "time": 0, "x": 96, "y": 286 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -342,7 +292,7 @@
 					"lahoda" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 135, "y": 680 },
+							{ "time": 0, "x": 96, "y": 486 },
 							{ "time": 0, "opacity": 1 }
 						],
 						"event": [
@@ -356,23 +306,16 @@
 						]
 					},
 
-					"tunnel" : {
+					"setup" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 1025, "y": 120 },
-							{ "time": 0, "opacity": 1 }
+							{ "time": 0, "opacity": 0 }
 						],
 						"event": [
-							{ "type": "click", "action": "scene", "value": "start_tunnel" }
+							{ "type": "click", "action": "scene", "value": "setup" },
+							{ "type": "click", "action": "post", "value": "scene:setup" }
 						]
 					},
-
-					"tunnel_progress": {
-						"keys": [
-							{ "time": 0, "opacity": 0 }
-						]
-					},
-
 
 					"reset" : {
 						"layer": "main",
@@ -381,6 +324,52 @@
 						],
 						"event": [
 							{ "type": "click", "action": "post", "value": "scene:main" }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "setup",
+				"start": 0,
+				"end": 25,
+				"loop": 1,
+
+				"cast": {
+					"setup" : {
+						"layer": "back",
+						"keys": [
+							{ "time": 0, "opacity": 0 }
+						]
+					},
+
+					"benkert" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"leporello" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 12, "opacity": 0 }
+						]
+					},
+
+					"reset" : {
+						"layer": "main",
+						"keys": [
+							{ "time": 0, "opacity": 1 },
+							{ "time": 0, "x": -72 },
+							{ "time": 25, "x": 0 }
+						],
+					
+						"event": [
+							{ "type": "click", "action": "post", "value": "scene:main" },
+							{ "type": "click", "action": "scene", "value": "main" }
 						]
 					}
 				}
@@ -421,19 +410,11 @@
 						]
 					},
 
-					"tunnel" : {
-						"layer": "main",
-						"keys": [
-							{ "time": 0, "opacity": 1 },
-							{ "time": 12, "opacity": 0 }
-						]
-					},
-
 					"leporello" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 135, "y": 170 },
-							{ "time": 25, "x": 570, "y": 400 }
+							{ "time": 0, "x": 96, "y": 121 },
+							{ "time": 25, "x": 407, "y": 286 }
 						]
 					},
 
@@ -448,7 +429,7 @@
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 0, "x": -100 },
+							{ "time": 0, "x": -72 },
 							{ "time": 25, "x": 0 }
 						]
 					}
@@ -459,20 +440,46 @@
 				"name": "leporello",
 				"start": 0,
 				"end": 625,
+				"onstop": "main",
 				"loop": 1,
+
 				"event": [
-					{ "time": 50, "action": "stop" },
-					{ "time": 100, "action": "stop" },
-					{ "time": 150, "action": "stop" },
-					{ "time": 200, "action": "stop" },
-					{ "time": 250, "action": "stop" },
-					{ "time": 300, "action": "stop" },
-					{ "time": 350, "action": "stop" },
-					{ "time": 400, "action": "stop" },
-					{ "time": 450, "action": "stop" },
-					{ "time": 500, "action": "stop" },
-					{ "time": 550, "action": "stop" },
-					{ "time": 600, "action": "stop" }
+					{ "time": 50, "action": "wait", "value": 2000 },
+					{ "time": 51, "action": "post", "value": "resume:inhalt" },
+					{ "time": 51, "action": "post", "value": "resume:karte" },
+					{ "time": 100, "action": "wait", "value": 5000 },
+					{ "time": 101, "action": "post", "value": "resume:inhalt" },
+					{ "time": 101, "action": "post", "value": "resume:karte" },
+					{ "time": 150, "action": "wait", "value": 5000 },
+					{ "time": 151, "action": "post", "value": "resume:inhalt" },
+					{ "time": 151, "action": "post", "value": "resume:karte" },
+					{ "time": 200, "action": "wait", "value": 5000 },
+					{ "time": 201, "action": "post", "value": "resume:inhalt" },
+					{ "time": 201, "action": "post", "value": "resume:karte" },
+					{ "time": 250, "action": "wait", "value": 5000 },
+					{ "time": 251, "action": "post", "value": "resume:inhalt" },
+					{ "time": 251, "action": "post", "value": "resume:karte" },
+					{ "time": 300, "action": "wait", "value": 5000 },
+					{ "time": 301, "action": "post", "value": "resume:inhalt" },
+					{ "time": 301, "action": "post", "value": "resume:karte" },
+					{ "time": 350, "action": "wait", "value": 5000 },
+					{ "time": 351, "action": "post", "value": "resume:inhalt" },
+					{ "time": 351, "action": "post", "value": "resume:karte" },
+					{ "time": 400, "action": "wait", "value": 5000 },
+					{ "time": 401, "action": "post", "value": "resume:inhalt" },
+					{ "time": 401, "action": "post", "value": "resume:karte" },
+					{ "time": 450, "action": "wait", "value": 5000 },
+					{ "time": 451, "action": "post", "value": "resume:inhalt" },
+					{ "time": 451, "action": "post", "value": "resume:karte" },
+					{ "time": 500, "action": "wait", "value": 5000 },
+					{ "time": 501, "action": "post", "value": "resume:inhalt" },
+					{ "time": 501, "action": "post", "value": "resume:karte" },
+					{ "time": 550, "action": "wait", "value": 5000 },
+					{ "time": 551, "action": "post", "value": "resume:inhalt" },
+					{ "time": 551, "action": "post", "value": "resume:karte" },
+					{ "time": 600, "action": "wait", "value": 5000 },
+					{ "time": 601, "action": "post", "value": "resume:inhalt" },
+					{ "time": 601, "action": "post", "value": "resume:karte" }
 				],
 
 				"cast": {
@@ -494,7 +501,7 @@
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },
-							{ "time": 625, "width": 660 }
+							{ "time": 625, "width": 471 }
 						]
 					},
 
@@ -518,8 +525,8 @@
 				"loop": 1,
 				"onstop": "benkert",
 				"event": [
-					{ "time": 25, "action": "post", "value": "scene:benkert@karte" },
-					{ "time": 25, "action": "post", "value": "scene:benkert@inhalt" }
+					{ "time": 25, "action": "post", "value": "scene:lahoda@karte" },
+					{ "time": 25, "action": "post", "value": "scene:lahoda@inhalt" }
 				],
 				
 				"cast": {
@@ -538,15 +545,7 @@
 						]
 					},
 
-					"lahoda" : {
-						"layer": "main",
-						"keys": [
-							{ "time": 0, "opacity": 1 },
-							{ "time": 12, "opacity": 0 }
-						]
-					},
-
-					"tunnel" : {
+					"benkert" : {
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
@@ -557,8 +556,8 @@
 					"benkert" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 135, "y": 400 },
-							{ "time": 25, "x": 570, "y": 400 }
+							{ "time": 0, "x": 96, "y": 286 },
+							{ "time": 25, "x": 407, "y": 286 }
 						]
 					},
 
@@ -573,7 +572,7 @@
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 0, "x": -100 },
+							{ "time": 0, "x": -72 },
 							{ "time": 25, "x": 0 }
 						]
 					}
@@ -584,22 +583,51 @@
 				"name": "benkert",
 				"start": 0,
 				"end": 725,
-				"loop": 0,
+				"onstop": "main",
+				"loop": 1,
 				"event": [
-					{ "time": 50, "action": "stop" },
-					{ "time": 100, "action": "stop" },
-					{ "time": 150, "action": "stop" },
-					{ "time": 200, "action": "stop" },
-					{ "time": 250, "action": "stop" },
-					{ "time": 300, "action": "stop" },
-					{ "time": 350, "action": "stop" },
-					{ "time": 400, "action": "stop" },
-					{ "time": 450, "action": "stop" },
-					{ "time": 500, "action": "stop" },
-					{ "time": 550, "action": "stop" },
-					{ "time": 600, "action": "stop" },
-					{ "time": 650, "action": "stop" },
-					{ "time": 700, "action": "stop" }
+					{ "time": 50, "action": "wait", "value": 2000 },
+					{ "time": 51, "action": "post", "value": "resume:inhalt" },
+					{ "time": 51, "action": "post", "value": "resume:karte" },
+					{ "time": 100, "action": "wait", "value": 5000 },
+					{ "time": 101, "action": "post", "value": "resume:inhalt" },
+					{ "time": 101, "action": "post", "value": "resume:karte" },
+					{ "time": 150, "action": "wait", "value": 5000 },
+					{ "time": 151, "action": "post", "value": "resume:inhalt" },
+					{ "time": 151, "action": "post", "value": "resume:karte" },
+					{ "time": 200, "action": "wait", "value": 5000 },
+					{ "time": 201, "action": "post", "value": "resume:inhalt" },
+					{ "time": 201, "action": "post", "value": "resume:karte" },
+					{ "time": 250, "action": "wait", "value": 5000 },
+					{ "time": 251, "action": "post", "value": "resume:inhalt" },
+					{ "time": 251, "action": "post", "value": "resume:karte" },
+					{ "time": 300, "action": "wait", "value": 5000 },
+					{ "time": 301, "action": "post", "value": "resume:inhalt" },
+					{ "time": 301, "action": "post", "value": "resume:karte" },
+					{ "time": 350, "action": "wait", "value": 5000 },
+					{ "time": 351, "action": "post", "value": "resume:inhalt" },
+					{ "time": 351, "action": "post", "value": "resume:karte" },
+					{ "time": 400, "action": "wait", "value": 5000 },
+					{ "time": 401, "action": "post", "value": "resume:inhalt" },
+					{ "time": 401, "action": "post", "value": "resume:karte" },
+					{ "time": 450, "action": "wait", "value": 5000 },
+					{ "time": 451, "action": "post", "value": "resume:inhalt" },
+					{ "time": 451, "action": "post", "value": "resume:karte" },
+					{ "time": 500, "action": "wait", "value": 5000 },
+					{ "time": 501, "action": "post", "value": "resume:inhalt" },
+					{ "time": 501, "action": "post", "value": "resume:karte" },
+					{ "time": 550, "action": "wait", "value": 5000 },
+					{ "time": 551, "action": "post", "value": "resume:inhalt" },
+					{ "time": 551, "action": "post", "value": "resume:karte" },
+					{ "time": 600, "action": "wait", "value": 5000 },
+					{ "time": 601, "action": "post", "value": "resume:inhalt" },
+					{ "time": 601, "action": "post", "value": "resume:karte" },
+					{ "time": 650, "action": "wait", "value": 5000 },
+					{ "time": 651, "action": "post", "value": "resume:inhalt" },
+					{ "time": 651, "action": "post", "value": "resume:karte" },
+					{ "time": 700, "action": "wait", "value": 5000 },
+					{ "time": 701, "action": "post", "value": "resume:inhalt" },
+					{ "time": 701, "action": "post", "value": "resume:karte" }
 				],
 
 				"cast": {
@@ -621,7 +649,7 @@
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "width": 10 },
-							{ "time": 725, "width": 660 }
+							{ "time": 725, "width": 471 }
 						]
 					},
 
@@ -673,19 +701,11 @@
 						]
 					},
 
-					"tunnel" : {
-						"layer": "main",
-						"keys": [
-							{ "time": 0, "opacity": 1 },
-							{ "time": 12, "opacity": 0 }
-						]
-					},
-
 					"lahoda" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "x": 135, "y": 680 },
-							{ "time": 25, "x": 570, "y": 400 }
+							{ "time": 0, "x": 96, "y": 486 },
+							{ "time": 25, "x": 407, "y": 286 }
 						]
 					},
 
@@ -700,7 +720,7 @@
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 0, "x": -100 },
+							{ "time": 0, "x": -72 },
 							{ "time": 25, "x": 0 }
 						]
 					}
@@ -741,6 +761,7 @@
 							{ "time": 0, "opacity": 1 }
 						]
 					},
+
 
 					"lahoda_progress": {
 						"keys": [
@@ -825,7 +846,7 @@
 						"layer": "main",
 						"keys": [
 							{ "time": 0, "opacity": 1 },
-							{ "time": 0, "x": -100 },
+							{ "time": 0, "x": -72 },
 							{ "time": 25, "x": 0 }
 						]
 					}

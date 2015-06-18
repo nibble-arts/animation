@@ -1,105 +1,109 @@
 {
 	"animation": {
-		"stage": { "id": "scene", "width": 1920, "height": 1080, "fill": "black" },
+		"stage": { "id": "scene", "width": 1280, "height": 760, "fill": "black" },
 
 		"cast": {
 			"home": {
-				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "fill": "black", "type": "rect" }
+				"geometry": { "x": 0, "y": 0, "width": 1280, "height": 760, "fill": "black", "type": "rect" }
 			},
 			
 			"title": {
-				"geometry": { "x": 850, "y": 900, "type": "group" }
+				"geometry": { "x": 567, "y": 600, "type": "group" }
 			},
 
 			"title_text": {
 				"group": "title",
-				"geometry": { "x": 0, "y": 0, "text": "Semmeringbahn", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "Semmeringbahn", "fontSize": "53", "fill": "white", "align": "center", "type": "text" }
 			},
 
 
 
 			"luftbild": {
-				"geometry": { "x": 29, "y": 0, "src": "Luftbild1.jpg", "type": "image" }
+				"geometry": { "x": 19, "y": 0, "src": "Luftbild1.jpg", "type": "image" }
 			},
 
+
+			"hoehenlinien": {
+				"geometry": { "x": 0, "y": 0, "src": "Karte.jpg", "type": "image" }
+			},
 
 
 			"unesco_nahbereich": {
-				"geometry": { "x": 403, "y": 44, "src": "unesco_nahbereich.png", "type": "image" }
+				"geometry": { "x": 269, "y": 29, "src": "unesco_nahbereich.png", "type": "image" }
 			},
 
 			"unesco_siedlung": {
-				"geometry": { "x": 732, "y": 15, "src": "unesco_siedlung.png", "type": "image" }
+				"geometry": { "x": 488, "y": 10, "src": "unesco_siedlung.png", "type": "image" }
 			},
 
 
 
 			"wsg_grundwasser": {
-				"geometry": { "x": 29, "y":0, "src": "wsg_grundwasser.png", "type": "image" }
+				"geometry": { "x": 19, "y":0, "src": "wsg_grundwasser.png", "type": "image" }
 			},
 
 			"wsg_quellschutz": {
-				"geometry": { "x": 274, "y":178, "src": "wsg_quellschutz.png", "type": "image" }
+				"geometry": { "x": 183, "y":119, "src": "wsg_quellschutz.png", "type": "image" }
 			},
 
 			"wsg_wirtschaft": {
-				"geometry": { "x": 1788, "y":133, "src": "wsg_wirtschaft.png", "type": "image" }
+				"geometry": { "x": 1192, "y":89, "src": "wsg_wirtschaft.png", "type": "image" }
 			},
 
 			"wsg_brunnenschutz": {
-				"geometry": { "x": 1723, "y": 207, "src": "wsg_brunnenschutz.png", "type": "image" }
+				"geometry": { "x": 1149, "y": 138, "src": "wsg_brunnenschutz.png", "type": "image" }
 			},
 
 
 
 			"lsg_veitsch": {
-				"geometry": { "x": 29, "y":0, "src": "lsg_veitsch.png", "type": "image" }
+				"geometry": { "x": 19, "y":0, "src": "lsg_veitsch.png", "type": "image" }
 			},
 
 			"lsg_rax": {
-				"geometry": { "x": 593, "y":0, "src": "lsg_rax.png", "type": "image" }
+				"geometry": { "x": 395, "y":0, "src": "lsg_rax.png", "type": "image" }
 			},
 
 			"lsg_natura2000": {
-				"geometry": { "x": 593, "y":0, "src": "lsg_natura2000.png", "type": "image" }
+				"geometry": { "x": 395, "y":0, "src": "lsg_natura2000.png", "type": "image" }
 			},
 
 			"lsg_stuhleck": {
-				"geometry": { "x": 351, "y":888, "src": "lsg_stuhleck.png", "type": "image" }
+				"geometry": { "x": 234, "y":888, "src": "lsg_stuhleck.png", "type": "image" }
 			},
 
 
 
 			"txt_gloggnitz": {
-				"geometry": { "x": 1650, "y": 230, "text": "Gloggnitz", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 1100, "y": 153, "text": "Gloggnitz", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_payerbach": {
-				"geometry": { "x": 1250, "y": 45, "text": "Payerbach", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 833, "y": 30, "text": "Payerbach", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_krauselklause": {
-				"geometry": { "x": 950, "y": 250, "text": "Krauselklause Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 633, "y": 167, "text": "Krauselklause Viadukt", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_bolleroswand": {
-				"geometry": { "x": 850, "y": 300, "text": "Bollerostunnel", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 567, "y": 200, "text": "Bollerostunnel", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_kalterinne": {
-				"geometry": { "x": 750, "y": 350, "text": "Kalte Rinne Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 500, "y": 233, "text": "Kalte Rinne Viadukt", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_adlitzgraben": {
-				"geometry": { "x": 780, "y": 460, "text": "Adlitzgraben Viadukt", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 520, "y": 307, "text": "Adlitzgraben Viadukt", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_semmering": {
-				"geometry": { "x": 930, "y": 530, "text": "Semmering", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 620, "y": 353, "text": "Semmering", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 			"txt_muerzzuschlag": {
-				"geometry": { "x": 380, "y": 750, "text": "Mürzzuschlag", "type": "text", "fill": "white", "fontSize": 30, "align": "center" }
+				"geometry": { "x": 253, "y": 500, "text": "Mürzzuschlag", "type": "text", "fill": "white", "fontSize": 20, "align": "center" }
 			},
 
 
@@ -107,63 +111,63 @@
 
 
 			"s00": {
-				"geometry": { "x": 0, "y": 0, "width": 1920, "height": 1080, "src": "s00a.png", "type": "image" }
+				"geometry": { "x": 0, "y": 0, "src": "s00a.png", "type": "image" }
 			},
 
 			"s_semmering": {
-				"geometry": { "x": 29, "y": 0, "src": "s_semmering.png", "type": "image" }
+				"geometry": { "x": 19, "y": 0, "src": "s_semmering.png", "type": "image" }
 			},
 
 			"s01": {
-				"geometry": { "x": 1283, "y": 79, "src": "s01_1254-79.png", "type": "image" }
+				"geometry": { "x": 855, "y": 53, "src": "s01_1254-79.png", "type": "image" }
 			},
 
 			"s02": {
-				"geometry": { "x": 1315, "y": 127, "src": "s02_1286-127.png", "type": "image" }
+				"geometry": { "x": 877, "y": 85, "src": "s02_1286-127.png", "type": "image" }
 			},
 
 			"s03": {
-				"geometry": { "x": 1413, "y": 222, "src": "s03_1384-222.png", "type": "image" }
+				"geometry": { "x": 942, "y": 148, "src": "s03_1384-222.png", "type": "image" }
 			},
 
 			"s04": {
-				"geometry": { "x": 1345, "y": 263, "src": "s04_1316-263.png", "type": "image" }
+				"geometry": { "x": 897, "y": 175, "src": "s04_1316-263.png", "type": "image" }
 			},
 
 			"s05": {
-				"geometry": { "x": 1208, "y": 304, "src": "s05_1179-304.png", "type": "image" }
+				"geometry": { "x": 805, "y": 203, "src": "s05_1179-304.png", "type": "image" }
 			},
 
 			"s06": {
-				"geometry": { "x": 1073, "y": 318, "src": "s06_1044-318.png", "type": "image" }
+				"geometry": { "x": 715, "y": 212, "src": "s06_1044-318.png", "type": "image" }
 			},
 
 			"s07": {
-				"geometry": { "x": 1036, "y": 351, "src": "s07_1007-351.png", "type": "image" }
+				"geometry": { "x": 691, "y": 234, "src": "s07_1007-351.png", "type": "image" }
 			},
 
 			"s08": {
-				"geometry": { "x": 1095, "y": 411, "src": "s08_1066-411.png", "type": "image" }
+				"geometry": { "x": 730, "y": 274, "src": "s08_1066-411.png", "type": "image" }
 			},
 
 			"s09": {
-				"geometry": { "x": 1113, "y": 460, "src": "s09_1084-460.png", "type": "image" }
+				"geometry": { "x": 742, "y": 307, "src": "s09_1084-460.png", "type": "image" }
 			},
 
 			"s_sued": {
-				"geometry": { "x": 486, "y": 553, "src": "s_sued_457-553.png", "type": "image" }
+				"geometry": { "x": 324, "y": 369, "src": "s_sued_457-553.png", "type": "image" }
 			},
 
 			"k_leporello": {
-				"geometry": { "x": 1009, "y": 57, "src": "k_leporello.jpg", "type": "image" }
+				"geometry": { "x": 673, "y": 38, "src": "k_leporello.jpg", "type": "image" }
 			},
 			
 			"k_tallachini": {
-				"geometry": { "x": 990, "y": 318, "src": "k_tallachini.jpg", "type": "image" }
+				"geometry": { "x": 660, "y": 212, "src": "k_tallachini.jpg", "type": "image" }
 			},
 			
 			"s_tallachini": {
-				"geometry": { "x": 990, "y": 318, "src": "s_tallachini.png", "type": "image" }
+				"geometry": { "x": 660, "y": 212, "src": "s_tallachini.png", "type": "image" }
 			}
 		},
 
@@ -187,18 +191,22 @@
 					"luftbild" : {
 						"layer": "main",
 						"keys": [
-							{ "time": 0, "opacity": 0.3 }
+							{ "time": 0, "opacity": 1 }
 						]
-					},
+					}
+				}
+			},
 
-					"title" : {
-						"layer": "button",
+			{
+				"name": "setup",
+				"start": 0,
+				"end": 0,
+				"loop": 0,
+				"cast": {
+					"hoehenlinien": {
+						"layer": "main",
 						"keys": [
-							{ "time": 0, "opacity": 1 },
-							{ "time": 0, "x": -600 },
-							{ "time": 0, "y": 1000 },
-							{ "time": 1000, "x": 2050 },
-							{ "time": 1000, "y": 100 }
+							{ "time": 0, "opacity": 1 }
 						]
 					}
 				}
@@ -213,42 +221,17 @@
 
 				"event": [
 					{ "time": 50, "action": "stop" },
-					{ "time": 50, "action": "wait", "value": 3000 },
-					{ "time": 51, "action": "post", "value": "resume:inhalt" },
 					{ "time": 100, "action": "stop" },
-					{ "time": 100, "action": "wait", "value": 3000 },
-					{ "time": 101, "action": "post", "value": "resume:inhalt" },
 					{ "time": 150, "action": "stop" },
-					{ "time": 150, "action": "wait", "value": 3000 },
-					{ "time": 151, "action": "post", "value": "resume:inhalt" },
 					{ "time": 200, "action": "stop" },
-					{ "time": 200, "action": "wait", "value": 3000 },
-					{ "time": 201, "action": "post", "value": "resume:inhalt" },
 					{ "time": 250, "action": "stop" },
-					{ "time": 250, "action": "wait", "value": 3000 },
-					{ "time": 251, "action": "post", "value": "resume:inhalt" },
 					{ "time": 300, "action": "stop" },
-					{ "time": 300, "action": "wait", "value": 3000 },
-					{ "time": 301, "action": "post", "value": "resume:inhalt" },
 					{ "time": 350, "action": "stop" },
-					{ "time": 350, "action": "wait", "value": 3000 },
-					{ "time": 351, "action": "post", "value": "resume:inhalt" },
 					{ "time": 400, "action": "stop" },
-					{ "time": 400, "action": "wait", "value": 3000 },
-					{ "time": 401, "action": "post", "value": "resume:inhalt" },
 					{ "time": 450, "action": "stop" },
-					{ "time": 450, "action": "wait", "value": 3000 },
-					{ "time": 451, "action": "post", "value": "resume:inhalt" },
 					{ "time": 500, "action": "stop" },
-					{ "time": 500, "action": "wait", "value": 3000 },
-					{ "time": 501, "action": "post", "value": "resume:inhalt" },
 					{ "time": 550, "action": "stop" },
-					{ "time": 550, "action": "wait", "value": 3000 },
-					{ "time": 551, "action": "post", "value": "resume:inhalt" },
-					{ "time": 600, "action": "stop" },
-					{ "time": 600, "action": "wait", "value": 5000 },
-					{ "time": 601, "action": "post", "value": "resume:inhalt" },
-					{ "time": 625, "action": "post", "value": "scene:main@control" }
+					{ "time": 600, "action": "stop" }
 				],
 
 
@@ -256,10 +239,10 @@
 					"luftbild" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 0, "opacity": 0.3 },
-							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0.3 }
+							{ "time": 100, "opacity": 0.5 },
+							{ "time": 600, "opacity": 0.5 },
+							{ "time": 625, "opacity": 1 }
 						]
 					},
 
@@ -276,8 +259,8 @@
 					"txt_gloggnitz" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
 							{ "time": 100, "opacity": 0.3 },
 							{ "time": 600, "opacity": 0.3 },
@@ -288,8 +271,8 @@
 					"txt_payerbach" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 600, "opacity": 1 },
 							{ "time": 625, "opacity": 0 }
 						]
@@ -298,8 +281,8 @@
 					"txt_semmering" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 600, "opacity": 1 },
 							{ "time": 625, "opacity": 0 }
 						]
@@ -308,8 +291,8 @@
 					"txt_muerzzuschlag" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
 							{ "time": 100, "opacity": 0.3 },
 							{ "time": 600, "opacity": 0.3 },
@@ -320,8 +303,8 @@
 					"s00": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
 							{ "time": 100, "opacity": 0.3 },
 							{ "time": 600, "opacity": 0.3 },
@@ -332,8 +315,8 @@
 					"s_sued": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
 							{ "time": 100, "opacity": 0.3 },
 							{ "time": 600, "opacity": 0.3 },
@@ -359,8 +342,8 @@
 					"s02": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 175, "opacity": 0 },
 							{ "time": 200, "opacity": 1 },
@@ -374,8 +357,8 @@
 					"s03": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 225, "opacity": 0 },
 							{ "time": 250, "opacity": 1 },
@@ -389,8 +372,8 @@
 					"s04": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 275, "opacity": 0 },
 							{ "time": 300, "opacity": 1 },
@@ -404,8 +387,8 @@
 					"s05": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 325, "opacity": 0 },
 							{ "time": 350, "opacity": 1 },
@@ -419,8 +402,8 @@
 					"s06": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 375, "opacity": 0 },
 							{ "time": 400, "opacity": 1 },
@@ -434,8 +417,8 @@
 					"s07": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 425, "opacity": 0 },
 							{ "time": 450, "opacity": 1 },
@@ -449,8 +432,8 @@
 					"s08": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 475, "opacity": 0 },
 							{ "time": 500, "opacity": 1 },
@@ -464,8 +447,8 @@
 					"s09": {
 						"layer": "bahn",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 0 },
 							{ "time": 525, "opacity": 0 },
 							{ "time": 550, "opacity": 1 },
@@ -486,48 +469,19 @@
 
 				"event": [
 					{ "time": 50, "action": "stop" },
-					{ "time": 50, "action": "wait", "value": 3000 },
-					{ "time": 51, "action": "post", "value": "resume:inhalt" },
 					{ "time": 100, "action": "stop" },
-					{ "time": 100, "action": "wait", "value": 3000 },
-					{ "time": 101, "action": "post", "value": "resume:inhalt" },
 					{ "time": 150, "action": "stop" },
-					{ "time": 150, "action": "wait", "value": 3000 },
-					{ "time": 151, "action": "post", "value": "resume:inhalt" },
 					{ "time": 200, "action": "stop" },
-					{ "time": 200, "action": "wait", "value": 3000 },
-					{ "time": 201, "action": "post", "value": "resume:inhalt" },
 					{ "time": 250, "action": "stop" },
-					{ "time": 250, "action": "wait", "value": 3000 },
-					{ "time": 251, "action": "post", "value": "resume:inhalt" },
 					{ "time": 300, "action": "stop" },
-					{ "time": 300, "action": "wait", "value": 3000 },
-					{ "time": 301, "action": "post", "value": "resume:inhalt" },
 					{ "time": 350, "action": "stop" },
-					{ "time": 350, "action": "wait", "value": 3000 },
-					{ "time": 351, "action": "post", "value": "resume:inhalt" },
 					{ "time": 400, "action": "stop" },
-					{ "time": 400, "action": "wait", "value": 3000 },
-					{ "time": 401, "action": "post", "value": "resume:inhalt" },
 					{ "time": 450, "action": "stop" },
-					{ "time": 450, "action": "wait", "value": 3000 },
-					{ "time": 451, "action": "post", "value": "resume:inhalt" },
 					{ "time": 500, "action": "stop" },
-					{ "time": 500, "action": "wait", "value": 3000 },
-					{ "time": 501, "action": "post", "value": "resume:inhalt" },
 					{ "time": 550, "action": "stop" },
-					{ "time": 550, "action": "wait", "value": 3000 },
-					{ "time": 551, "action": "post", "value": "resume:inhalt" },
 					{ "time": 600, "action": "stop" },
-					{ "time": 600, "action": "wait", "value": 3000 },
-					{ "time": 601, "action": "post", "value": "resume:inhalt" },
 					{ "time": 650, "action": "stop" },
-					{ "time": 650, "action": "wait", "value": 3000 },
-					{ "time": 651, "action": "post", "value": "resume:inhalt" },
-					{ "time": 700, "action": "stop" },
-					{ "time": 700, "action": "wait", "value": 5000 },
-					{ "time": 701, "action": "post", "value": "resume:inhalt" },
-					{ "time": 725, "action": "post", "value": "scene:main@control" }
+					{ "time": 700, "action": "stop" }
 				],
 
 
@@ -535,10 +489,10 @@
 					"luftbild" : {
 						"layer": "luftbild",
 						"keys": [
-							{ "time": 0, "opacity": 0 },
-							{ "time": 25, "opacity": 1 },
 							{ "time": 75, "opacity": 1 },
-							{ "time": 100, "opacity": 0.3 }
+							{ "time": 100, "opacity": 0.5 },
+							{ "time": 700, "opacity": 0.5 },
+							{ "time": 725, "opacity": 1 }
 						]
 					},
 

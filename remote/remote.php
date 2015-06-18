@@ -18,7 +18,6 @@ $action = ""; // remote action
 $value = ""; // action value
 
 
-
 //***********************************
 // set html parameters
 if (isset($_GET["version"])) $version = $_GET["version"];
@@ -74,7 +73,12 @@ else {
 
 // get data
 		case "remote":
-			remote_from_paired($query);
+//			$xml->appendChild($xml->createElement("status","reached"));
+			$retQuery = remote_from_paired($query);
+			break;
+
+		default:
+			$xml->appendChild($xml->createElement("remote","connection error"));
 			break;
 	}
 
@@ -86,6 +90,7 @@ else {
 	if ($retQuery->time() >= 0) $xml->appendChild($xml->createElement("time",$retQuery->time()));
 	if ($retQuery->action()) $xml->appendChild($xml->createElement("action",$retQuery->action()));
 	if ($retQuery->value()) $xml->appendChild($xml->createElement("value",$retQuery->value()));
+	if ($retQuery->status()) $xml->appendChild($xml->createElement("status",$retQuery->status()));
 }
 
 
@@ -103,9 +108,13 @@ if (count($_GET))
 //==========================================================================
 // send post to all paired sequencers
 // value@target
+
 function post_to_paired ($query) {
 	global $config;
 	$sent = 0;
+	$response = array();
+	$responseCnt = 0;
+
 	$cmd = "remote";
 
 	$valArray = explode("@",$query->value());
@@ -117,13 +126,16 @@ function post_to_paired ($query) {
 // no target => sent to all
 // target => sent to target only
 	foreach ($config as $pair) {
+
 		if ($target == "" or $target == $pair["name"]) {
-			send_http($pair["uri"],$cmd,$query);
+			array_push($response,send_http($pair["uri"],$cmd,$query)."@".$pair["name"]);
 			$sent++;
 		}
 	}
 
-	return new Query($query->animation(),$query->scene(),$query->time(),"status","sent:".$sent);
+
+// (animation,scene,time,action,value,status)
+	return new Query($query->animation(),$query->scene(),$query->time(),"status","sent:".$sent,implode(":",$response));
 }
 
 
@@ -197,13 +209,21 @@ function remote_from_paired ($query) {
 		}
 	}
 
+// (animation,scene,time,action,value,status)
+	return new Query($query->animation(),$query->scene(),$query->time());
 }
 
 
 //=====================================================================
 function write_status($path,$target,$animation,$content) {
-	if ($target != $animation)
-		file_put_contents($path.$target.".".$animation.".txt",$content);
+	global $xml;
+//	echo "write data";
+	if ($target != $animation) {
+		if (file_put_contents($path.$target.".".$animation.".txt",$content) === false)
+			$xml->appendChild($xml->createElement("status","save error"));
+		else
+			$xml->appendChild($xml->createElement("status","saved"));
+	}
 }
 
 
@@ -214,9 +234,11 @@ function send_http ($url,$cmd,$param) {
 	$paramArray = $param->get_array();
 	$paramArray["cmd"] = $cmd;
 
-//print_r(http_build_query($paramArray,"","&"));
+//echo file_get_contents($url."?".http_build_query($paramArray,"","&"),true);
+//print_r($paramArray);
 
-	return file_get_contents($url."?cmd=".$cmd."&".http_build_query($paramArray,"","&"),true);
+//return ($url."?".http_build_query($paramArray,"","&"));
+	return file_get_contents($url."?".http_build_query($paramArray,"","&"),true);
 }
 
 
@@ -227,20 +249,25 @@ function send_http ($url,$cmd,$param) {
 //==========================================================================
 //==========================================================================
 // query class
+// (animation,scene,time,action,value,status)
+
 class Query {
 	private $queryAnimation = "";
 	private $queryScene = "";
 	private $queryTime = "-1";
 	private $queryAction = "";
 	private $queryValue = "";
-	
-	function __construct ($queryAnimation = "",$queryScene = "",$queryTime = "-1",$queryAction = "",$queryValue = "") {
+	private $queryStatus = "";
+
+	function __construct ($queryAnimation = "",$queryScene = "",$queryTime = "-1",$queryAction = "",$queryValue = "",$queryStatus = "") {
+
 		if (gettype($queryAnimation) == "array") {
 			if (array_key_exists("animation",$queryAnimation)) $this->queryAnimation = $queryAnimation["animation"];
 			if (array_key_exists("scene",$queryAnimation)) $this->queryScene = $queryAnimation["scene"];
 			if (array_key_exists("time",$queryAnimation)) $this->queryTime = $queryAnimation["time"];
 			if (array_key_exists("action",$queryAnimation)) $this->queryAction = $queryAnimation["action"];
 			if (array_key_exists("value",$queryAnimation)) $this->queryValue = $queryAnimation["value"];
+			if (array_key_exists("status",$queryAnimation)) $this->queryStatus = $queryAnimation["status"];
 		}
 
 		else {
@@ -249,11 +276,12 @@ class Query {
 			if ($queryTime >= 0) $this->queryTime = $queryTime;
 			if ($queryAction) $this->queryAction = $queryAction;
 			if ($queryValue) $this->queryValue = $queryValue;
+			if ($queryStatus) $this->queryStatus = $queryStatus;
 		}
 	}
 
 	function get() {
-		return new Query($this->queryAnimation,$this->queryScene,$this->queryTime,$this->queryAction,$this->queryValue);
+		return new Query($this->queryAnimation,$this->queryScene,$this->queryTime,$this->queryAction,$this->queryValue,$this->queryStatus);
 	}
 	
 	function get_array() {
@@ -264,6 +292,7 @@ class Query {
 		if ($this->queryTime >= 0) $retArray["time"] = $this->queryTime;
 		if ($this->queryAction) $retArray["action"] = $this->queryAction;
 		if ($this->queryValue) $retArray["value"] = $this->queryValue;
+		if ($this->queryValue) $retArray["status"] = $this->queryStatus;
 
 		return $retArray;
 	}
@@ -316,6 +345,14 @@ class Query {
 
 	function set_value($data) {
 		$this->queryValue = $data;
+	}
+
+	function status() {
+		return $this->queryStatus;
+	}
+
+	function set_status($data) {
+		$this->queryStatus = $data;
 	}
 
 }

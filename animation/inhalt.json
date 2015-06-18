@@ -1,165 +1,169 @@
 ﻿{
 	"animation": {
-		"stage": { "id": "scene", "width": 1920, "height": 1080, "fill": "black" },
+		"stage": { "id": "scene", "width": 1280, "height": 760, "fill": "black" },
 
 		"cast": {
 			"home": {
-				"geometry": { "x": 850, "y": 900, "type": "group" }
+				"geometry": { "x": 567, "y": 600, "type": "group" }
 			},
 
 			"home_text": {
-				"group": "home",
-				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "80", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "bahnen", "fontSize": "53", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"home_subtitle": {
 				"group": "home",
-				"geometry": { "x": 0, "y": 80, "text": "Eisenbahn und Berge", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 53, "text": "Die Semmeringbahn", "fontSize": "21", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"home_subtitle_en": {
 				"group": "home",
-				"geometry": { "x": 0, "y": 110, "text": "Railway and Mountains", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 82, "text": "The Semmering railway", "fontSize": "21", "fill": "grey", "align": "center", "type": "text" }
 			},
+
+			"setup": {
+				"geometry": { "x": 0, "y": 0, "type": "image", "src": "Testbild.jpg" }
+			},
+
 
 
 
 			"title_leporello": {
-				"geometry": { "x": 100, "y": 810, "type": "group" }
+				"geometry": { "x": 73, "y": 540, "type": "group" }
 			},
 
 			"subtitle_leporello": {
 				"group": "title_leporello",
-				"geometry": { "x": 0, "y": 0, "text": "Panorama der k.k. Staatsbahn über den Semmering", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "Panorama der k.k. Staatsbahn über den Semmering, Ludwig Czerny, Wien 1854", "fontSize": "17", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"subtitle_en_leporello": {
 				"group": "title_leporello",
-				"geometry": { "x": 0, "y": 30, "text": "Ludwig Czerny, Wien 1854", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 20, "text": "Panorama of k.k. Railway across the Semmering, Ludwig Czerny, Vienna 1854", "fontSize": "17", "fill": "grey", "align": "center", "type": "text" }
 			},
 
 
 
 			"title_benkert": {
-				"geometry": { "x": 100, "y": 810, "type": "group" }
+				"geometry": { "x": 73, "y": 540, "type": "group" }
 			},
 
 			"subtitle_benkert": {
 				"group": "title_benkert",
-				"geometry": { "x": 0, "y": 0, "text": "Lithographien vom Bau der Semmeringbahn", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "Lithographien vom Bau der Semmeringbahn, Imre Mária Benkert, 1848-1854", "fontSize": "17", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"subtitle_en_benkert": {
 				"group": "title_benkert",
-				"geometry": { "x": 0, "y": 30, "text": "Imre Mária Benkert, 1848-1854", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 20, "text": "Lithographs from the construction of the Semmering Railway, Imre Mária Benkert, 1848-1854", "fontSize": "17", "fill": "grey", "align": "center", "type": "text" }
 			},
 
 
 
 			"credit": {
-				"geometry": { "x": 100, "y": 810, "type": "group" }
+				"geometry": { "x": 73, "y": 540, "type": "group" }
 			},
 
 			"credit_sub": {
 				"group": "credit",
-				"geometry": { "x": 0, "y": 0, "text": "Eisenbahnarchiv des Technischen Museums Wien", "fontSize": "25", "fill": "white", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 0, "text": "Eisenbahnarchiv des Technischen Museums Wien", "fontSize": "17", "fill": "white", "align": "center", "type": "text" }
 			},
 
 			"credit_sub_en": {
 				"group": "credit",
-				"geometry": { "x": 0, "y": 30, "text": "Railway Archive of the Vienna Technical Museum", "fontSize": "25", "fill": "grey", "align": "center", "type": "text" }
+				"geometry": { "x": 0, "y": 20, "text": "Railway Archive of the Vienna Technical Museum", "fontSize": "17", "fill": "grey", "align": "center", "type": "text" }
 			},
 
 
 
 			"rahmen": {
-				"geometry": { "x": 1000, "y": 897, "width": 235, "height": 90, "type": "rect", "stroke": "red", "strokeWidth": 3 }
+				"geometry": { "x": 730, "y": 598, "width": 157, "height": 60, "type": "rect", "stroke": "red", "strokeWidth": 2 }
 			},
 			
 			"leporello_ganz": {
-				"geometry": { "x": 0, "y": 900, "src": "Leporello 1920.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 600, "src": "Leporello 1920.jpg", "type": "image" }
 			},
 
 			"Leporello_01": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_01.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_01.jpg", "type": "image" }
 			},
 
 			"Leporello_02": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_02.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_02.jpg", "type": "image" }
 			},
 
 			"Leporello_03": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_03.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_03.jpg", "type": "image" }
 			},
 
 			"Leporello_04": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_04.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_04.jpg", "type": "image" }
 			},
 
 			"Leporello_05": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_05.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_05.jpg", "type": "image" }
 			},
 
 			"Leporello_06": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_06.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_06.jpg", "type": "image" }
 			},
 
 			"Leporello_07": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_07.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_07.jpg", "type": "image" }
 			},
 
 			"Leporello_08": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_08.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_08.jpg", "type": "image" }
 			},
 
 			"Leporello_09": {
-				"geometry": { "x": 0, "y": 50, "src": "Leporello_09.jpg", "type": "image" }
+				"geometry": { "x": 0, "y": 33, "src": "Leporello_09.jpg", "type": "image" }
 			},
 
 
 
 			"Benkert_01": {
-				"geometry": { "x": 557, "y": 0, "src": "benk_krauselklause_01.jpg", "type": "image" }
+				"geometry": { "x": 371, "y": 0, "src": "benk_krauselklause_01.jpg", "type": "image" }
 			},
 
 			"Benkert_02": {
-				"geometry": { "x": 222, "y": 0, "src": "benk_krauselklause_02.jpg", "type": "image" }
+				"geometry": { "x": 148, "y": 0, "src": "benk_krauselklause_02.jpg", "type": "image" }
 			},
 
 			"Benkert_03": {
-				"geometry": { "x": 252, "y": 0, "src": "benk_bolleroswand.jpg", "type": "image" }
+				"geometry": { "x": 168, "y": 0, "src": "benk_bolleroswand.jpg", "type": "image" }
 			},
 
 			"Benkert_04": {
-				"geometry": { "x": 261, "y": 0, "src": "benk_kalterinne_01.jpg", "type": "image" }
+				"geometry": { "x": 174, "y": 0, "src": "benk_kalterinne_01.jpg", "type": "image" }
 			},
 
 			"Benkert_05": {
-				"geometry": { "x": 259, "y": 0, "src": "benk_kalterinne_02.jpg", "type": "image" }
+				"geometry": { "x": 173, "y": 0, "src": "benk_kalterinne_02.jpg", "type": "image" }
 			},
 
 			"Benkert_06": {
-				"geometry": { "x": 235, "y": 0, "src": "benk_kalterinne_03.jpg", "type": "image" }
+				"geometry": { "x": 157, "y": 0, "src": "benk_kalterinne_03.jpg", "type": "image" }
 			},
 
 			"Benkert_07": {
-				"geometry": { "x": 235, "y": 0, "src": "benk_kalterinne_04.jpg", "type": "image" }
+				"geometry": { "x": 157, "y": 0, "src": "benk_kalterinne_04.jpg", "type": "image" }
 			},
 
 			"Benkert_08": {
-				"geometry": { "x": 261, "y": 0, "src": "benk_kalterinne_05.jpg", "type": "image" }
+				"geometry": { "x": 174, "y": 0, "src": "benk_kalterinne_05.jpg", "type": "image" }
 			},
 
 			"Benkert_09": {
-				"geometry": { "x": 226, "y": 0, "src": "benk_kalterinne_06.jpg", "type": "image" }
+				"geometry": { "x": 151, "y": 0, "src": "benk_kalterinne_06.jpg", "type": "image" }
 			},
 
 			"Benkert_10": {
-				"geometry": { "x": 269, "y": 0, "src": "benk_kalterinne_07.jpg", "type": "image" }
+				"geometry": { "x": 179, "y": 0, "src": "benk_kalterinne_07.jpg", "type": "image" }
 			},
 
 			"Benkert_11": {
-				"geometry": { "x": 248, "y": 0, "src": "benk_adlitzgraben.jpg", "type": "image" }
+				"geometry": { "x": 156, "y": 0, "src": "benk_adlitzgraben.jpg", "type": "image" }
 			}
 		},
 
@@ -178,9 +182,25 @@
 						"keys": [
 							{ "time": 0, "opacity": 1 },
 							{ "time": 0, "x": -300 },
-							{ "time": 0, "y": 1000 },
-							{ "time": 1000, "x": 2050 },
-							{ "time": 1000, "y": 100 }
+							{ "time": 0, "y": 600 },
+							{ "time": 1000, "x": 1377 },
+							{ "time": 1000, "y": 72 }
+						]
+					}
+				}
+			},
+
+			{
+				"name": "setup",
+				"start": 0,
+				"end": 0,
+				"loop": 0,
+
+				"cast": {
+					"setup" : {
+						"layer": "button",
+						"keys": [
+							{ "time": 0, "opacity": 1 }
 						]
 					}
 				}
@@ -213,8 +233,8 @@
 					"title_leporello" : {
 						"layer": "bilder",
 						"keys": [
-							{ "time": 25, "opacity": 0 },
-							{ "time": 50, "opacity": 1 },
+							{ "time": 0, "opacity": 0 },
+							{ "time": 25, "opacity": 1 },
 							{ "time": 100, "opacity": 1 },
 							{ "time": 125, "opacity": 0 }
 						]
@@ -242,17 +262,17 @@
 					"rahmen" : {
 						"layer": "bilder",
 						"keys": [
-							{ "time": 0, "x": 1685 },
+							{ "time": 0, "x": 1123 },
 							{ "time": 125, "opacity": 0 },
 							{ "time": 150, "opacity": 1 },
-							{ "time": 150, "x": 1685 },
-							{ "time": 200, "x": 1580 },
-							{ "time": 250, "x": 1360 },
-							{ "time": 300, "x": 1030 },
-							{ "time": 350, "x": 865 },
-							{ "time": 400, "x": 590 },
-							{ "time": 450, "x": 370 },
-							{ "time": 500, "x": 155 },
+							{ "time": 150, "x": 1123 },
+							{ "time": 200, "x": 1053 },
+							{ "time": 250, "x": 907 },
+							{ "time": 300, "x": 687 },
+							{ "time": 350, "x": 577 },
+							{ "time": 400, "x": 393 },
+							{ "time": 450, "x": 247 },
+							{ "time": 500, "x": 103 },
 							{ "time": 550, "x": 0 },
 							{ "time": 550, "opacity": 1 },
 							{ "time": 575, "opacity": 0 }

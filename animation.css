@@ -8,6 +8,18 @@ body {
 	margin-top: 0px;
 }
 
-/*html {
-	cursor: none;
-}*/
+html {
+/*	cursor: none;*/
+}
+
+#debug {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	z-index: 999;
+	min-width: 200px;
+	min-height: 100px;
+	color: #e0e0e0;
+	border: 1px solid red;
+	visibility: hidden;
+}

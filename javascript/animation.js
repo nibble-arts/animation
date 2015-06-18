@@ -44,7 +44,7 @@ function load(path) {
 	.error(function (xhr,type) {
 		console.log(xhr,"ERROR");
 		console.log(type,"ERROR");
-		alert(type+" in animation file");
+		alert(type+" in loading animation file");
 	});
 };
 
@@ -72,8 +72,6 @@ function init(data) {
 
 
 
-
-
 //=====================================================================================
 //=====================================================================================
 var Animation = (function () {
@@ -90,7 +88,7 @@ var Animation = (function () {
 	currScene.status = "started";
 
 	var timer;
-	var loopTime = 20; // step time in ms
+	var loopTime = 10; // step time in ms
 	var loop = 1; // number of loops: 0 => loop forever
 	var loopPos = 1; // number of loop
 
@@ -1037,6 +1035,10 @@ var Remote = function () {
 				if (data.name = "animation_remote") {
 					this.data = data;
 
+
+
+
+
 					if (status == "undefined")
 						debug_msg("remote connected","RUN");
 
@@ -1070,6 +1072,8 @@ var Remote = function () {
 		Send: function (url, data) {
 			data.push("animation="+animationName);
 
+show_debug(url+"?"+data.join("&"));
+
 			$.ajax(
 				{
 					url: url,
@@ -1078,6 +1082,7 @@ var Remote = function () {
 			)
 
 			.success(function (data) {
+show_debug(data);
 				debug_msg(data,"EVENT");
 			})
 
@@ -1133,6 +1138,16 @@ function debug_msg(text,level) {
 			else
 				console.log(level+": "+text);
 		}
+	}
+}
+
+
+
+function show_debug(text) {
+	if (text) {
+		$("#debug")
+			.css("visibility","show")
+			.append("<p>> "+text+"</p>");
 	}
 }
 
