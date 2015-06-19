@@ -28,6 +28,7 @@ var currScene = {}; // current scene
 
 var dirtyStat;
 
+
 //=====================================================================================
 // config file
 var config = {
@@ -37,23 +38,25 @@ var config = {
 			height: {"type":"int"}
 		},
 
-		actor: [
+		cast: [
 			{
 				type: {
 					"type":"select",
 					"options": [
-						{"name":"rect"},
-						{"name":"cycle"},
-						{"name":"image"},
-						{"name":"text"},
-						{"name":"group"}
+						{"name":"","fields":"type"},
+						{"name":"rect","fields": "type,x,y,width,height,fill,opacity"},
+						{"name":"cycle","fields": "type,x,y,width,height,fill,opacity"},
+						{"name":"image","fields": "type,x,y,width,height,src,opacity"},
+						{"name":"text","fields": "type,x,y,width,height,fill,text,fontSize,fontStyle,opacity"},
+						{"name":"group","fields": "type,x,y,width,height,opacity"}
 					]
 				},
-				x: {"type":"int","default":"x Position"},
-				y: {"type":"int","default":"y Position"},
-				width: {"type":"int","default":"width"},
-				height: {"type":"int","default":"height"},
+				x: {"type":"int"},
+				y: {"type":"int"},
+				width: {"type":"int"},
+				height: {"type":"int"},
 				fill: {"type":"color"},
+				src: {"type":"text"},
 				opacity: {
 					"type":"float",
 					"min":0,
@@ -65,6 +68,7 @@ var config = {
 				fontStyle: {
 					"type":"select",
 					"options": [
+						{"name":""},
 						{"name":"bold"},
 						{"name":"italic"}
 					]
@@ -101,18 +105,31 @@ function edit(path) {
 //=====================================================================================
 // init animation engine
 function init(data) {
+	clean();
+
 	Navigator = new Editor.Navigator(data);
 
 
 };
 
 
+//================================================
+// set clean
+function clean() {
+	dirtyStat = false;
+
+	$(".dirty")
+		.removeClass("dirty");
+}
+
 
 //================================================
 var Editor = (function () {
 
 // private propertys
-	var data;
+	var stageData;
+	var castData;
+
 	var frame;
 	var prop;
 
@@ -126,6 +143,9 @@ var Editor = (function () {
 			var cnt;
 			var children;
 			var abort;
+
+			stageData = data.stage;
+			castData = data.cast;
 			
 			frame = $("#navigator");
 			frame.empty();
@@ -138,8 +158,8 @@ var Editor = (function () {
 
 			list = $("#nav_stage");
 			list.append("<div class='title'>Stage</div>");
-			list.append("<div class='label'>Width: <span class='value'>"+data.stage.width+"</span></div>");
-			list.append("<div class='label'>Height: <span class='value'>"+data.stage.height+"</span></div>");
+			list.append("<div class='label'>Width: <span class='value'>"+stageData.width+"</span></div>");
+			list.append("<div class='label'>Height: <span class='value'>"+stageData.height+"</span></div>");
 
 // actors
 			frame.append("<div id='nav_cast' class='nav_list'></div>");
@@ -148,7 +168,7 @@ var Editor = (function () {
 			list.append("<div class='title'>Cast</div>");
 
 			cnt = 0;
-			$.each(data.cast, function (i,v) {
+			$.each(castData, function (i,v) {
 
 //**********
 // IMPORTANT
@@ -165,11 +185,11 @@ var Editor = (function () {
 
 					$("#nav_prop_"+i).click(function () {
 						if (dirtyStat)
-							abort = !confirm("Geänderte Daten speichern?");
+							abort = !confirm("Geänderte Daten verwerfen?");
 							
 						if (!abort) {
 							clean();
-							prop = new Editor.Property(data.cast[$(this).attr("name")].geometry,{"name": $(this).attr("name"), "type": "actor"});
+							prop = new Editor.Property(castData,{"name": $(this).attr("name"), "type": "cast"});
 							prop.show();
 						}
 					});
@@ -212,11 +232,11 @@ var Editor = (function () {
 
 					$("#nav_prop_"+i).click(function () {
 						if (dirtyStat)
-							abort = !confirm("Geänderte Daten speichern?");
+							abort = !confirm("Geänderte Daten verwerfen?");
 
 						if (!abort) {
 							clean();
-							prop = new Editor.Property(data.cast[$(this).attr("name")].geometry,{"name": $(this).attr("name"), "type": "actor"});
+							prop = new Editor.Property(castData,{"name": $(this).attr("name"), "type": "cast"});
 							prop.show();
 						}
 					});
@@ -231,26 +251,120 @@ var Editor = (function () {
 		Property: function (data,option) {
 			var name;
 			var type;
-			var data;
 			var table;
 			var valuefield;
-			var save;
 			var field;
+
+			var visibleFields;
 
 			var name = option.name;
 			var type = option.type;
-			var data = data;
+			var propData = propData;
 			var minVal;
 			var maxVal;
 
 			var propertyConfig = config.property[option.type][0];
+			var propData = data[option.name].geometry;
 
-console.log(data);
 
+//=====================================================
+// change displayed fields
+			show_fields = function () {
+				var filterFields;
+
+// get field list
+				filterFields = visibleFields;
+
+// definition found => change display
+				if (filterFields) {
+// hide all fields
+					$.each(propertyConfig, function (ffi,ffv) {
+						$("#prop_"+ffi).hide();
+					});
+
+// show defined fields
+					$.each(filterFields, function (ffi,ffv) {
+						$("#prop_"+ffv).show();
+					});
+				}
+			
+			};
+
+
+//=====================================================
+			set_visible_fields = function (field,value) {
+				$.each(propertyConfig[field].options, function (i,v) {
+
+					if (v.fields) {
+						if (v.name == value) {
+							visibleFields = v.fields.split(",");
+						}
+					}
+				});
+			};
+			
+
+//================================================
+// content change => set dirty
+			dirty = function (obj) {
+				var id;
+				dirtyStat = true;
+				
+				if ($(obj).attr("id") != undefined) id = $(obj).attr("id");
+				if ($(this).attr("id") != undefined) id = $(this).attr("id");
+
+
+				$("#"+id).removeClass("empty");
+				$("#"+id).addClass("dirty");
+
+				$("#save")
+					.removeAttr("disabled")
+					.addClass("dirty");
+			}
+
+
+//================================================
+// write change to server => clear dirty
+			save_change = function () {
+				var savevals = {};
+
+				$("#save")
+					.attr("disabled","");
+
+// save all visible fields
+				$.each(visibleFields, function () {
+					var field = $("[id='prop_val_"+this+"']");
+
+// save value if not empty
+					if (field.val().length > 0)
+						savevals[this] = field.val();
+
+// mark empty
+					else
+						field.addClass("empty");
+						
+				});
+
+				data[name].geometry = savevals;
+				clean();
+
+//TODO
+// flush data to server
+//console.log(data);
+			}
+
+
+
+
+//=====================================================
+//=====================================================
+// global methods
 			return {
 				show: function () {
 					var fieldType;
 					var fieldOptions;
+					var inputfield;
+					var save;
 					
 					frame = $("#property");
 					frame.empty();
@@ -258,6 +372,7 @@ console.log(data);
 		// create nav list
 					save = $("<input id='save' type='submit' value='save' disabled>");
 					save.click(save_change);
+
 					
 					frame.append(save);
 					frame.append("<div id='prop' class='prop_list'></div>");
@@ -269,7 +384,7 @@ console.log(data);
 					list.append(table);
 
 					$.each(propertyConfig, function (i,v) {
-						line = $("<tr></tr>");
+						line = $("<tr id='prop_"+i+"'></tr>");
 						table.append(line);
 						
 						line.append("<td class='label'>"+i+"</td>");
@@ -282,7 +397,8 @@ console.log(data);
 						fieldType = v.type;
 						fieldOptions = v.options;
 
-						fieldData = data[i];
+//						(propData[i] != undefined) ? fieldData = propData[i] : fieldData = "";
+						fieldData = propData[i];
 
 						if (v.min) minVal = v.min;
 						if (v.max) maxVal = v.max;
@@ -290,14 +406,20 @@ console.log(data);
 						switch (fieldType) {
 							case "int":
 								inputfield = $("<input type='text' name='"+i+"' value='"+fieldData+"'>");
+								
+								inputfield.keypress(dirty);
 								break;
 
 							case "float":
 								inputfield = $("<input type='text' name='"+i+"' value='"+fieldData+"'>");
+								
+								inputfield.keypress(dirty);
 								break;
 
 							case "text":
 								inputfield = $("<input type='text' name='"+i+"' value='"+fieldData+"'>");
+								
+								inputfield.keypress(dirty);
 								break;
 
 							case "color":
@@ -306,81 +428,54 @@ console.log(data);
 						
 								valuefield.append(color);
 								inputfield = $("<input type='text' size='10' name='"+i+"' value='"+fieldData+"'>");
+								
+								inputfield.keypress(dirty);
 								break;
 
 							case "select":
-								selector = $("<select></select>");
-								valuefield
-									.append(selector);
+								inputfield = $("<select name='"+i+"'></select>");
 
+// empty first entry
+//								inputfield.append("<option></option>");
+
+
+// build selector list
 								$.each (fieldOptions, function (ind, val) {
-									selector.append("<option selected>"+val.name+"</option>");
+
+									if (fieldData == val.name) {
+										inputfield.append("<option selected>"+val.name+"</option>");
+
+										set_visible_fields(i,val.name);
+									}
+
+									else
+										inputfield.append("<option>"+val.name+"</option>");
+								});
+
+								inputfield.change(function () {
+									var filter = $("select#prop_val_"+i+" option:selected").text();
+
+									set_visible_fields($(this).attr("name"),filter);
+									show_fields();
+
+									dirty(this);
 								});
 								break;
 						}
 
-						valuefield.append(inputfield);
+						show_fields();
 
-						if (fieldData == undefined)
-							valuefield.addClass("empty");
-						
-
-					});
-
-
-
-/*					$.each(data, function (i,v) {
-						line = $("<tr></tr>");
-						table.append(line);
-						
-						line.append("<td class='label'>"+i+"</td>");
-						
-						valuefield = $("<td></td>");
-						line.append(valuefield);
-
-						switch (i) {
-							case "type":
-
-								selector = $("<select></select>");
-								valuefield
-									.append(selector);
-
-								(v == "rect") ? selector.append("<option selected>rect</option>") : selector.append("<option>rect</option>");
-								(v == "circle") ? selector.append("<option selected>circle</option>") : selector.append("<option>circle</option>");
-								(v == "image") ? selector.append("<option selected>image</option>") : selector.append("<option>image</option>");
-								(v == "group") ? selector.append("<option selected>group</option>") : selector.append("<option>group</option>");
-								(v == "text") ? selector.append("<option selected>text</option>") : selector.append("<option>text</option>");
-								break;
-
-							case "fill":
-								color = $("<span class='color'>&nbsp;</span>");
-								color.css("background-color",v);
-								
-								valuefield.append(color);
-								valuefield.append("<input type='text' size='10' name='"+i+"' value='"+v+"'>");
-								break;
-								
-							case "src":
-								valuefield.append("<input type='text' name='"+i+"' value='"+v+"'>");
-								break;
-
-							case "fontStyle":
-								selector = $("<select></select>");
-								valuefield.append(selector);
-
-								(v == "bold") ? selector.append("<option selected>bold</option>") : selector.append("<option>bold</option>");
-								(v == "italic") ? selector.append("<option selected>italic</option>") : selector.append("<option>italic</option>");
-								break;
-
-							default:
-								field = $("<input type='text' name='"+i+"' value='"+v+"'>");
-								field.keypress({"object": field},dirty);
-								
-								valuefield
-									.append(field);
+// mark empty
+						if (fieldData == undefined) {
+							inputfield.val("");
+							inputfield.addClass("empty");
 						}
 
-					});*/
+						inputfield.attr("id","prop_val_"+i);
+						inputfield.attr("name",i);
+
+						valuefield.append(inputfield);
+					});
 				}
 			}
 		}
@@ -388,37 +483,7 @@ console.log(data);
 })();
 
 
-//================================================
-// content change => set dirty
-function dirty(object) {
-	dirtyStat = true;
 
-	console.dir($(object.target).addClass("dirty"));
-
-	$("#save")
-		.removeAttr("disabled")
-		.addClass("dirty");
-}
-
-
-//================================================
-// set cleatn
-function clean() {
-	dirtyStat = false;
-
-	$(".dirty")
-		.removeClass("dirty");
-}
-
-
-//================================================
-// write change to server => clear dirty
-function save_change() {
-	$("#save")
-		.attr("disabled","");
-
-	clean();
-}
 
 
 //================================================

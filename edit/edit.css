@@ -67,7 +67,7 @@ body {
 }
 
 .dirty {
-	background-color: #ffa0a0;
+	background-color: #a0ffa0;
 }
 
 .nav_list,.prop_list {
@@ -106,7 +106,7 @@ body {
 	margin-right: 5px;
 }
 .empty {
-	background-color: green;
+	background-color: #dddddd;
 }
 
 .link,.expand {
