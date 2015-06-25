@@ -32,7 +32,7 @@
 
 			<div id="menu">Menu</div>
 			<div id="navigator">Navigator</div>
-			<div id="content">Content</div>
+			<div id="scene">Content</div>
 			<div id="property">Properties</div>
 			<div id="timeline">Timeline</div>
 		</div>

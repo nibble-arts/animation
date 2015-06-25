@@ -90,7 +90,7 @@ function edit(path) {
 		type: "GET",
 	})
 	.done(function (data) {
-		init(data.animation);
+		init_edit(data.animation);
 	})
 	.error(function (xhr,type) {
 		console.log(xhr,"ERROR");
@@ -104,12 +104,11 @@ function edit(path) {
 
 //=====================================================================================
 // init animation engine
-function init(data) {
+function init_edit(data) {
 	clean();
 
 	Navigator = new Editor.Navigator(data);
-
-
+	stage = init(data);
 };
 
 

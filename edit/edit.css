@@ -28,6 +28,8 @@ body {
 	top: 40px;
 	bottom: 100px;
 	width: 250px;
+
+	z-index: 100;
 }
 
 #property {
@@ -36,6 +38,8 @@ body {
 	top: 40px;
 	bottom: 100px;
 	width: 250px;
+
+	z-index: 100;
 }
 
 #timeline {
@@ -44,9 +48,11 @@ body {
 	right: 0px;
 	bottom: 0px;
 	height: 100px;
+
+	z-index: 100;
 }
 
-#content {
+#scene {
 	position: absolute;
 	left: 250px;
 	right: 250px;
@@ -56,6 +62,8 @@ body {
 
 	color: black;
 	background-color: white;
+
+	z-index: 0;
 }
 
 #menu,#navigator,#property,#timeline,#content {

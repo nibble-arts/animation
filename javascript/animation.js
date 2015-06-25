@@ -27,6 +27,7 @@ var globalStage;
 var currScene = {}; // current scene
 
 
+var scale = 1;
 
 
 //=====================================================================================
@@ -185,6 +186,17 @@ var Animation = (function () {
 
 				if (!this.geometry.opacity) this.geometry.opacity = 1;
 
+// global scale
+				var geometry = this.geometry;
+				
+					$.each(this.geometry, function (ind,val) {
+						if (scale > 0 && (ind == "x" || ind == "y" || ind == "width" || ind == "height" || ind == "fontSize")) {
+							geometry[ind] = parseInt(val) * scale;
+						}
+					});
+
+
+
 //Animation
 // create kinetic object
 				switch (this.geometry.type) {
@@ -200,8 +212,10 @@ var Animation = (function () {
 						var imageObj = new Image();
 						imageObj.src = imagePath+animationName+"/"+this.geometry.src;
 						this.geometry.image = imageObj;
-						
 						newactor.obj = new Kinetic.Image(this.geometry);
+// scale images
+						newactor.obj.setWidth(newactor.obj.getWidth() * scale);
+						newactor.obj.setHeight(newactor.obj.getHeight() * scale);
 						break;
 
 					case "group":
@@ -560,6 +574,10 @@ var Animation = (function () {
 
 // update actor attributes
 								$.each (keyVal, function (ind,val) {
+// global scale
+									if (scale > 0 && (ind == "x" || ind == "y" || ind == "width" || ind == "height" || ind == "fontSize"))
+										val = val * scale;
+
 									playObj.setAttr(ind,val);
 								});
 
