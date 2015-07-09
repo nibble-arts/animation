@@ -3,14 +3,6 @@
 var animationName = "";
 
 var animationPath = "../animation/";
-var imagePath = "../animation/images/";
-
-var remotePath = "../remote/remote.php";
-
-var remote;
-var remoteTimer;
-var remoteTime = 500;
-var remoteRetryTime = 5000;
 
 // definition in debugLevel for debug informations to show
 // CREATE ... show creation information
@@ -23,21 +15,20 @@ var debug = false; // show/hide debug information on consol
 //var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
 
 // global parameters
-var globalStage;
-var currScene = {}; // current scene
-
 var dirtyStat;
-
 
 //=====================================================================================
 // config file
 var config = {
 	property: {
-		stage: {
-			width: {"type":"int"},
-			height: {"type":"int"}
-		},
-
+		stage: [
+			{
+				width: {"type":"int","fields":"width,height,scale"},
+				height: {"type":"int"},
+				scale: {"type":"float"},
+			}
+		],
+		
 		cast: [
 			{
 				type: {
@@ -107,8 +98,16 @@ function edit(path) {
 function init_edit(data) {
 	clean();
 
+// init animation
+	var dx = data.stage.width / $("#scene").width();
+	var dy = data.stage.height / $("#scene").height();
+
+	scale = 1 / Math.max(dx,dy);
+
+//	stage = init(data,scale);
+
+// init editor
 	Navigator = new Editor.Navigator(data);
-	stage = init(data);
 };
 
 
@@ -128,11 +127,62 @@ var Editor = (function () {
 // private propertys
 	var stageData;
 	var castData;
+	var sequenceData;
 
 	var frame;
 	var prop;
 
+	var animation;
 
+
+// get list of actors to edit
+	var getActor = function (data,name) {
+		var tempCast = {};
+
+// get all grouped actors
+		if (data[name].geometry.type == "group") {
+
+			tempCast[name] = data[name];
+
+			$.each(data, function (i,v) {
+				if (v.group == name)
+					tempCast[i] = data[i];
+			});
+		}
+
+// get singleactor
+		else
+			tempCast[name] = data[name];
+
+// create temporary keyframe
+		var tempKey = {};
+		tempKey[name] = {
+			"layer": "edit",
+			"keys": [
+				{ "time": 0, "opacity": 1 }
+			]
+		};
+
+// create temporary sequence for animator
+		var tempSequ = {
+			"main": {
+				"name": "main",
+				"start": 0,
+				"end": 0,
+				"loop": 1,
+				"cast": tempKey
+			}
+		};
+
+		var tempData = {
+			"stage": stageData,
+			"cast": tempCast,
+			"sequence": tempSequ
+		}
+
+		return tempData;
+	};
+	
 // global methods
 	return {
 
@@ -145,6 +195,7 @@ var Editor = (function () {
 
 			stageData = data.stage;
 			castData = data.cast;
+			sequenceData = data.sequence;
 			
 			frame = $("#navigator");
 			frame.empty();
@@ -152,14 +203,35 @@ var Editor = (function () {
 // create nav list
 			frame.append("<div id='nav'></div>");
 
+
+
+//================================================================================
 // stage
 			frame.append("<div id='nav_stage' class='nav_list'></div>");
 
 			list = $("#nav_stage");
-			list.append("<div class='title'>Stage</div>");
-			list.append("<div class='label'>Width: <span class='value'>"+stageData.width+"</span></div>");
-			list.append("<div class='label'>Height: <span class='value'>"+stageData.height+"</span></div>");
 
+			list.append("<div class='title link'>Stage</div>");
+//			list.append("<div class='label'>Width: <span class='value'>"+stageData.width+"</span></div>");
+//			list.append("<div class='label'>Height: <span class='value'>"+stageData.height+"</span></div>");
+//			list.append("<div class='label'>Scale: <span class='value'>"+stageData.scale+"</span></div>");
+
+			$("#nav_stage").click(function () {
+				if (dirtyStat)
+					abort = !confirm("Geänderte Daten verwerfen?");
+					
+				if (!abort) {
+					clean();
+
+// call properties
+					prop = new Editor.Property(stageData,{"name": "stage", "type": "stage"});
+					prop.show();
+				}
+			});
+
+
+
+//================================================================================
 // actors
 			frame.append("<div id='nav_cast' class='nav_list'></div>");
 
@@ -188,7 +260,13 @@ var Editor = (function () {
 							
 						if (!abort) {
 							clean();
-							prop = new Editor.Property(castData,{"name": $(this).attr("name"), "type": "cast"});
+
+// show actor
+							animation = new Animation.Animation(getActor(castData,$(this).attr("name")),{ "scale": scale, "imagePath": "../animation/images/" });
+							animation.animation.run("main","stop");
+
+// call properties
+							prop = new Editor.Property(castData[$(this).attr("name")],{"name": $(this).attr("name"), "type": "cast"});
 							prop.show();
 						}
 					});
@@ -235,7 +313,12 @@ var Editor = (function () {
 
 						if (!abort) {
 							clean();
-							prop = new Editor.Property(castData,{"name": $(this).attr("name"), "type": "cast"});
+
+// get actor to edit
+							animation = new Animation.Animation(getActor(castData,$(this).attr("name")),{ "scale": scale, "imagePath": "../animation/images/" });
+							animation.animation.run("main","stop");
+
+							prop = new Editor.Property(castData[$(this).attr("name")],{"name": $(this).attr("name"), "type": "cast"});
 							prop.show();
 						}
 					});
@@ -258,13 +341,16 @@ var Editor = (function () {
 
 			var name = option.name;
 			var type = option.type;
-			var propData = propData;
+			var propData;
 			var minVal;
 			var maxVal;
 
 			var propertyConfig = config.property[option.type][0];
-			var propData = data[option.name].geometry;
 
+			if (data.geometry != undefined)
+				propData = data.geometry;
+			else
+				propData = data;
 
 //=====================================================
 // change displayed fields
@@ -292,6 +378,7 @@ var Editor = (function () {
 
 //=====================================================
 			set_visible_fields = function (field,value) {
+
 				$.each(propertyConfig[field].options, function (i,v) {
 
 					if (v.fields) {
@@ -344,8 +431,14 @@ var Editor = (function () {
 						
 				});
 
-				data[name].geometry = savevals;
+console.log(data);
+				if (data.geometry != undefined)
+					data.geometry = savevals;
+				else
+					data = savevals;
+
 				clean();
+
 
 //TODO
 // flush data to server
@@ -402,6 +495,9 @@ var Editor = (function () {
 						if (v.min) minVal = v.min;
 						if (v.max) maxVal = v.max;
 
+						if (v.fields != undefined)
+							visibleFields = v.fields.split(",");
+
 						switch (fieldType) {
 							case "int":
 								inputfield = $("<input type='text' name='"+i+"' value='"+fieldData+"'>");
@@ -436,7 +532,6 @@ var Editor = (function () {
 
 // empty first entry
 //								inputfield.append("<option></option>");
-
 
 // build selector list
 								$.each (fieldOptions, function (ind, val) {

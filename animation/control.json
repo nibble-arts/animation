@@ -3,7 +3,8 @@
 		"stage": {
 			"id": "scene",
 			"width": 1366,
-			"height": 730
+			"height": 730,
+			"scale": 1
 		},
 
 		"cast": {
@@ -441,7 +442,10 @@
 				"start": 0,
 				"end": 625,
 				"onstop": "main",
+
 				"loop": 1,
+
+
 
 				"event": [
 					{ "time": 50, "action": "wait", "value": 2000 },

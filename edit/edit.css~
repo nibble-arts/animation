@@ -60,7 +60,7 @@ body {
 	bottom: 100px;
 	min-width: 300px;
 
-	margin: 2px;
+	margin: 5px;
 
 	color: black;
 	background-color: white;

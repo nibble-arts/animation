@@ -2,16 +2,6 @@
 // settings
 var animationName = "";
 
-var animationPath = "animation/";
-var imagePath = "animation/images/";
-
-var remotePath = "remote/remote.php";
-
-var remote;
-var remoteTimer;
-var remoteTime = 500;
-var remoteRetryTime = 5000;
-
 // definition in debugLevel for debug informations to show
 // CREATE ... show creation information
 // EVENT ... show event information
@@ -23,16 +13,14 @@ var debug = false; // show/hide debug information on consol
 //var debugLevel = new Array("RUN","EVENT","ERROR","WARNING");
 
 // global parameters
-var globalStage;
 var currScene = {}; // current scene
-
-
-var scale = 1;
 
 
 //=====================================================================================
 // load animation data
 function load(path) {
+	var animationPath = "animation/";
+
 	animationName = path.split(".")[0];
 
 	$.ajax(animationPath+path, {
@@ -54,21 +42,12 @@ function load(path) {
 
 //=====================================================================================
 // init animation engine
-function init(data) {
-	globalStage = new Animation.Stage(data.stage);
+function init(data,scale) {
+	var imgPath = "animation/images/";
+	var remPath = "remote/remote.php";
 
-	remote = new Remote.Start();
-	globalStage.addRemote(remote);
-
-	newactor = new Animation.Actor(data.cast);
-	globalStage.addActor(newactor);
-
-	newScene = new Animation.Sequence(data.sequence);
-	globalStage.addScene(newScene);
-
-	debug_msg(globalStage,"CREATE");
-
-	globalStage.run("main");
+	animation = new Animation.Animation(data,{ "scale": scale, "imagePath": imgPath, "remotePath": remPath });
+	animation.animation.run("main");
 };
 
 
@@ -78,20 +57,30 @@ function init(data) {
 var Animation = (function () {
 
 // private propertys
-	var data;
 	var stage = {};
+	var cast = {};
+	var sequence = {};
+	var data;
+
 	var layer = {};
+	var remote = {};
 
-//	var start = 0; // animation start frame
-//	var end = 200; // animation end frame
-//	var frame = 0; // animation position
+	var globalScale;
+	var imagePath;
 
-	currScene.status = "started";
-
+	var remote = {};
+	
 	var timer;
 	var loopTime = 10; // step time in ms
 	var loop = 1; // number of loops: 0 => loop forever
 	var loopPos = 1; // number of loop
+
+	currScene.status = "started";
+
+
+	var setScale = function (scale) {
+		globalScale = scale;
+	};
 
 // global methods
 	return {
@@ -116,27 +105,65 @@ var Animation = (function () {
 		},
 
 
+
+//================================================
+// create animation object
+		Animation: function (data,options) {
+			imagePath = options.imagePath;
+			
+			setScale(options.scale);
+			stage = new Animation.Stage(data.stage,options.scale);
+
+// start remote service
+			if (options.remotePath != undefined) {
+				remote = new Remote.Start(options.remotePath);
+				stage.addRemote(remote);
+			}
+	
+// add cast
+			newactor = new Animation.Actor(data.cast);
+			stage.addActor(newactor);
+
+// add sequence
+			newScene = new Animation.Sequence(data.sequence);
+			stage.addScene(newScene);
+
+
+			return {
+				animation: stage
+			}
+		},
+
+
 //================================================
 // create stage objects
 		Stage: function (data) {
-			var cast = {};
-			var sequence = {};
-			var layer = {};
-			var remote = {};
-
 
 //************************************************************************
 // create stage
-			stage = new Kinetic.Stage({
+			kStage = new Kinetic.Stage({
 				container: data.id,
 				width: data.width,
 				height: data.height,
 			});
 
+
+// scale parameter overrides animation scale
+			if (globalScale != undefined)
+				kStage.setScale({x:globalScale,y:globalScale});
+
+// scale value in animation file
+			else {
+				if (data.scale)
+					kStage.setScale({x:data.scale,y:data.scale});
+			}
+
+
 			return {
+				stage: kStage,
 				cast: cast,
 				sequence: scene,
-				
+
 				addActor: function (cast) {
 					this.cast = cast;
 				},
@@ -186,17 +213,8 @@ var Animation = (function () {
 
 				if (!this.geometry.opacity) this.geometry.opacity = 1;
 
-// global scale
 				var geometry = this.geometry;
 				
-					$.each(this.geometry, function (ind,val) {
-						if (scale > 0 && (ind == "x" || ind == "y" || ind == "width" || ind == "height" || ind == "fontSize")) {
-							geometry[ind] = parseInt(val) * scale;
-						}
-					});
-
-
-
 //Animation
 // create kinetic object
 				switch (this.geometry.type) {
@@ -214,8 +232,8 @@ var Animation = (function () {
 						this.geometry.image = imageObj;
 						newactor.obj = new Kinetic.Image(this.geometry);
 // scale images
-						newactor.obj.setWidth(newactor.obj.getWidth() * scale);
-						newactor.obj.setHeight(newactor.obj.getHeight() * scale);
+						this.geometry.width = newactor.obj.getWidth();
+						this.geometry.height = newactor.obj.getHeight();
 						break;
 
 					case "group":
@@ -269,7 +287,6 @@ var Animation = (function () {
 // sequence constructor
 		Sequence: function (data) {
 
-			var sequence = {};
 			$.each(data, function (i,v) {
 				var newScene = new Animation._Scene();
 
@@ -371,14 +388,20 @@ var Animation = (function () {
 //								(this.geometry.opacity) ? this.obj.setAttr("opacity",this.geometry.opacity) : this.obj.setAttr("opacity",0);
 							}
 						});
+
 //console.log(dissolve);
 
 						var newScene = new Animation._Scene();
-
 						newScene["timeline"] = dissolve;
-						globalStage.sequence.scene["_dissolve"] = newScene;
 
-						globalStage.run("_dissolve",startFrame);
+						sequence["_dissolve"] = newScene;
+						stage.run("_dissolve",startFrame);
+
+//console.log(stage);
+
+				
+//						globalStage.sequence.scene["_dissolve"] = newScene;
+//						globalStage.run("_dissolve",startFrame);
 					}
 
 // end of dissolve
@@ -446,7 +469,7 @@ var Animation = (function () {
 //												this.CreateDissolve(this);
 
 //TODO remove use of global variable
-												globalStage.run(this.value,startFrame);
+												stage.run(this.value,startFrame);
 												break;
 
 											case "post":
@@ -460,7 +483,7 @@ var Animation = (function () {
 												param.push("value="+this.value);
 												param.push("cmd=post");
 
-												Remote.Send(remotePath,param);
+												Remote.Send(remote.remotePath,param);
 												break;
 										}
 									});
@@ -481,7 +504,7 @@ var Animation = (function () {
 
 							else {
 								layer[this.layer].add(currScene.cast.actor[idx].obj);
-								stage.add(layer[this.layer]);
+								stage.stage.add(layer[this.layer]);
 							}
 						}
 
@@ -560,13 +583,16 @@ var Animation = (function () {
 // execute keyframe
 					$.each(scene.cast, function (i,v) {
 
+						var playObj = cast.actor[i].obj;
+						var geometry = cast.actor[i].geometry;
+						var playLay = cast.actor[i].layer;
+
 // get actor data from definition
 						if (v.keys) {
-							var playObj = cast.actor[i].obj;
-							var playLay = playObj.layer;
 							var keys = v.keys;
 
 // keys defined
+
 							if (keys != undefined) {
 
 // get last and next keyframe
@@ -574,17 +600,10 @@ var Animation = (function () {
 
 // update actor attributes
 								$.each (keyVal, function (ind,val) {
-// global scale
-									if (scale > 0 && (ind == "x" || ind == "y" || ind == "width" || ind == "height" || ind == "fontSize"))
-										val = val * scale;
-
 									playObj.setAttr(ind,val);
 								});
-
-								stage.draw();
 							}
 						}
-
 					});
 
 
@@ -671,7 +690,7 @@ var Animation = (function () {
 										param.push("time="+scene.frame);
 										param.push("cmd=post");
 
-										Remote.Send(remotePath,param);
+										Remote.Send(remote.remotePath,param);
 										break;
 								}
 							}
@@ -685,6 +704,8 @@ var Animation = (function () {
 						currScene.setFrame(scene,nextFrame);
 					else
 						currScene.setFrame(scene);
+
+					stage.stage.draw();
 				},
 
 
@@ -718,7 +739,7 @@ var Animation = (function () {
 
 // onstop found => start new scene
 								if (currScene.timeline.onstop) {
-									globalStage.run(currScene.timeline.onstop,currScene.timeline.onstopframe);
+									stage.run(currScene.timeline.onstop,currScene.timeline.onstopframe);
 								}
 							}
 						}
@@ -980,7 +1001,7 @@ var Animation = (function () {
 					return (keyVal);
 				}
 			}
-		},
+		}
 	}
 })();
 
@@ -990,14 +1011,23 @@ var Animation = (function () {
 //================================================
 // create remote objects
 var Remote = function () {
+
 	var status = "undefined";
 	var data = {};
 	var callback;
+	var remoteTimer;
+	var remoteTime = 500;
+	var remoteRetryTime = 5000;
+	var remotePath;
+	
 
 	return {
 // get api data
-		Start: function () {
+		Start: function (path) {
 			var sceneName;
+
+			if (remotePath == undefined)
+				remotePath = path;
 
 			if (currScene.timeline) sceneName = currScene.timeline.name;
 
@@ -1023,7 +1053,7 @@ var Remote = function () {
 //						currScene.CreateDissolve(data.value);
 
 //TODO remove use of global variable
-						globalStage.run(data.value);
+						stage.run(data.value);
 						break;
 
 					case "stop":
@@ -1043,7 +1073,7 @@ var Remote = function () {
 							if (data.value != undefined) {
 								var stoptoVal = data.value.split(":");
 
-								globalStage.run(stoptoVal[0],stoptoVal[1]);
+								stage.run(stoptoVal[0],stoptoVal[1]);
 							}
 						}
 						break;
@@ -1082,15 +1112,21 @@ var Remote = function () {
 				console.log(xhr,"ERROR");
 				console.log(type,"ERROR");
 			});
+
+			return {
+				remotePath: remotePath,
+				remoteTime: remoteTime,
+				remoteRetryTime: remoteRetryTime
+			}
 		},
 
 
 //************************
 // send remote command
 		Send: function (url, data) {
-			data.push("animation="+animationName);
+//			data.push("animation="+animationName);
 
-show_debug(url+"?"+data.join("&"));
+			show_debug(url+"?"+data.join("&"));
 
 			$.ajax(
 				{
@@ -1100,7 +1136,7 @@ show_debug(url+"?"+data.join("&"));
 			)
 
 			.success(function (data) {
-show_debug(data);
+				show_debug(data);
 				debug_msg(data,"EVENT");
 			})
 
