@@ -35,10 +35,10 @@ var config = {
 					"type":"select",
 					"options": [
 						{"name":"","fields":"type"},
-						{"name":"rect","fields": "type,x,y,width,height,fill,opacity"},
-						{"name":"cycle","fields": "type,x,y,width,height,fill,opacity"},
+						{"name":"rect","fields": "type,x,y,width,height,stroke,strokeWidth,fill,opacity"},
+						{"name":"cycle","fields": "type,x,y,width,height,stroke,strokeWidth,fill,opacity"},
 						{"name":"image","fields": "type,x,y,width,height,src,opacity"},
-						{"name":"text","fields": "type,x,y,width,height,fill,text,fontSize,fontStyle,opacity"},
+						{"name":"text","fields": "type,x,y,width,height,stroke,strokeWidth,fill,text,fontSize,fontStyle,opacity"},
 						{"name":"group","fields": "type,x,y,width,height,opacity"}
 					]
 				},
@@ -46,6 +46,8 @@ var config = {
 				y: {"type":"int"},
 				width: {"type":"int"},
 				height: {"type":"int"},
+				stroke: {"type":"color"},
+				strokeWidth: {"type":"int"},
 				fill: {"type":"color"},
 				src: {"type":"text"},
 				opacity: {
@@ -96,7 +98,7 @@ function edit(path) {
 //=====================================================================================
 // init animation engine
 function init_edit(data) {
-	clean();
+//	clean();
 
 // init animation
 	var dx = data.stage.width / $("#scene").width();
@@ -104,27 +106,17 @@ function init_edit(data) {
 
 	scale = 1 / Math.max(dx,dy);
 
-//	stage = init(data,scale);
-
 // init editor
 	Navigator = new Editor.Navigator(data);
 };
 
 
 //================================================
-// set clean
-function clean() {
-	dirtyStat = false;
-
-	$(".dirty")
-		.removeClass("dirty");
-}
-
-
-//================================================
 var Editor = (function () {
 
 // private propertys
+	var data;
+	
 	var stageData;
 	var castData;
 	var sequenceData;
@@ -134,34 +126,97 @@ var Editor = (function () {
 
 	var animation;
 
+	var actor;
 
+	var scale;
+
+
+//================================================
+// set clean
+	var clean = function () {
+		dirtyStat = false;
+
+		$(".dirty")
+			.removeClass("dirty");
+	}
+
+
+//================================================
 // get list of actors to edit
-	var getActor = function (data,name) {
+	var createAnimation = function (aniData,name) {
 		var tempCast = {};
+		var tempFrame = {};
+
+
+// stage frame
+		tempFrame = {
+			"geometry": {
+				"type": "rect",
+				"x": 0,
+				"y": 0,
+				"width": stageData.width,
+				"height": stageData.height,
+				"stroke": '#e0e080',
+				"strokeWidth": 1,
+				"fill": "#fffff0"
+			}
+		};
+
+		tempCast["_frame"] = tempFrame;
+
+/*		tempFrame = {
+			"geometry": {
+				"type": "rect",
+				"x": aniData[name].geometry.x-5,
+				"y": aniData[name].geometry.y-5,
+				"width": aniData[name].geometry.width+10,
+				"height": aniData[name].geometry.height+10,
+				"stroke": '#0000ff',
+				"strokeWidth": 5,
+			}
+		};
+
+		tempCast["_actorFrame"] = tempFrame;*/
+
 
 // get all grouped actors
-		if (data[name].geometry.type == "group") {
+		if (aniData[name].geometry.type == "group") {
 
-			tempCast[name] = data[name];
+			tempCast[name] = aniData[name];
 
-			$.each(data, function (i,v) {
+			$.each(aniData, function (i,v) {
 				if (v.group == name)
-					tempCast[i] = data[i];
+					tempCast[i] = aniData[i];
 			});
 		}
 
 // get singleactor
 		else
-			tempCast[name] = data[name];
+			tempCast[name] = aniData[name];
+
 
 // create temporary keyframe
 		var tempKey = {};
+		tempKey["_frame"] = {
+			"layer": "_back",
+			"keys": [
+				{ "time": 0, "opacity": 1 }
+			]
+		};
+
 		tempKey[name] = {
 			"layer": "edit",
 			"keys": [
 				{ "time": 0, "opacity": 1 }
 			]
 		};
+
+/*		tempKey["_actorFrame"] = {
+			"layer": "_front",
+			"keys": [
+				{ "time": 0, "opacity": 1 }
+			]
+		};*/
 
 // create temporary sequence for animator
 		var tempSequ = {
@@ -170,6 +225,9 @@ var Editor = (function () {
 				"start": 0,
 				"end": 0,
 				"loop": 1,
+				"event": [
+					{ "time": 0, "action": "stop" }
+				],
 				"cast": tempKey
 			}
 		};
@@ -180,157 +238,218 @@ var Editor = (function () {
 			"sequence": tempSequ
 		}
 
+
 		return tempData;
 	};
 	
-// global methods
-	return {
-
-// Navigator
-		Navigator: function (data) {
-			var list;
-			var cnt;
-			var children;
-			var abort;
-
-			stageData = data.stage;
-			castData = data.cast;
-			sequenceData = data.sequence;
-			
-			frame = $("#navigator");
-			frame.empty();
-
-// create nav list
-			frame.append("<div id='nav'></div>");
-
-
 
 //================================================================================
+// update navigation
+	var updateNavigation = function () {
+		var list;
+		var cnt;
+		var children;
+		var abort;
+
+//================================================================================
+// init animation
+		frame = $("#navigator");
+		frame.empty();
+
+// create nav list
+		frame.append("<div id='nav'></div>");
+
 // stage
-			frame.append("<div id='nav_stage' class='nav_list'></div>");
+		frame.append("<div id='nav_stage' class='nav_list'></div>");
 
-			list = $("#nav_stage");
+		list = $("#nav_stage");
 
-			list.append("<div class='title link'>Stage</div>");
+		list.append("<div class='title link'>Stage</div>");
 //			list.append("<div class='label'>Width: <span class='value'>"+stageData.width+"</span></div>");
 //			list.append("<div class='label'>Height: <span class='value'>"+stageData.height+"</span></div>");
 //			list.append("<div class='label'>Scale: <span class='value'>"+stageData.scale+"</span></div>");
 
-			$("#nav_stage").click(function () {
-				if (dirtyStat)
-					abort = !confirm("Geänderte Daten verwerfen?");
-					
-				if (!abort) {
-					clean();
+		$("#nav_stage").click(function () {
+			if (dirtyStat)
+				abort = !confirm("Geänderte Daten verwerfen?");
+				
+			if (!abort) {
+				clean();
+
+// select entry
+				$(".selected").removeClass("selected");
+				$(this).addClass("selected");
 
 // call properties
-					prop = new Editor.Property(stageData,{"name": "stage", "type": "stage"});
-					prop.show();
-				}
-			});
+				updateProps(stageData,{"name": "stage", "type": "stage"});
+			}
+		});
 
 
 
 //================================================================================
 // actors
-			frame.append("<div id='nav_cast' class='nav_list'></div>");
+		frame.append("<div id='nav_cast' class='nav_list'></div>");
 
-			list = $("#nav_cast");
-			list.append("<div class='title'>Cast</div>");
+		list = $("#nav_cast");
+		list.append("<div class='title'>Cast</div>");
 
-			cnt = 0;
-			$.each(castData, function (i,v) {
+		cnt = 0;
+		$.each(castData, function (i,v) {
 
 //**********
 // IMPORTANT
 //**********
 // grouped actors has to be defined at the end of the cast list
 // show grouped actor beyond group actor
-				if (v.group != undefined) {
-					children = $("#nav_"+v.group).children().length;
+			if (v.group != undefined) {
+				children = $("#nav_"+v.group).children().length;
 
-					$("#nav_"+v.group)
-						.append("<div id='nav_"+i+"' group='"+v.group+"' class='label grouped'><span id='nav_prop_"+i+"' name='"+i+"' class='link'>"+i+"</span></div>");
+				$("#nav_"+v.group)
+					.append("<div id='nav_"+i+"' group='"+v.group+"' class='label grouped'><span id='nav_prop_"+i+"' name='"+i+"' class='link'>"+i+"</span></div>");
 
-					$("#nav_"+i).hide();
+				$("#nav_"+i).hide();
 
-					$("#nav_prop_"+i).click(function () {
-						if (dirtyStat)
-							abort = !confirm("Geänderte Daten verwerfen?");
-							
-						if (!abort) {
-							clean();
+				$("#nav_prop_"+i).click(function () {
+					if (dirtyStat)
+						abort = !confirm("Geänderte Daten verwerfen?");
+						
+					if (!abort) {
+						clean();
+
+// select entry
+						$(".selected").removeClass("selected");
+						$(this).addClass("selected");
 
 // show actor
-							animation = new Animation.Animation(getActor(castData,$(this).attr("name")),{ "scale": scale, "imagePath": "../animation/images/" });
-							animation.animation.run("main","stop");
-
 // call properties
-							prop = new Editor.Property(castData[$(this).attr("name")],{"name": $(this).attr("name"), "type": "cast"});
-							prop.show();
-						}
-					});
+						updateStage(createAnimation(castData,$(this).attr("name")));
+						updateProps(castData[$(this).attr("name")],{"name": $(this).attr("name"), "type": "cast"});
+					
+					}
+				});
 
 // show extend button for group
-					if (parseInt(children) == 2) {
+				if (parseInt(children) == 2) {
 
-						$("#nav_ext_"+v.group)
-							.show()
-							.click(function () {
+					$("#nav_ext_"+v.group)
+						.show()
+						.click(function () {
 
 // show grouped actors
-								if ($(this).attr("expand") == undefined) {
-									$(this).attr("expand","1");
-									$(this).attr("src","images/arrow_down.png");
+							if ($(this).attr("expand") == undefined) {
+								$(this).attr("expand","1");
+								$(this).attr("src","images/arrow_down.png");
 
-									$("div[group="+v.group+"]").show();
-								}
+								$("div[group="+v.group+"]").show();
+							}
 
 // hide grouped actors
-								else {
-									$(this).removeAttr("expand");
-									$(this).attr("src","images/arrow_right.png");
+							else {
+								$(this).removeAttr("expand");
+								$(this).attr("src","images/arrow_right.png");
 
-									$("div[group="+v.group+"]").hide();
-								}
-							});
-					}
+								$("div[group="+v.group+"]").hide();
+							}
+						});
 				}
+			}
 
 // actor/group name
-				else {
-					list.append("<div id='nav_"+i+"' class='label'></div>");
+			else {
+				list.append("<div id='nav_"+i+"' class='label'></div>");
 
-					entry = $("#nav_"+i);
-					entry.append("<img id='nav_ext_"+i+"' class='expand' src='images/arrow_right.png'></img>");
-					entry.append("<span id='nav_prop_"+i+"' name='"+i+"' class='link'>"+i+"</span>");
+				entry = $("#nav_"+i);
+				entry.append("<img id='nav_ext_"+i+"' class='expand' src='images/arrow_right.png'></img>");
+				entry.append("<span id='nav_prop_"+i+"' name='"+i+"' class='link'>"+i+"</span>");
 
-					$("#nav_ext_"+i).hide();
+				$("#nav_ext_"+i).hide();
 
-					$("#nav_prop_"+i).click(function () {
-						if (dirtyStat)
-							abort = !confirm("Geänderte Daten verwerfen?");
+				$("#nav_prop_"+i).click(function () {
+					if (dirtyStat)
+						abort = !confirm("Geänderte Daten verwerfen?");
 
-						if (!abort) {
-							clean();
+					if (!abort) {
+						clean();
+
+// select entry
+						$(".selected").removeClass("selected");
+						$(this).addClass("selected");
 
 // get actor to edit
-							animation = new Animation.Animation(getActor(castData,$(this).attr("name")),{ "scale": scale, "imagePath": "../animation/images/" });
-							animation.animation.run("main","stop");
+// call properties
+						updateStage(createAnimation(castData,$(this).attr("name")));
+						updateProps(castData[$(this).attr("name")],{"name": $(this).attr("name"), "type": "cast"});
+					}
+				});
+			}
 
-							prop = new Editor.Property(castData[$(this).attr("name")],{"name": $(this).attr("name"), "type": "cast"});
-							prop.show();
-						}
-					});
-				}
+		});
 
-			});
+console.log(data);
+	};
+		
+
+//================================================================================
+// show object
+	var updateStage = function (actor) {
+// empty stage
+		if (typeof(animation) == "object")
+			animation.animation.stage.removeChildren();
+
+		setScale();
+
+
+// create new object display
+		animation = new Animation.Animation(actor,{ "scale": scale, "imagePath": "../animation/images/" });
+		animation.animation.run("main");
+	};
+
+
+//================================================================================
+// show properties
+	var updateProps = function (actor,options) {
+		prop = new Editor.Property(actor,options);
+		prop.show();
+	};
+
+
+//================================================================================
+// set scale
+	var setScale = function () {
+
+		var dx = data.stage.width / $("#scene").width();
+		var dy = data.stage.height / $("#scene").height();
+
+		scale = 1 / Math.max(dx,dy);
+
+		$("#scale").text(scale.toFixed(2));
+	};
+
+	
+//================================================
+//================================================
+// global methods
+	return {
+
+// Navigator
+		Navigator: function (aniData) {
+
+			data = aniData;
+			
+			stageData = data.stage;
+			castData = data.cast;
+			sequenceData = data.sequence;
+
+			setScale();
+
+			updateNavigation();
 		},
 
 
 //================================================
 // property method
-		Property: function (data,option) {
+		Property: function (actorData,option) {
 			var name;
 			var type;
 			var table;
@@ -338,19 +457,22 @@ var Editor = (function () {
 			var field;
 
 			var visibleFields;
-
+			
 			var name = option.name;
 			var type = option.type;
 			var propData;
 			var minVal;
 			var maxVal;
 
+			actor = actorData;
+
 			var propertyConfig = config.property[option.type][0];
 
-			if (data.geometry != undefined)
-				propData = data.geometry;
+			if (actorData.geometry != undefined)
+				propData = actorData.geometry;
 			else
-				propData = data;
+				propData = actorData;
+
 
 //=====================================================
 // change displayed fields
@@ -395,7 +517,7 @@ var Editor = (function () {
 			dirty = function (obj) {
 				var id;
 				dirtyStat = true;
-				
+
 				if ($(obj).attr("id") != undefined) id = $(obj).attr("id");
 				if ($(this).attr("id") != undefined) id = $(this).attr("id");
 
@@ -417,9 +539,11 @@ var Editor = (function () {
 				$("#save")
 					.attr("disabled","");
 
+
 // save all visible fields
 				$.each(visibleFields, function () {
 					var field = $("[id='prop_val_"+this+"']");
+
 
 // save value if not empty
 					if (field.val().length > 0)
@@ -431,14 +555,30 @@ var Editor = (function () {
 						
 				});
 
-console.log(data);
-				if (data.geometry != undefined)
-					data.geometry = savevals;
+
+				if (actor.geometry != undefined) {
+// add group
+					var group = $("#prop_val_group").val();
+
+					if (group)
+						actor["group"] = group;
+					else
+						actor["group"] = undefined;
+
+// save values
+					actor.geometry = savevals;
+				}
 				else
-					data = savevals;
+					actor = savevals;
 
 				clean();
 
+				var tempActor = {};
+				tempActor[name] = actor;
+
+// update display
+				updateNavigation();
+				updateStage(createAnimation(tempActor,name));
 
 //TODO
 // flush data to server
@@ -452,11 +592,24 @@ console.log(data);
 //=====================================================
 // global methods
 			return {
+				createAnimation: function () {
+					return actor;
+				},
+
+				getName: function () {
+					return name;
+				},
+
+				getData: function () {
+					return propData;
+				},
+				
 				show: function () {
 					var fieldType;
 					var fieldOptions;
 					var inputfield;
 					var save;
+					var dispString;
 					
 					frame = $("#property");
 					frame.empty();
@@ -465,16 +618,64 @@ console.log(data);
 					save = $("<input id='save' type='submit' value='save' disabled>");
 					save.click(save_change);
 
-					
 					frame.append(save);
+
+//=====================================================
+// group link
+
+// build group selector list
+					var groupfield = $("<select id='prop_val_group' name='group'></select>");
+
+// empty first entry
+					groupfield.append("<option></option>");
+
+					$.each (castData, function (ind, val) {
+
+						if (val.geometry.type == "group")
+							dispString = "(+) "+ind;
+						else
+							dispString = ind;
+
+						
+						if (ind == actorData.group) {
+							groupfield.append("<option selected>"+dispString+"</option>");
+						}
+
+						else
+							groupfield.append("<option>"+dispString+"</option>");
+					});
+
+			
+
+					groupfield.change(function () {
+						var filter = $("select#prop_group option:selected").text();
+
+						dirty(this);
+					});
+
+					
+//=====================================================
+
 					frame.append("<div id='prop' class='prop_list'></div>");
 
 					list = $("#prop");
 					list.append("<div class='title'>"+type+": "+name+"</div>");
-					table = $("<table></table>");
 
+					table = $("<table></table>");
 					list.append(table);
 
+					line = $("<tr></tr>");
+					table.append(line);
+
+					line.append("<td class='label'>group</td>");
+
+					valuefield = $("<td></td>");
+					line.append(valuefield);
+
+					valuefield.append(groupfield);
+
+
+// add fields
 					$.each(propertyConfig, function (i,v) {
 						line = $("<tr id='prop_"+i+"'></tr>");
 						table.append(line);
@@ -483,6 +684,7 @@ console.log(data);
 						
 						valuefield = $("<td></td>");
 						line.append(valuefield);
+
 
 
 // get data
@@ -518,13 +720,24 @@ console.log(data);
 								break;
 
 							case "color":
-								color = $("<span class='color'>&nbsp;</span>");
+								color = $("<span id='prop_color_"+i+"' class='color'>&nbsp;</span>");
 								color.css("background-color",fieldData);
 						
 								valuefield.append(color);
 								inputfield = $("<input type='text' size='10' name='"+i+"' value='"+fieldData+"'>");
 								
-								inputfield.keypress(dirty);
+								inputfield
+									.keypress(dirty)
+
+// update color field
+									.keyup(function () {
+										if (this.value[0] != "#" && this.value.length) this.value = "#"+this.value;
+										
+										$("#prop_color_"+this.name).css("background-color",this.value);
+									});
+
+
+								
 								break;
 
 							case "select":

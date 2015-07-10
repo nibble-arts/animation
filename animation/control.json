@@ -40,6 +40,16 @@
 					}
 			},
 
+			"lahoda": {
+				"geometry":
+					{
+						"x": 96,
+						"y": 486,
+						"type": "group",
+						"opacity": 0
+					}
+			},
+
 			"leporello_block": {
 				"group": "leporello",
 				"geometry": {
@@ -142,16 +152,6 @@
 						"height": 4,
 						"type": "rect",
 						"fill": "#ed1c24",
-						"opacity": 0
-					}
-			},
-
-			"lahoda": {
-				"geometry":
-					{
-						"x": 96,
-						"y": 486,
-						"type": "group",
 						"opacity": 0
 					}
 			},
@@ -442,6 +442,7 @@
 				"start": 0,
 				"end": 625,
 				"onstop": "main",
+
 
 				"loop": 1,
 
