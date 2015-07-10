@@ -46,8 +46,18 @@ body {
 	position: absolute;
 	left: 0px;
 	right: 0px;
+	bottom: 25px;
+	height: 75px;
+
+	z-index: 100;
+}
+
+#info {
+	position: absolute;
+	left: 0px;
+	right: 0px;
 	bottom: 0px;
-	height: 100px;
+	height: 25px;
 
 	z-index: 100;
 }
@@ -68,7 +78,7 @@ body {
 	z-index: 0;
 }
 
-#menu,#navigator,#property,#timeline,#content {
+#menu,#navigator,#property,#timeline,#info {
 	border: 2px solid #505050;
 	padding: 0px;
 }
@@ -121,4 +131,8 @@ body {
 
 .link,.expand {
 	cursor: pointer;
+}
+
+.selected {
+	background-color: blue;
 }

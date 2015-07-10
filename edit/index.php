@@ -32,9 +32,10 @@
 
 			<div id="menu">Menu</div>
 			<div id="navigator">Navigator</div>
-			<div id="scene">Content</div>
+			<div id="scene"></div>
 			<div id="property">Properties</div>
 			<div id="timeline">Timeline</div>
+			<div id="info">Maßstab 1:<span id="scale"></span></div>
 		</div>
 
 	</body>

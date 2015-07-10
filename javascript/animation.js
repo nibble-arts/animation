@@ -43,10 +43,9 @@ function load(path) {
 //=====================================================================================
 // init animation engine
 function init(data,scale) {
-	var imgPath = "animation/images/";
-	var remPath = "remote/remote.php";
+	var animation;
 
-	animation = new Animation.Animation(data,{ "scale": scale, "imagePath": imgPath, "remotePath": remPath });
+	animation = new Animation.Animation(data,{ "scale": scale, "imagePath": "animation/images/", "remotePath": "remote/remote.php" });
 	animation.animation.run("main");
 };
 
@@ -335,6 +334,7 @@ var Animation = (function () {
 							}
 						};
 
+
 //******************************
 // dissolve actors
 						$.each(cast.actor, function (idx,val) {
@@ -521,15 +521,15 @@ var Animation = (function () {
 						currScene.timeline.frame = startFrame;
 					else currScene.timeline.frame = 0;
 
+
 // start animation
 					timer = setTimeout(this.Step,loopTime);
-}
+					}
 				},
 
 //================================================
 // stop animation
 				Stop: function () {
-
 //DEBUG
 					debug_msg("animation stopped","RUN");
 					
@@ -605,6 +605,8 @@ var Animation = (function () {
 							}
 						}
 					});
+
+					stage.stage.draw();
 
 
 // check time event
@@ -705,7 +707,6 @@ var Animation = (function () {
 					else
 						currScene.setFrame(scene);
 
-					stage.stage.draw();
 				},
 
 
