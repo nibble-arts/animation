@@ -1045,6 +1045,7 @@ var Remote = function () {
 //***********************************
 // parse action
 // only if adressed
+				console.log(data.action);
 				switch (data.action) {
 					case "scene":
 						debug_msg("remote scene event","EVENT");
